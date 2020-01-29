@@ -1,0 +1,23 @@
+.header {
+    position: fixed;
+
+    &--navigation {
+        display: inline-block;
+        width: 80%;
+    }
+
+    &--user {
+        display: inline-block;
+        width: 19%;
+    }
+}
+
+.user {
+    &--name {
+        display: inline-block;
+    }
+    
+    &--image {
+        display: inline-block;
+    }
+}

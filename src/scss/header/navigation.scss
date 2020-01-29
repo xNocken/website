@@ -1,0 +1,8 @@
+.navigation {
+    display: flex;
+    justify-content: space-around;
+
+    &--entry {
+        display: inline-block;
+    }
+}
