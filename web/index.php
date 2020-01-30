@@ -3,8 +3,8 @@
 <?php
 $request = $_SERVER['REQUEST_URI'];
 
-$request = explode('?', trim($request, '/'))[0];
-var_dump ($request);
+$request = trim(explode('?', $request)[0], '/');
+
 switch ($request) {
   case '/':
   case '':
