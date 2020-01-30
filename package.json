@@ -1,7 +1,7 @@
 {
-  "name": "tetris",
+  "name": "website",
   "version": "1.0.0",
-  "description": "game halt",
+  "description": "website by xnocken",
   "private": true,
   "scripts": {
     "dev": "yarn webpack",
@@ -32,7 +32,6 @@
     "webpack-cli": "^3.3.9"
   },
   "dependencies": {
-    "@babel/polyfill": "^7.8.3",
-    "jquery": "^3.4.1"
+    "@babel/polyfill": "^7.8.3"
   }
 }

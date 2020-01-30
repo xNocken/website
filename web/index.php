@@ -1,19 +1,21 @@
-<!DOCTYPE html>
-<html lang="en">
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <link rel="stylesheet" href="./dist/style.css">
-    <title>xNocken</title>
-</head>
 
-<body>
-    <?php 
-        include('../src/php/snippets/header.php');
-    ?>
-    <script src="./dist/app.js"></script>
-</body>
+<?php
+$request = $_SERVER['REQUEST_URI'];
 
-</html>
+$request = trim($request, '/');
+
+switch ($request) {
+  case '/':
+  case '':
+    require __DIR__ . '/root.php';
+    break;
+  default:
+    if (file_exists( __DIR__  . '/' . $request . '.php')) {
+      require __DIR__  . '/' . $request . '.php';
+    } else {
+      http_response_code(404);
+      require __DIR__ . '/404.php';
+    }
+    break;
+}

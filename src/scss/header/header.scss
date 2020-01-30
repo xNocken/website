@@ -1,23 +1,57 @@
 .header {
-    position: fixed;
+  width: 800px;
+  position: fixed;
 
-    &--navigation {
-        display: inline-block;
-        width: 80%;
-    }
+  &--navigation {
+    display: inline-block;
+    width: $navigationSize;
+  }
 
-    &--user {
-        display: inline-block;
-        width: 19%;
-    }
+  &--user {
+    display: inline-block;
+    width: 99.5% - $navigationSize;
+  }
 }
 
 .user {
-    &--name {
-        display: inline-block;
+  display: flex;
+  justify-content: flex-end;
+  flex-wrap: nowrap;
+  position: relative;
+
+  &--name {
+    display: inline-block;
+    transform: translateY(25%);
+  }
+
+  &--image {
+    margin-left: 20px;
+    display: inline-block;
+  }
+
+  &--dropdown {
+    display: none;
+    position: absolute;
+    border: black solid 1px;
+    top: 50px;
+    width: 100%;
+  }
+
+  &:hover &--dropdown {
+    display: block;
+  }
+}
+
+.navigation {
+  display: flex;
+  justify-content: space-around;
+
+  &--entry {
+    display: inline-block;
+    transform: translateY(80%);
+    a {
+      color: black;
+      text-decoration: none;
     }
-    
-    &--image {
-        display: inline-block;
-    }
+  }
 }
