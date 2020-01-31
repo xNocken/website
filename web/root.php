@@ -7,7 +7,7 @@
   <title>xNocken</title>
 </head>
 <body>
-    <?php include(getenv('PROJECT_ROOT') . '\src\php\snippets\header.php'); ?>
+    <?php include(getenv('PROJECT_ROOT') . '/src/php/snippets/header.php'); ?>
 
     <div class="content-wrapper">
         <div class="container">

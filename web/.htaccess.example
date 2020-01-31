@@ -1,10 +1,10 @@
-SetEnv PROJECT_ROOT "D:\path\to\project"
+SetEnv PROJECT_ROOT "D:/path/to/project"
 SetEnv DB_IP "localhost"
 SetEnv DB_USERNAME "root"
 SetEnv DB_PASSWORD ""
 SetEnv DB_SCHEMA "website"
 
-php_value auto_prepend_file "D:\path\to\project\src\php\controller\controllerManager.php"
+php_value auto_prepend_file "D:/path/to/project/src/php/controller/controllerManager.php"
 
 RewriteEngine On
 RewriteBase /

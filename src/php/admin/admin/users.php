@@ -11,7 +11,7 @@ $users = User::getAllUsers();
     <title>Users - Admin - xNocken</title>
 </head>
 <body>
-    <?php include(getenv('PROJECT_ROOT') . '\src\php\snippets\adminHeader.php'); ?>
+    <?php include(getenv('PROJECT_ROOT') . '/src/php/snippets/adminHeader.php'); ?>
 
     <div class="content-wrapper">
         <div class="container">

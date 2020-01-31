@@ -7,7 +7,7 @@
 </head>
 
 <body>
-    <?php include(getenv('PROJECT_ROOT') . '\src\php\snippets\header.php'); ?>
+    <?php include(getenv('PROJECT_ROOT') . '/src/php/snippets/header.php'); ?>
     <div class="container content-wrapper">
         <h1>404</h1>
         <h2><?php echo trim($_SERVER['REQUEST_URI'], '/') ?> not found</h2>

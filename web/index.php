@@ -12,7 +12,7 @@ switch ($request) {
   default:
   if (strpos($request, 'admin') === 0) {
       if (!isset($_SESSION["user"])) {
-          include(getenv('PROJECT_ROOT') . '\web\login.php');
+          include(getenv('PROJECT_ROOT') . '/web/login.php');
       } else {
           if ($_SESSION['level'] < 1) {
               echo 'nö';

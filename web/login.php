@@ -7,7 +7,7 @@
 </head>
 
 <body>
-    <?php include(getenv('PROJECT_ROOT') . '\src\php\snippets\header.php'); ?>
+    <?php include(getenv('PROJECT_ROOT') . '/src/php/snippets/header.php'); ?>
     <form class="login" id="login-form">
         <?php if (isset($_SESSION['user'])){ ?>
             <script> window.location.href='/'; </script>
