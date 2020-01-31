@@ -1,4 +1,4 @@
-SetEnv PROJECT_ROOT "D:\projekte\website"
+SetEnv PROJECT_ROOT "D:\path\to\project"
 SetEnv DB_IP "localhost"
 SetEnv DB_USERNAME "root"
 SetEnv DB_PASSWORD ""

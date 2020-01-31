@@ -8,7 +8,7 @@ $pw = $_POST['pw'];
 
 if (isset($user) && isset($pw)) {
     $user = $conn->real_escape_string($user);
-    $sql = "SELECT username, password FROM `users` WHERE username = '$user' LIMIT 1;";
+    $sql = "SELECT username, password, level FROM `users` WHERE username = '$user' LIMIT 1;";
     $result = $conn->query($sql);
 
     if ($result->num_rows == 1) {
@@ -16,7 +16,8 @@ if (isset($user) && isset($pw)) {
             if (password_verify($pw, $row["password"])) {
                 $data["type"]     = "success";
                 $data["msg"]      = "Logged in";
-                $_SESSION["user"] = $row["user"];
+                $_SESSION["user"] = $row["username"];
+                $_SESSION['level'] = $row['level'];
             }
         }
     }
