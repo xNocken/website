@@ -1,15 +1,16 @@
 .header {
-  width: 800px;
+  width: 1200px;
+  top: 0;
   position: fixed;
 
   &--navigation {
     display: inline-block;
-    width: $navigationSize;
+    width: $navigation-size;
   }
 
   &--user {
     display: inline-block;
-    width: 99.5% - $navigationSize;
+    width: 99.5% - $navigation-size;
   }
 }
 
@@ -27,6 +28,9 @@
   &--image {
     margin-left: 20px;
     display: inline-block;
+    height: 50px;
+    width: 50px;
+    overflow: hidden;
   }
 
   &--dropdown {
@@ -49,8 +53,10 @@
   &--entry {
     display: inline-block;
     transform: translateY(80%);
+
     a {
       color: black;
+      text-transform: capitalize;
       text-decoration: none;
     }
   }

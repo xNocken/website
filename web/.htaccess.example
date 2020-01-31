@@ -4,6 +4,8 @@ SetEnv DB_USERNAME "root"
 SetEnv DB_PASSWORD ""
 SetEnv DB_SCHEMA "website"
 
+php_value auto_prepend_file "D:\path\to\project\src\php\controller\controllerManager.php"
+
 RewriteEngine On
 RewriteBase /
 RewriteCond %{REQUEST_FILENAME} !-d

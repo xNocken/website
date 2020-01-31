@@ -1,7 +1,9 @@
-@import './variables/header.scss';
+@import './variables.scss';
 
 @import './global.scss';
 @import './header/header.scss';
 
 @import './login/login.scss';
 @import './login/register.scss';
+
+@import './navigations/navigations.scss';

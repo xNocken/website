@@ -1,6 +1,4 @@
 <?php
-require(getenv('PROJECT_ROOT') . '/web/api/session.php');
-
 $data = [];
 
 if (isset($_SESSION["user"])) {

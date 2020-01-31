@@ -1,5 +1,5 @@
 <?php
-require(getenv('PROJECT_ROOT') . '/web/api/session.php');
+use UserController\User;
 
 error_reporting(E_ERROR | E_PARSE);
 $data = [];
@@ -7,25 +7,23 @@ $user = strtolower($_POST['user']);
 $pw = $_POST['pw'];
 
 if (isset($user) && isset($pw)) {
-    $user = $conn->real_escape_string($user);
-    $sql = "SELECT username, password, level FROM `users` WHERE username = '$user' LIMIT 1;";
-    $result = $conn->query($sql);
+    $userdata = User::getLoginDataByName($user);
 
-    if ($result->num_rows == 1) {
-        while ($row = $result->fetch_assoc()) {
-            if (password_verify($pw, $row["password"])) {
-                $data["type"]     = "success";
-                $data["msg"]      = "Logged in";
-                $_SESSION["user"] = $row["username"];
-                $_SESSION['level'] = $row['level'];
-            }
+    if (password_verify($pw, $userdata["password"])) {
+        if ($userdata['banned'] == '1') {
+            $data["type"]     = "error";
+            $data["msg"]      = "Your account has been banned";
+
+            session_destroy();
+        } else {
+            $data["type"]     = "success";
+            $data["msg"]      = "Logged in";
+            $_SESSION["user"] = $userdata["username"];
+            $_SESSION['level'] = $userdata['level'];
         }
-    }
-
-    if (!$data) {
+    } else {
         $data["type"] = "error";
         $data["msg"]  = "Wrong Password or Username";
-        $data['sql'] = $result->num_rows;
     }
 } else {
     $data['msg'] = 'username and password required';

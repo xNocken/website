@@ -1,21 +1,17 @@
 <?php
-require(getenv('PROJECT_ROOT') . '/web/api/session.php');
+
+use UserController\User;
 
 $name = 'Not logged in';
 $level = 0;
-$profilePicture = 'http://placekitten.com/50/50';
+$profilePicture = '';
 
 if (isset($_SESSION['user'])) {
-    $sql = "SELECT username, level, profilePicture FROM `users` WHERE username = '" . $_SESSION['user'] . "' LIMIT 1;";
-    $result = $conn->query($sql);
+    $user = User::getUserByName($_SESSION['user']);
 
-    if ($result->num_rows == 1) {
-        while ($row = $result->fetch_assoc()) {
-            $name = $row["username"];
-            $profilePicture = $row['profilePicture'];
-            $level = $row['level'];
-        }
-    }
+    $name = $user['username'];
+    $level = $user['level'];
+    $profilePicture = $user['profilePicture'];
 }
 ?>
 
@@ -60,11 +56,16 @@ if (isset($_SESSION['user'])) {
                     </div>
 
                     <div class="user--dropdown">
-                        <?php if (isset($_SESSION['user'])){ ?>
-                            <a href="api/login/logout">Logout</a>
-                        <?php } else { ?>
-                            <a href="/login">Login</a>
-                        <?php } ?>
+                        <ul>
+                            <?php if (isset($_SESSION['user'])){ ?>
+                                <li><a href="/api/login/logout">Logout</a></li>
+
+                            <?php if ($level > 0) { ?>
+                                        <li><a href="/admin">Backend</a></li>
+                                    <?php }} else { ?>
+                                <li><a href="/login">Login</a></li>
+                            <?php } ?>
+                        </ul>
                     </div>
                 </div>
             </div>
