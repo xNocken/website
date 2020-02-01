@@ -1,8 +1,11 @@
 <?php
+
 namespace NavigationController;
 
-class Navigation {
-    public function getAdminNavigations() {
+class Navigation
+{
+    public function getAdminNavigations()
+    {
         $folders = scandir(getenv('PROJECT_ROOT') . '/src/php/admin/admin/');
 
         array_splice($folders, 0, 2);
@@ -14,7 +17,8 @@ class Navigation {
         return $folders;
     }
 
-    public function getNavigations() {
+    public function getNavigations()
+    {
         require(getenv('PROJECT_ROOT') . '/src/php/controller/database.php');
 
         $sql = 'SELECT * from navigations;';
@@ -28,12 +32,37 @@ class Navigation {
         return $naviagtions;
     }
 
-    public function addNavigation($name, $path, $active) {
+    public function addNavigation($name, $path)
+    {
         require(getenv('PROJECT_ROOT') . '/src/php/controller/database.php');
 
-        $sql = 'INSERT INTO navigations (`name`, `path`, `active`) VALUES (\'' . $conn->real_escape_string($name) . '\', \'' . $conn->real_escape_string($path) . '\', '  . $conn->real_escape_string($active) . ');';
+        $sql = 'INSERT INTO navigations (`name`, `path`) VALUES (\'' . $conn->real_escape_string($name) . '\', \'' . $conn->real_escape_string($path) . '\');';
         if ($conn->query($sql) === false) {
-           return $conn->error;
+            return $conn->error;
+        } else {
+            return true;
+        }
+    }
+
+    public function toggleNavigation($id, $isActive)
+    {
+        require(getenv('PROJECT_ROOT') . '/src/php/controller/database.php');
+
+        $sql = 'UPDATE navigations SET active=\'' . !$isActive . '\' WHERE id = \'' . $id . '\';';
+        if ($conn->query($sql) === false) {
+            return $conn->error;
+        } else {
+            return true;
+        }
+    }
+
+    public function deleteNavigation($id)
+    {
+        require(getenv('PROJECT_ROOT') . '/src/php/controller/database.php');
+
+        $sql = 'DELETE FROM navigations WHERE id = \'' . $id . '\';';
+        if ($conn->query($sql) === false) {
+            return $conn->error;
         } else {
             return true;
         }

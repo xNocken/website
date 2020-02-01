@@ -1,6 +1,9 @@
 <?php
 
 use UserController\User;
+use NavigationController\Navigation;
+
+$navigations = Navigation::getNavigations();
 
 $name = 'Not logged in';
 $level = 0;
@@ -21,27 +24,14 @@ if (isset($_SESSION['user'])) {
             <div class="header--navigation">
                 <div class="navigation">
                 <!-- TODO: php this -->
-                    <div class="navigation--entry">
-                        <a href="/dahinten.html">dahinten</a>
-                    </div>
-                    <div class="navigation--entry">
-                        <a href="/dahinten.html">dahinten</a>
-                    </div>
-                    <div class="navigation--entry">
-                        <a href="/dahinten.html">dahinten</a>
-                    </div>
-                    <div class="navigation--entry">
-                        <a href="/dahinten.html">dahinten</a>
-                    </div>
-                    <div class="navigation--entry">
-                        <a href="/dahinten.html">dahinten</a>
-                    </div>
-                    <div class="navigation--entry">
-                        <a href="/dahinten.html">dahinten</a>
-                    </div>
-                    <div class="navigation--entry">
-                        <a href="/dahinten.html">dahinten</a>
-                    </div>
+                    <?php foreach($navigations as $navigation) {
+                            if ($navigation['active'] === '1') {
+                        ?>
+                        <div class="navigation--entry">
+                            <a href="<?php echo $navigation['path'] ?>"><?php echo $navigation['name'] ?></a>
+                        </div>
+                    <?php   }
+                        } ?>
                 </div>
             </div>
 

@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 4.9.0.1
+-- version 4.9.2
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Erstellungszeit: 31. Jan 2020 um 16:29
--- Server-Version: 10.3.16-MariaDB
--- PHP-Version: 7.3.7
+-- Erstellungszeit: 01. Feb 2020 um 15:30
+-- Server-Version: 10.4.11-MariaDB
+-- PHP-Version: 7.4.1
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET AUTOCOMMIT = 0;
@@ -29,6 +29,7 @@ SET time_zone = "+00:00";
 --
 
 CREATE TABLE `navigations` (
+  `id` int(11) NOT NULL,
   `name` varchar(20) NOT NULL,
   `path` varchar(45) DEFAULT NULL,
   `active` tinyint(4) DEFAULT 1
@@ -56,13 +57,23 @@ CREATE TABLE `users` (
 -- Indizes für die Tabelle `navigations`
 --
 ALTER TABLE `navigations`
-  ADD PRIMARY KEY (`name`);
+  ADD PRIMARY KEY (`id`,`name`);
 
 --
 -- Indizes für die Tabelle `users`
 --
 ALTER TABLE `users`
   ADD PRIMARY KEY (`username`);
+
+--
+-- AUTO_INCREMENT für exportierte Tabellen
+--
+
+--
+-- AUTO_INCREMENT für Tabelle `navigations`
+--
+ALTER TABLE `navigations`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
