@@ -1,0 +1,22 @@
+.videos {
+    display: flex;
+    justify-content: stretch;
+    width: 100%;
+
+    &--video {
+        width: 20%;
+
+        &--image {
+            width: 80%;
+        }
+
+        &--link {
+            text-decoration: none;
+            color: black;
+        }
+
+        &--title {
+            width: 80%;
+        }
+    }
+}

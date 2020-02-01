@@ -10,9 +10,7 @@
     <?php include(getenv('PROJECT_ROOT') . '/src/php/snippets/header.php'); ?>
 
     <div class="content-wrapper">
-        <div class="container">
-            content
-        </div>
+        <?php include(getenv('PROJECT_ROOT') . '/src/php/snippets/videos.php') ?>
     </div>
 
     <?php include(getenv('PROJECT_ROOT') . '/src/php/snippets/scripts.php') ?>
