@@ -6,6 +6,7 @@ export default () => {
   const addNavigationButton = document.getElementById('add-navigation-button');
   const addNavigationName = document.getElementById('add-navigation-name');
   const addNavigationPath = document.getElementById('add-navigation-path');
+  const addNavigationRank = document.getElementById('add-navigation-rank');
 
   if (toggleActiveButtons) {
     Array.from(toggleActiveButtons).forEach((button) => {
@@ -22,7 +23,7 @@ export default () => {
 
   if (addNavigationButton) {
     addNavigationButton.addEventListener('click', () => {
-      request('/admin/api/addNavigation', { name: addNavigationName.value, path: addNavigationPath.value }, () => {
+      request('/admin/api/addNavigation', { name: addNavigationName.value, path: addNavigationPath.value, rank: addNavigationRank.value }, () => {
         window.location.reload();
       });
     });

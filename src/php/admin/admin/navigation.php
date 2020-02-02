@@ -24,6 +24,7 @@
                 <div class="navigations--toolbar">
                     <input type="text" class="navigations--toolbar--input" placeholder="Name" id="add-navigation-name">
                     <input type="text" class="navigations--toolbar--input" placeholder="URL" id="add-navigation-path">
+                    <input type="number" class="navigations--toolbar--input" placeholder="Rank" id="add-navigation-rank">
                     <a id="add-navigation-button" class="navigations--button navigations--button__add">Add Navigation</a>
                 </div>
 
@@ -31,6 +32,7 @@
                     <tr class="navigations--table--row">
                         <th class="navigations--table--row--field">Name</th>
                         <th class="navigations--table--row--field">URL</th>
+                        <th class="navigations--table--row--field">Rank</th>
                         <th class="navigations--table--row--field">Active</th>
                         <th class="navigations--table--row--field">Action</th>
                     </tr>
@@ -40,6 +42,7 @@
                     <tr class="navigations--table--row" data-id="<?php echo $navigation['id'] ?>">
                         <th class="navigations--table--row--field"><?php echo $navigation['name']; ?></th>
                         <th class="navigations--table--row--field"><?php echo $navigation['path']; ?></th>
+                        <th class="navigations--table--row--field"><?php echo $navigation['rank']; ?></th>
                         <th class="navigations--table--row--field"><?php echo $activeText[$navigation['active']]; ?></th>
                         <th class="navigations--table--row--field"><a class="navigations--button navigation-delete-button navigations--button__delete">Delete</a></th>
                     </tr>
