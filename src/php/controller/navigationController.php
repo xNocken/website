@@ -37,6 +37,11 @@ class Navigation
         require(getenv('PROJECT_ROOT') . '/src/php/controller/database.php');
 
         $sql = 'INSERT INTO navigations (`name`, `path`, `rank`) VALUES (\'' . $conn->real_escape_string($name) . '\', \'' . $conn->real_escape_string($path) . '\', \'' . $conn->real_escape_string($rank) . '\');';
+
+        if ($rank === '') {
+            $sql = 'INSERT INTO navigations (`name`, `path`) VALUES (\'' . $conn->real_escape_string($name) . '\', \'' . $conn->real_escape_string($path) . '\');';
+        }
+
         if ($conn->query($sql) === false) {
             return $conn->error;
         } else {

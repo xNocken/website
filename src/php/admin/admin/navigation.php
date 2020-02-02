@@ -42,7 +42,15 @@
                     <tr class="navigations--table--row" data-id="<?php echo $navigation['id'] ?>">
                         <th class="navigations--table--row--field"><?php echo $navigation['name']; ?></th>
                         <th class="navigations--table--row--field"><?php echo $navigation['path']; ?></th>
-                        <th class="navigations--table--row--field"><?php echo $navigation['rank']; ?></th>
+                        <th class="navigations--table--row--field"><?php 
+
+                        if ($navigation['rank'] === null) {
+                            echo 'NULL';
+                        } else {
+                            echo $navigation['rank'];
+                        }
+                        
+                        ?></th>
                         <th class="navigations--table--row--field"><?php echo $activeText[$navigation['active']]; ?></th>
                         <th class="navigations--table--row--field"><a class="navigations--button navigation-delete-button navigations--button__delete">Delete</a></th>
                     </tr>

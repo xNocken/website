@@ -24,7 +24,6 @@ export default () => {
   if (addNavigationButton) {
     addNavigationButton.addEventListener('click', () => {
       request('/admin/api/addNavigation', { name: addNavigationName.value, path: addNavigationPath.value, rank: addNavigationRank.value }, () => {
-        window.location.reload();
       });
     });
   }

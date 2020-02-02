@@ -24,7 +24,7 @@ if (isset($_SESSION['user'])) {
             <div class="header--navigation">
                 <div class="navigation">
                     <?php foreach($navigations as $navigation) {
-                            if ($navigation['active'] === '1' && $navigation['rank'] <= $_SESSION['level']) {
+                            if ($navigation['rank'] === null || ($navigation['active'] === '1' && isset($_SESSION['level']) &&  $navigation['rank'] <= $_SESSION['level'])) {
                         ?>
                         <div class="navigation--entry">
                             <a href="<?php echo $navigation['path'] ?>"><?php echo $navigation['name'] ?></a>
