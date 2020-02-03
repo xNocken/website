@@ -4,17 +4,17 @@
 		{% if videos %}
 			{% for video in videos %}
 				<div class="videos--video">
-					<a class="videos--video--link" target="_blank" rel="noopener noreferrer" href="https://www.youtube.com/watch?v={{ video.id.videoId }}">
+					<a class="videos--video--link" target="_blank" rel="noopener noreferrer" href="https://www.youtube.com/watch?v={{ video.videoId }}">
 						<div class="videos--video--image--wrapper">
-							<img class="videos--video--image" src="{{ video.snippets.thumbnails.meduim.url }}">
-							<p class="videos--video--image--live videos--video--image--live__{{ video.snippet.livebroadcastContent }}">
+							<img class="videos--video--image" src="{{ video.image }}">
+							<p class="videos--video--image--live videos--video--image--live__{{ video.liveBroadcastContent }}">
 								LIVE
 							</p>
 						</div>
 						<p class="videos--video--date">
-							{{ video.snippet.publishedAt }}
+							{{ video.publishedAt }}
 						</p>
-						<p class="videos--video--title">{{ video.snippet.title }}</p>
+						<p class="videos--video--title">{{ video.title }}</p>
 					</a>
 				</div>
 			{% endfor %}

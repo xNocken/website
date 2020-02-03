@@ -1,0 +1,10 @@
+{
+	"Print to console": {
+		"scope": "twig",
+		"prefix": "dump",
+		"body": [
+			"<pre class=\"dump\">{{ dump($1) }}</pre>",
+		],
+		"description": "Dump formatted"
+	}
+}

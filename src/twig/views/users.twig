@@ -1,0 +1,29 @@
+<div class="container">
+    <div class="users">
+        <table class="users--table">
+            <tr class="users--table--row">
+                <th class="users--table--row--field">Username</th>
+                <th class="users--table--row--field">Rank</th>
+                <th class="users--table--row--field">Banned</th>
+                <th class="users--table--row--field">Profile picture</th>
+            </tr>
+
+            {% for user in users %}
+                <tr class="users--table--row" data-username="{{ user.username }}">
+                    <th class="users--table--row--field">{{ user.username }}</th>
+                    <th class="users--table--row--field">
+                        <select class="users--table--row--field--select users-select" 
+                        data-selected="{{ user.rank }}"
+                        {% if user.username == username %} disabled {% endif %}>
+                            <option value="0">User</option>
+                            <option value="1">Moderator</option>
+                            <option value="2">Admin</option>
+                        </select>
+                    </th>
+                    <th class="users--table--row--field">{{ user.banned }}</th>
+                    <th class="users--table--row--field"><img src="{{ user.profilePicture }}"></th>
+                </tr>
+              {% endfor %}
+        </table>
+    </div>
+</div>

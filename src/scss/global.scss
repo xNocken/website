@@ -11,3 +11,16 @@
 .content-wrapper {
   margin-top: 70px;
 }
+
+
+pre.dump {
+  display: block;
+  width: 100%;
+  clear: both;
+  color: #000 !important;
+  background: #ccc !important;
+  text-transform: none !important;
+  word-break: break-all;
+  word-wrap: break-word;
+  white-space:pre-wrap;
+}

@@ -7,7 +7,7 @@ $rank = 0;
 $profilePicture = '';
 
 if (isset($_SESSION['user'])) {
-    $user = User::getUserByName($_SESSION['user']);
+    $user = UserController::getUserByName($_SESSION['user']);
 
     $name = $user['username'];
     $rank = $user['rank'];

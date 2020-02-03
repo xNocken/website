@@ -8,5 +8,6 @@ require_once getenv('PROJECT_ROOT') . '/vendor/autoload.php';
 
 
 $loader = new \Twig\Loader\FilesystemLoader(getenv('PROJECT_ROOT') . '/src/twig/views');
-$twig = new \Twig\Environment($loader, []);
+$twig = new \Twig\Environment($loader, ['debug' => true]);
+$twig->addExtension(new \Twig\Extension\DebugExtension());
 

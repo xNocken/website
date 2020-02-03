@@ -7,7 +7,7 @@ $user = strtolower($_POST['user']);
 $pw = $_POST['pw'];
 
 if (isset($user) && isset($pw)) {
-    $userdata = User::getLoginDataByName($user);
+    $userdata = UserController::getLoginDataByName($user);
 
     if (password_verify($pw, $userdata["password"])) {
         if ($userdata['banned'] == '1') {
