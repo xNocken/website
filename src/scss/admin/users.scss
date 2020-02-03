@@ -1,0 +1,47 @@
+.users {
+  &--table {
+    width: 100%;
+    border: lightgray solid 2px;
+    margin: 0;
+
+    &--row {
+      background-color: white;
+
+      &:nth-child(odd) {
+        background-color: lightgray;
+      }
+
+      &:first-child {
+        background-color: aqua;
+      }
+
+      &--field {
+        width: (100% / $column-count);
+        padding: {
+          top: 10px;
+          bottom: 10px;
+        };
+      }
+    }
+  }
+
+  &--button {
+    padding: 5px;
+    border-radius: 3px;
+    width: 150px;
+    text-align: center;
+    cursor: pointer;
+
+    &:hover {
+      opacity: 0.8;
+    }
+
+    &__add {
+      background-color: rgb(72, 243, 72);
+    }
+
+    &__delete {
+      background-color: red;
+    }
+  }
+}

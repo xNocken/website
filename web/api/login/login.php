@@ -19,7 +19,7 @@ if (isset($user) && isset($pw)) {
             $data["type"]     = "success";
             $data["msg"]      = "Logged in";
             $_SESSION["user"] = $userdata["username"];
-            $_SESSION['level'] = $userdata['level'];
+            $_SESSION['rank'] = $userdata['rank'];
         }
     } else {
         $data["type"] = "error";

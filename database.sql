@@ -30,6 +30,7 @@ SET time_zone = "+00:00";
 
 CREATE TABLE `navigations` (
   `id` int(11) NOT NULL,
+  `rank` int(11) DEFAULT NULL,
   `name` varchar(20) NOT NULL,
   `path` varchar(45) DEFAULT NULL,
   `active` tinyint(4) DEFAULT 1
@@ -44,7 +45,7 @@ CREATE TABLE `navigations` (
 CREATE TABLE `users` (
   `username` varchar(20) NOT NULL,
   `password` varchar(255) DEFAULT NULL,
-  `level` int(11) DEFAULT NULL,
+  `rank` int(11) DEFAULT NULL,
   `banned` tinyint(4) DEFAULT 0,
   `profilePicture` varchar(45) DEFAULT 'http://placekitten.com/50/50'
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
@@ -81,5 +82,5 @@ COMMIT;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 
 
-ALTER TABLE `navigations` 
+ALTER TABLE `navigations`
 ADD COLUMN `rank` INT NULL AFTER `active`;

@@ -3,7 +3,7 @@ use UserController\User;
 use NavigationController\Navigation;
 
 $name = 'Not logged in';
-$level = 0;
+$rank = 0;
 $profilePicture = 'http://placekitten.com/50/50';
 
 if (isset($_SESSION['user'])) {
@@ -11,7 +11,7 @@ if (isset($_SESSION['user'])) {
     $navigations = Navigation::getAdminNavigations();
 
     $name = $user['username'];
-    $level = $user['level'];
+    $rank = $user['rank'];
     $profilePicture = $user['profilePicture'];
 }
 ?>

@@ -5,7 +5,7 @@ error_reporting(E_ERROR | E_PARSE);
 $data = [];
 
 if (isset($_POST["user"]) && isset($_POST["pw"])) {
-    $user = strtolower($_POST["user"]);
+    $user = $_POST["user"];
     $pw = password_hash($_POST["pw"], PASSWORD_DEFAULT);
 
     $user = $conn->real_escape_string($user);
@@ -21,7 +21,7 @@ if (isset($_POST["user"]) && isset($_POST["pw"])) {
             ];
         }
     } else {
-        $sql = 'INSERT INTO users (`username`, `password`, `level`) VALUES (\'' . $user . '\', \'' . $pw . '\', '  . 0 . ');';
+        $sql = 'INSERT INTO users (`username`, `password`, `rank`) VALUES (\'' . $user . '\', \'' . $pw . '\', '  . 0 . ');';
         if ($conn->query($sql) === false) {
             $data = [
                 'type'     => 'error',

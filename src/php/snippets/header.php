@@ -6,14 +6,14 @@ use NavigationController\Navigation;
 $navigations = Navigation::getNavigations();
 
 $name = 'Not logged in';
-$level = 0;
+$rank = 0;
 $profilePicture = '';
 
 if (isset($_SESSION['user'])) {
     $user = User::getUserByName($_SESSION['user']);
 
     $name = $user['username'];
-    $level = $user['level'];
+    $rank = $user['rank'];
     $profilePicture = $user['profilePicture'];
 }
 ?>
@@ -24,7 +24,7 @@ if (isset($_SESSION['user'])) {
             <div class="header--navigation">
                 <div class="navigation">
                     <?php foreach($navigations as $navigation) {
-                            if ($navigation['rank'] === null || ($navigation['active'] === '1' && isset($_SESSION['level']) &&  $navigation['rank'] <= $_SESSION['level'])) {
+                            if ($navigation['rank'] === null || ($navigation['active'] === '1' && isset($_SESSION['rank']) &&  $navigation['rank'] <= $_SESSION['rank'])) {
                         ?>
                         <div class="navigation--entry">
                             <a href="<?php echo $navigation['path'] ?>"><?php echo $navigation['name'] ?></a>
@@ -49,7 +49,7 @@ if (isset($_SESSION['user'])) {
                             <?php if (isset($_SESSION['user'])){ ?>
                                 <li><a href="/api/login/logout">Logout</a></li>
 
-                            <?php if ($level > 0) { ?>
+                            <?php if ($rank > 0) { ?>
                                         <li><a href="/admin">Backend</a></li>
                                     <?php }} else { ?>
                                 <li><a href="/login">Login</a></li>

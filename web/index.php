@@ -14,7 +14,7 @@ switch ($request) {
       if (!isset($_SESSION["user"])) {
           include(getenv('PROJECT_ROOT') . '/web/login.php');
       } else {
-          if ($_SESSION['level'] < 1) {
+          if ($_SESSION['rank'] < 1) {
               echo 'nö';
           } else {
             if (strpos($request, 'admin/api') === 0) {

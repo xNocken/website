@@ -36,13 +36,24 @@ class User
         require(getenv('PROJECT_ROOT') . '/src/php/controller/database.php');
 
         $user = $conn->real_escape_string($name);
-        $sql = "SELECT username, password, level, banned FROM `users` WHERE username = '$user' LIMIT 1;";
+        $sql = "SELECT username, password, rank, banned FROM `users` WHERE username = '$user' LIMIT 1;";
         $result = $conn->query($sql);
 
         if ($result->num_rows == 1) {
             while ($row = $result->fetch_assoc()) {
                 return $row;
             }
+        }
+    }
+
+    public function changeRank($name, $rank) {
+        require(getenv('PROJECT_ROOT') . '/src/php/controller/database.php');
+
+        $sql = 'UPDATE users SET rank=\'' . $rank . '\' WHERE username = \'' . $name . '\';';
+        if ($conn->query($sql) === false) {
+            return $conn->error;
+        } else {
+            return true;
         }
     }
 }

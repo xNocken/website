@@ -9,13 +9,14 @@
 <body>
     <?php include(getenv('PROJECT_ROOT') . '/src/php/snippets/header.php'); ?>
     <form class="login" id="login-form">
-        <?php if (isset($_SESSION['user'])){ ?>
+        <?php if (isset($_SESSION['user'])) { ?>
             <script> window.location.href='/'; </script>
         <?php } ?>
 
         <?php if (trim($_SERVER['REQUEST_URI'], '/') == 'admin'){ ?>
             <p>Login required to continue</p>
         <?php } ?>
+
         <h1>Login</h1>
         <p class="login--status" id="login-status"></p>
         <input class="login--username" tabindex="1" name="user" type="text" placeholder="Username"><br>

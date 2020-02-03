@@ -7,7 +7,31 @@
         width: 20%;
 
         &--image {
-            width: 80%;
+            width: 100%;
+            padding: {
+              left: 20px;
+              right: 20px;
+            }
+
+            &--wrapper {
+              position: relative;
+              display: inline-block;
+            }
+
+            &--live {
+              position: absolute;
+              bottom: 0;
+              right: 25px;
+              color: white;
+              background-color: red;
+              border-radius: 5px;
+              padding: 5px;
+
+              &__none {
+                display: none;
+              }
+            }
+
         }
 
         &--link {
@@ -15,8 +39,23 @@
             color: black;
         }
 
+        &--date {
+          width: 100%;
+          padding: {
+            left: 20px;
+            right: 20px;
+          }
+        }
+
         &--title {
-            width: 80%;
+          width: 100%;
+          padding: {
+            left: 20px;
+            right: 20px;
+          }
+          white-space: nowrap;
+          overflow: hidden;
+          text-overflow: ellipsis;
         }
     }
 }
