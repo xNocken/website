@@ -2,17 +2,15 @@
 use UserController\User;
 
 $users = User::getAllUsers();
-
-
 ?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <?php include(getenv('PROJECT_ROOT') . '/src/php/snippets/head.php') ?>
+    <?php require getenv('PROJECT_ROOT') . '/src/php/snippets/head.php'; ?>
     <title>Users - Admin - xNocken</title>
 </head>
 <body>
-    <?php include(getenv('PROJECT_ROOT') . '/src/php/snippets/adminHeader.php'); ?>
+    <?php require getenv('PROJECT_ROOT') . '/src/php/snippets/adminHeader.php'; ?>
 
     <div class="content-wrapper">
         <div class="container">
@@ -31,27 +29,33 @@ $users = User::getAllUsers();
 
                         if ($currentUser) {
                             $DISABLED = ' disabled';
-                        }
-                        ?>
-                        <tr class="users--table--row" data-username="<?php echo $row['username'] ?>">
-                            <th class="users--table--row--field"><?php echo $row['username'] ?></th>
+                        } ?>
+                        <tr class="users--table--row"
+                        data-username="<?php echo $row['username'] ?>">
                             <th class="users--table--row--field">
-                                <select class="users--table--row--field--select users-select" data-selected="<?php echo $row['rank'] ?>"<?php echo $DISABLED; ?>>
+                            <?php echo $row['username'] ?></th>
+                            <th class="users--table--row--field">
+                                <select class="users--table--row--field--select
+                                users-select"
+                                data-selected="<?php echo $row['rank'] ?>"
+                                <?php echo $DISABLED; ?>>
                                     <option value="0">User</option>
                                     <option value="1">Moderator</option>
                                     <option value="2">Admin</option>
                                 </select>
                             </th>
-                            <th class="users--table--row--field"><?php echo $row['banned'] ?></th>
-                            <th class="users--table--row--field"><img src="<?php echo $row['profilePicture'] ?>"></th>
+                            <th class="users--table--row--field">
+                                <?php echo $row['banned'] ?></th>
+                            <th class="users--table--row--field"><img
+                                src="<?php echo $row['profilePicture'] ?>"></th>
                         </tr>
-                    <?php
+                        <?php
                     } ?>
                 </table>
             </div>
         </div>
     </div>
 
-    <?php include(getenv('PROJECT_ROOT') . '/src/php/snippets/scripts.php') ?>
+    <?php require getenv('PROJECT_ROOT') . '/src/php/snippets/scripts.php'; ?>
 </body>
 </html>

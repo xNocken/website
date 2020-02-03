@@ -10,18 +10,25 @@ class Navigation
 
         array_splice($folders, 0, 2);
 
-        $folders = array_map(function ($item) {
-            return trim($item, '.php');
-        }, $folders);
+        $folders = array_map(
+            function ($item) {
+                return trim($item, '.php');
+            },
+            $folders
+        );
 
         return $folders;
     }
 
     public function getNavigations()
     {
-        require(getenv('PROJECT_ROOT') . '/src/php/controller/database.php');
+        include getenv('PROJECT_ROOT') . '/src/php/controller/database.php';
 
-        $sql = 'SELECT * from navigations;';
+        $sql = '
+        SELECT
+            *
+        FROM
+            navigations;';
         $result = $conn->query($sql);
 
         $naviagtions = [];
@@ -34,12 +41,21 @@ class Navigation
 
     public function addNavigation($name, $path, $rank)
     {
-        require(getenv('PROJECT_ROOT') . '/src/php/controller/database.php');
+        include getenv('PROJECT_ROOT') . '/src/php/controller/database.php';
 
-        $sql = 'INSERT INTO navigations (`name`, `path`, `rank`) VALUES (\'' . $conn->real_escape_string($name) . '\', \'' . $conn->real_escape_string($path) . '\', \'' . $conn->real_escape_string($rank) . '\');';
+        $sql = '
+        INSERT INTO
+            navigations (`name`, `path`, `rank`)
+            VALUES (\'' . $conn->real_escape_string($name)
+            . '\', \'' . $conn->real_escape_string($path)
+            . '\', \'' . $conn->real_escape_string($rank) . '\');';
 
         if ($rank === '') {
-            $sql = 'INSERT INTO navigations (`name`, `path`) VALUES (\'' . $conn->real_escape_string($name) . '\', \'' . $conn->real_escape_string($path) . '\');';
+            $sql = '
+            INSERT INTO
+                navigations (`name`, `path`)
+            VALUES (\'' . $conn->real_escape_string($name)
+            . '\', \'' . $conn->real_escape_string($path) . '\');';
         }
 
         if ($conn->query($sql) === false) {
@@ -51,9 +67,15 @@ class Navigation
 
     public function toggleNavigation($id, $isActive)
     {
-        require(getenv('PROJECT_ROOT') . '/src/php/controller/database.php');
+        include getenv('PROJECT_ROOT') . '/src/php/controller/database.php';
 
-        $sql = 'UPDATE navigations SET active=\'' . !$isActive . '\' WHERE id = \'' . $id . '\';';
+        $sql = '
+        UPDATE
+            navigations
+        SET
+            active=\'' . !$isActive . '\'
+        WHERE
+            id = \'' . $id . '\';';
         if ($conn->query($sql) === false) {
             return $conn->error;
         } else {
@@ -63,9 +85,13 @@ class Navigation
 
     public function deleteNavigation($id)
     {
-        require(getenv('PROJECT_ROOT') . '/src/php/controller/database.php');
+        include getenv('PROJECT_ROOT') . '/src/php/controller/database.php';
 
-        $sql = 'DELETE FROM navigations WHERE id = \'' . $id . '\';';
+        $sql = '
+        DELETE FROM
+            navigations
+        WHERE
+            id = \'' . $id . '\';';
         if ($conn->query($sql) === false) {
             return $conn->error;
         } else {

@@ -1,5 +1,5 @@
 <?php
-require_once(getenv('PROJECT_ROOT') . '/src/php/controller/database.php');
+require_once getenv('PROJECT_ROOT') . '/src/php/controller/database.php';
 
 error_reporting(E_ERROR | E_PARSE);
 $data = [];
@@ -21,7 +21,11 @@ if (isset($_POST["user"]) && isset($_POST["pw"])) {
             ];
         }
     } else {
-        $sql = 'INSERT INTO users (`username`, `password`, `rank`) VALUES (\'' . $user . '\', \'' . $pw . '\', '  . 0 . ');';
+        $sql = '
+        INSERT INTO
+            users (`username`, `password`, `rank`)
+        VALUES
+            (\'' . $user . '\', \'' . $pw . '\', '  . 0 . ');';
         if ($conn->query($sql) === false) {
             $data = [
                 'type'     => 'error',

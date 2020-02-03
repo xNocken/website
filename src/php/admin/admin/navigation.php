@@ -1,31 +1,39 @@
 <?php
-    use NavigationController\Navigation;
+use NavigationController\Navigation;
 
-    $frontendNavigations = Navigation::getNavigations();
+$frontendNavigations = Navigation::getNavigations();
 
-    $activeText = [
-        '<a data-active="0" class="navigations--button navigations--button__add navigation-active-button">Enable</a>',
-        '<a data-active="1" class="navigations--button navigations--button__delete navigation-active-button">Disable</a>',
-    ]
+$activeText = [
+    '<a data-active="0" class="navigations--button navigations--button__add
+    navigation-active-button">Enable</a>',
+    '<a data-active="1" class="navigations--button navigations--button__delete
+    navigation-active-button">Disable</a>',
+]
 ?>
 
 <!DOCTYPE html>
 <html lang="en">
     <head>
-        <?php include(getenv('PROJECT_ROOT') . '/src/php/snippets/head.php') ?>
+        <?php require getenv('PROJECT_ROOT') . '/src/php/snippets/head.php'; ?>
         <title>Navigation - Admin - xNocken</title>
     </head>
 
     <body>
-        <?php include(getenv('PROJECT_ROOT') . '/src/php/snippets/adminHeader.php'); ?>
+        <?php require getenv('PROJECT_ROOT') . '/src/php/snippets/adminHeader.php';?>
 
         <div class="content-wrapper container">
             <div class="navigations">
                 <div class="navigations--toolbar">
-                    <input type="text" class="navigations--toolbar--input" placeholder="Name" id="add-navigation-name">
-                    <input type="text" class="navigations--toolbar--input" placeholder="URL" id="add-navigation-path">
-                    <input type="number" class="navigations--toolbar--input" placeholder="Rank" id="add-navigation-rank">
-                    <a id="add-navigation-button" class="navigations--button navigations--button__add">Add Navigation</a>
+                    <input type="text" class="navigations--toolbar--input"
+                    placeholder="Name" id="add-navigation-name">
+                    <input type="text" class="navigations--toolbar--input"
+                    placeholder="URL" id="add-navigation-path">
+                    <input type="number" class="navigations--toolbar--input"
+                    placeholder="Rank" id="add-navigation-rank">
+                    <a id="add-navigation-button" class="navigations--button
+                        navigations--button__add">
+                        Add Navigation
+                    </a>
                 </div>
 
                 <table class="navigations--table">
@@ -37,22 +45,35 @@
                         <th class="navigations--table--row--field">Action</th>
                     </tr>
 
-                <?php foreach($frontendNavigations as $navigation) { ?>
+                <?php foreach ($frontendNavigations as $navigation) { ?>
 
-                    <tr class="navigations--table--row" data-id="<?php echo $navigation['id'] ?>">
-                        <th class="navigations--table--row--field"><?php echo $navigation['name']; ?></th>
-                        <th class="navigations--table--row--field"><?php echo $navigation['path']; ?></th>
-                        <th class="navigations--table--row--field"><?php 
+                    <tr class="navigations--table--row" data-id="
+                        <?php echo $navigation['id'] ?>
+                    ">
+                        <th class="navigations--table--row--field">
+                            <?php echo $navigation['name']; ?>
+                        </th>
+                        <th class="navigations--table--row--field">
+                            <?php echo $navigation['path']; ?>
+                        </th>
+                        <th class="navigations--table--row--field"><?php
 
                         if ($navigation['rank'] === null) {
                             echo 'NULL';
                         } else {
                             echo $navigation['rank'];
                         }
-                        
+
                         ?></th>
-                        <th class="navigations--table--row--field"><?php echo $activeText[$navigation['active']]; ?></th>
-                        <th class="navigations--table--row--field"><a class="navigations--button navigation-delete-button navigations--button__delete">Delete</a></th>
+                        <th class="navigations--table--row--field">
+                            <?php echo $activeText[$navigation['active']]; ?>
+                        </th>
+                        <th class="navigations--table--row--field">
+                            <a class="navigations--button navigation-delete-button
+                                navigations--button__delete">
+                                    Delete
+                            </a>
+                        </th>
                     </tr>
 
                 <?php } ?>
@@ -60,6 +81,6 @@
         </div>
     </div>
 
-    <?php include(getenv('PROJECT_ROOT') . '/src/php/snippets/scripts.php') ?>
+    <?php require getenv('PROJECT_ROOT') . '/src/php/snippets/scripts.php'; ?>
 </body>
 </html>

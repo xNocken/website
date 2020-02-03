@@ -10,4 +10,3 @@ if ($_SESSION['rank'] > $rank || $_SESSION['rank'] === '2') {
     echo $_SESSION['rank'] . ' is not high enought to change to '. $rank;
     http_response_code(403);
 }
-

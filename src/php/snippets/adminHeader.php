@@ -24,9 +24,10 @@ if (isset($_SESSION['user'])) {
                     <div class="navigation--entry">
                         <a href="/admin/">Home</a>
                     </div>
-                    <?php foreach($navigations as $navigation) { ?>
+                    <?php foreach ($navigations as $navigation) { ?>
                         <div class="navigation--entry">
-                            <a href="/admin/<?php echo $navigation ?>"><?php echo $navigation ?></a>
+                            <a href="/admin/<?php echo $navigation ?>">
+                            <?php echo $navigation ?></a>
                         </div>
                     <?php } ?>
                 </div>
@@ -43,7 +44,7 @@ if (isset($_SESSION['user'])) {
                     </div>
 
                     <div class="user--dropdown">
-                        <?php if (isset($_SESSION['user'])){ ?>
+                        <?php if (isset($_SESSION['user'])) { ?>
                             <a href="/api/login/logout">Logout</a>
                         <?php } else { ?>
                             <a href="/login">Login</a>

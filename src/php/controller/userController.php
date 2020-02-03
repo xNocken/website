@@ -5,9 +5,17 @@ class User
 {
     public function getUserByName($name)
     {
-        require(getenv('PROJECT_ROOT') . '/src/php/controller/database.php');
+        include getenv('PROJECT_ROOT') . '/src/php/controller/database.php';
 
-        $sql = "SELECT * FROM `users` WHERE username = '" . $name . "' LIMIT 1;";
+        $sql = "
+        SELECT
+            *
+        FROM
+            `users`
+        WHERE
+            username = '" . $name . "'
+        LIMIT
+            1;";
         $result = $conn->query($sql);
         if ($result->num_rows == 1) {
             while ($row = $result->fetch_assoc()) {
@@ -18,9 +26,13 @@ class User
 
     public function getAllUsers()
     {
-        require(getenv('PROJECT_ROOT') . '/src/php/controller/database.php');
+        include getenv('PROJECT_ROOT') . '/src/php/controller/database.php';
 
-        $sql = "SELECT * FROM `users`;";
+        $sql = "
+        SELECT
+            *
+        FROM
+            `users`;";
         $result = $conn->query($sql);
 
         $users = [];
@@ -33,10 +45,21 @@ class User
 
     public function getLoginDataByName($name)
     {
-        require(getenv('PROJECT_ROOT') . '/src/php/controller/database.php');
+        include getenv('PROJECT_ROOT') . '/src/php/controller/database.php';
 
         $user = $conn->real_escape_string($name);
-        $sql = "SELECT username, password, rank, banned FROM `users` WHERE username = '$user' LIMIT 1;";
+        $sql = "
+        SELECT
+            username,
+            password,
+            rank,
+            banned
+        FROM
+            `users`
+        WHERE
+            username = '$user'
+        LIMIT
+            1;";
         $result = $conn->query($sql);
 
         if ($result->num_rows == 1) {
@@ -46,10 +69,17 @@ class User
         }
     }
 
-    public function changeRank($name, $rank) {
-        require(getenv('PROJECT_ROOT') . '/src/php/controller/database.php');
+    public function changeRank($name, $rank)
+    {
+        include getenv('PROJECT_ROOT') . '/src/php/controller/database.php';
 
-        $sql = 'UPDATE users SET rank=\'' . $rank . '\' WHERE username = \'' . $name . '\';';
+        $sql = '
+        UPDATE
+            users
+        SET
+            rank=\'' . $rank . '\'
+        WHERE
+            username = \'' . $name . '\';';
         if ($conn->query($sql) === false) {
             return $conn->error;
         } else {

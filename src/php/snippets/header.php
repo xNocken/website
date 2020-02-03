@@ -23,14 +23,20 @@ if (isset($_SESSION['user'])) {
         <div class="header">
             <div class="header--navigation">
                 <div class="navigation">
-                    <?php foreach($navigations as $navigation) {
-                            if ($navigation['rank'] === null || ($navigation['active'] === '1' && isset($_SESSION['rank']) &&  $navigation['rank'] <= $_SESSION['rank'])) {
-                        ?>
+                    <?php foreach ($navigations as $navigation) {
+                        if ($navigation['rank'] === null
+                            || ($navigation['active'] === '1'
+                            && isset($_SESSION['rank'])
+                            &&  $navigation['rank'] <= $_SESSION['rank'])
+                        ) {
+                            ?>
                         <div class="navigation--entry">
-                            <a href="<?php echo $navigation['path'] ?>"><?php echo $navigation['name'] ?></a>
+                            <a href="<?php echo $navigation['path'] ?>">
+                            <?php echo $navigation['name'] ?></a>
                         </div>
-                    <?php   }
-                        } ?>
+                            <?php
+                        }
+                    } ?>
                 </div>
             </div>
 
@@ -46,12 +52,13 @@ if (isset($_SESSION['user'])) {
 
                     <div class="user--dropdown">
                         <ul>
-                            <?php if (isset($_SESSION['user'])){ ?>
+                            <?php if (isset($_SESSION['user'])) { ?>
                                 <li><a href="/api/login/logout">Logout</a></li>
 
-                            <?php if ($rank > 0) { ?>
+                                <?php if ($rank > 0) { ?>
                                         <li><a href="/admin">Backend</a></li>
-                                    <?php }} else { ?>
+                                <?php }
+                            } else { ?>
                                 <li><a href="/login">Login</a></li>
                             <?php } ?>
                         </ul>
