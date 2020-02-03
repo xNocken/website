@@ -1,0 +1,25 @@
+<div class="container">
+	<h3>Recent Uploads</h3>
+	<div class="videos">
+		{% if videos %}
+			{% for video in videos %}
+				<div class="videos--video">
+					<a class="videos--video--link" target="_blank" rel="noopener noreferrer" href="https://www.youtube.com/watch?v={{ video.id.videoId }}">
+						<div class="videos--video--image--wrapper">
+							<img class="videos--video--image" src="{{ video.snippets.thumbnails.meduim.url }}">
+							<p class="videos--video--image--live videos--video--image--live__{{ video.snippet.livebroadcastContent }}">
+								LIVE
+							</p>
+						</div>
+						<p class="videos--video--date">
+							{{ video.snippet.publishedAt }}
+						</p>
+						<p class="videos--video--title">{{ video.snippet.title }}</p>
+					</a>
+				</div>
+			{% endfor %}
+		{% else %}
+			<p>Error while loading videos</p>
+		{% endif %}
+	</div>
+</div>

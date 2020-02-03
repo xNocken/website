@@ -1,5 +1,5 @@
 <?php
-use NavigationController\Navigation;
+namespace xnocken;
 
 $name = $_POST['name'];
 $path = $_POST['path'];

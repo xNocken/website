@@ -1,6 +1,6 @@
 <?php
 
-namespace NavigationController;
+namespace xnocken;
 
 class Navigation
 {

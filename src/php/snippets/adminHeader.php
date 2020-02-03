@@ -1,6 +1,5 @@
 <?php
-use UserController\User;
-use NavigationController\Navigation;
+namespace xnocken;
 
 $name = 'Not logged in';
 $rank = 0;

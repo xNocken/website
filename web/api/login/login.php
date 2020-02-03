@@ -1,5 +1,5 @@
 <?php
-use UserController\User;
+namespace xnocken;
 
 error_reporting(E_ERROR | E_PARSE);
 $data = [];

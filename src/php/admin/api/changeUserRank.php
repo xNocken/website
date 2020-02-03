@@ -1,7 +1,6 @@
 <?php
 
-use UserController\User;
-
+namespace xnocken;
 $username = $_POST['username'];
 $rank = $_POST['rank'];
 if ($_SESSION['rank'] > $rank || $_SESSION['rank'] === '2') {

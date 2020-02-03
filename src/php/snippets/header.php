@@ -1,8 +1,5 @@
 <?php
-
-use UserController\User;
-use NavigationController\Navigation;
-
+namespace xnocken;
 $navigations = Navigation::getNavigations();
 
 $name = 'Not logged in';

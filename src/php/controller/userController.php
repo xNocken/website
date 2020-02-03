@@ -1,6 +1,5 @@
 <?php
-namespace UserController;
-
+namespace xnocken;
 class User
 {
     public function getUserByName($name)

@@ -1,10 +1,9 @@
 <?php
 
-namespace RequestController;
-
-class Request
+namespace xnocken;
+class RequestController
 {
-    public function getYoutubeVideos()
+    public static function getYoutubeVideos()
     {
         error_reporting(E_ERROR);
 

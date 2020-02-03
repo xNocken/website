@@ -1,6 +1,5 @@
 <?php
-use UserController\User;
-
+namespace xnocken;
 $users = User::getAllUsers();
 ?>
 <!DOCTYPE html>
