@@ -1,38 +1,47 @@
-
-
 <?php
+namespace xnocken;
+
+Session::createSession();
+
+$loader = new \Twig\Loader\FilesystemLoader(getenv('PROJECT_ROOT') . '/src/twig/views');
+$twig = new \Twig\Environment($loader, ['debug' => true]);
+$twig->addExtension(new \Twig\Extension\DebugExtension());
+
 $request = $_SERVER['REQUEST_URI'];
 $request = trim(explode('?', $request)[0], '/');
+
+$fileToLoad ='';
+
+$isAdminCall = strpos($request, 'admin') === 0;
+$isAdminApiCall = strpos($request, 'admin/api') === 0;
+$isAdmin = (isset($_SESSION['rank']) && (intval($_SESSION['rank']) > 0));
+$fileExists = file_exists(__DIR__  . '/' . $request . '.php');
 
 switch ($request) {
 case '/':
 case '':
-    include __DIR__ . '/root.php';
+    $fileToLoad = __DIR__ . '/root.php';
     break;
+
 default:
-    if (strpos($request, 'admin') === 0) {
-        if (!isset($_SESSION["user"])) {
-            include getenv('PROJECT_ROOT') . '/web/login.php';
-        } else {
-            if ($_SESSION['rank'] < 1) {
-                echo 'nö';
-                http_response_code(403);
-            } else {
-                if (strpos($request, 'admin/api') === 0) {
-                    include getenv('PROJECT_ROOT') . '/src/php/' . $request . '.php';
+    if ($fileExists || $isAdminCall) {
+        if ($isAdminCall) {
+            if ($isAdmin) {
+                if ($isAdminApiCall) {
+                    $fileToLoad = getenv('PROJECT_ROOT') . '/src/php/' . $request . '.php';
                 } else {
-                    include getenv('PROJECT_ROOT').'/src/php/admin/'.$request.'.php';
+                    $fileToLoad = getenv('PROJECT_ROOT').'/src/php/admin/'.$request.'.php';
                 }
+            } else {
+                $fileToLoad = __DIR__ . '/404.php';
             }
+        } else {
+            $fileToLoad = __DIR__  . '/' . $request . '.php';
         }
     } else {
-        if (file_exists(__DIR__  . '/' . $request . '.php')) {
-            include __DIR__  . '/' . $request . '.php';
-        } else {
-            http_response_code(404);
-            include __DIR__ . '/404.php';
-        }
+        http_response_code(404);
+        $fileToLoad = __DIR__ . '/404.php';
     }
-
-    break;
 }
+
+require $fileToLoad;

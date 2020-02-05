@@ -15,9 +15,9 @@ $users = UserController::getAllUsers();
     <div class="content-wrapper">
     <?php
         echo $twig->render(
-            'users.twig', 
+            'users.twig',
             [
-                'users' => $users, 
+                'users' => $users,
                 'username' => $_SESSION['user']
             ]
         );

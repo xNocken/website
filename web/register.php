@@ -15,6 +15,8 @@
         name="user" type="text" placeholder="Username"><br>
         <input class="register--password" name="pw"
         tabindex="2" type="password" placeholder="Password"><br>
+        <input class="register--password" name="pw2"
+        tabindex="2" type="password" placeholder="Repeat password"><br>
         <input class="register--submit" tabindex="0" type="submit"><br>
         <a href="/login/">Already have an account?</a>
     </form>

@@ -1,6 +1,6 @@
 <?php
 namespace xnocken;
-$navigations = Navigation::getNavigations();
+$navigations = NavigationController::getNavigations();
 
 $name = 'Not logged in';
 $rank = 0;
@@ -57,6 +57,7 @@ if (isset($_SESSION['user'])) {
                                 <?php }
                             } else { ?>
                                 <li><a href="/login">Login</a></li>
+                                <li><a href="/register">Register</a></li>
                             <?php } ?>
                         </ul>
                     </div>

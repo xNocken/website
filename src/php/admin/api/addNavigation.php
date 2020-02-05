@@ -10,7 +10,7 @@ if (!isset($name) || !isset($path)) {
     die;
 }
 
-$result = Navigation::addNavigation($name, $path, $rank);
+$result = NavigationController::addNavigation($name, $path, $rank);
 
 if ($result !== true) {
     echo '"' . $result . '"';

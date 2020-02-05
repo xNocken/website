@@ -2,7 +2,7 @@
 
 namespace xnocken;
 
-class Navigation
+class NavigationController
 {
     public function getAdminNavigations()
     {

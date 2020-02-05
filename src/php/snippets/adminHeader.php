@@ -7,7 +7,7 @@ $profilePicture = 'http://placekitten.com/50/50';
 
 if (isset($_SESSION['user'])) {
     $user = UserController::getUserByName($_SESSION['user']);
-    $navigations = Navigation::getAdminNavigations();
+    $navigations = NavigationController::getAdminNavigations();
 
     $name = $user['username'];
     $rank = $user['rank'];
