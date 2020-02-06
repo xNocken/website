@@ -4,15 +4,15 @@
 		{% if videos %}
 			{% for video in videos %}
 				<div class="videos--video">
-					<a class="videos--video--link" target="_blank" rel="noopener noreferrer" href="https://www.youtube.com/watch?v={{ video.videoId }}">
+					<a class="videos--video--link" target="_blank" rel="noopener noreferrer" href="https://www.youtube.com/watch?v={{ video.video_id }}">
 						<div class="videos--video--image--wrapper">
 							<img class="videos--video--image" src="{{ video.image }}">
-							<p class="videos--video--image--live videos--video--image--live__{{ video.liveBroadcastContent }}">
+							<p class="videos--video--image--live videos--video--image--live__{{ video.live_broadcast_content }}">
 								LIVE
 							</p>
 						</div>
 						<p class="videos--video--date">
-							{{ video.publishedAt }}
+							{{ video.published_at }}
 						</p>
 						<p class="videos--video--title">{{ video.title }}</p>
 					</a>

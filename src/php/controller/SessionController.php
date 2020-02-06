@@ -1,7 +1,7 @@
 <?php
-namespace xnocken;
+namespace Xnocken\Controller;
 
-class Session
+class SessionController
 {
     public function createSession()
     {

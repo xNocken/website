@@ -1,5 +1,6 @@
 <div class="container">
 	<div class="users">
+  <p id="status"></p>
 		<table class="users--table">
 			<tr class="users--table--row">
 				<th class="users--table--row--field">Username</th>
@@ -17,7 +18,13 @@
 							<option value="2">Admin</option>
 						</select>
 					</th>
-					<th class="users--table--row--field">{{ user.banned }}</th>
+					<th class="users--table--row--field">
+            {% if user.banned == 0%}
+                <a data-active="0" class="users--button users--button__delete users-ban-button">Ban</a>
+            {% else %}
+                <a data-active="1" class="users--button users--button__add users-ban-button">Unban</a>
+            {% endif %}
+          </th>
 					<th class="users--table--row--field"><img src="{{ user.profilePicture }}"></th>
 				</tr>
 			{% endfor %}

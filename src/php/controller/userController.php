@@ -1,11 +1,11 @@
 <?php
-namespace xnocken;
+namespace Xnocken\Controller;
 
 class UserController
 {
     public function getUserByName($name)
     {
-        include getenv('PROJECT_ROOT') . '/src/php/controller/database.php';
+        $conn = \Xnocken\Controller\DatabaseController::startConnection();
 
         $sql = "
         SELECT
@@ -26,7 +26,7 @@ class UserController
 
     public function getAllUsers()
     {
-        include getenv('PROJECT_ROOT') . '/src/php/controller/database.php';
+        $conn = \Xnocken\Controller\DatabaseController::startConnection();
 
         $sql = "
         SELECT
@@ -45,7 +45,7 @@ class UserController
 
     public function getLoginDataByName($name)
     {
-        include getenv('PROJECT_ROOT') . '/src/php/controller/database.php';
+        $conn = \Xnocken\Controller\DatabaseController::startConnection();
 
         $user = $conn->real_escape_string($name);
         $sql = "
@@ -71,7 +71,10 @@ class UserController
 
     public function changeRank($name, $rank)
     {
-        include getenv('PROJECT_ROOT') . '/src/php/controller/database.php';
+        $conn = \Xnocken\Controller\DatabaseController::startConnection();
+
+        $name = $conn->real_escape_string($name);
+        $rank = $conn->real_escape_string($rank);
 
         $sql = '
         UPDATE
@@ -80,8 +83,8 @@ class UserController
             rank=\'' . $rank . '\'
         WHERE
             username = \'' . $name . '\';';
-        if ($conn->query($sql) === false) {
-            return $conn->error;
+        if (!isset($conn) || $conn->query($sql) === false) {
+            return 'ERROR: ' . $conn->error;
         } else {
             return true;
         }
@@ -89,7 +92,7 @@ class UserController
 
     public function register($user, $pw)
     {
-        include getenv('PROJECT_ROOT') . '/src/php/controller/database.php';
+        $conn = \Xnocken\Controller\DatabaseController::startConnection();
 
         $pw = password_hash($pw, PASSWORD_DEFAULT);
         $user = $conn->real_escape_string($user);
@@ -129,5 +132,151 @@ class UserController
         }
 
         return $data;
+    }
+
+    public static function switchBan($name, $isBanned)
+    {
+        $conn = \Xnocken\Controller\DatabaseController::startConnection();
+
+        $sql = '
+        UPDATE
+            users
+        SET
+            banned=\'' . !$isBanned . '\'
+        WHERE
+            username = \'' . $name . '\';';
+
+        if ($conn->query($sql) === false) {
+            return $conn->error;
+        } else {
+            return true;
+        }
+    }
+
+    public static function updateProfilePicture($name, $hash)
+    {
+        $conn = \Xnocken\Controller\DatabaseController::startConnection();
+        $sql = '
+        UPDATE
+            users
+        SET
+            profilePicture=\'https://www.gravatar.com/avatar/' . $hash . '?d=mp\'
+        WHERE
+            username = \'' . $name . '\';';
+
+        if ($conn->query($sql) === false) {
+            return $conn->error;
+        } else {
+            return true;
+        }
+    }
+
+    public static function getBanState($name)
+    {
+        $conn = \Xnocken\Controller\DatabaseController::startConnection();
+
+        $sql = "
+        SELECT
+            banned
+        FROM
+            `users`
+        WHERE
+            username = '" . $name . "'
+        LIMIT
+            1;";
+        $result = $conn->query($sql);
+        if ($result->num_rows == 1) {
+            while ($row = $result->fetch_assoc()) {
+                return $row['banned'];
+            }
+        }
+    }
+
+    public static function changePassword($user, $current, $password)
+    {
+        $conn = \Xnocken\Controller\DatabaseController::startConnection();
+
+        $user = $conn->real_escape_string($user);
+
+        $sql = "SELECT password FROM `users` WHERE username = '$user' LIMIT 1;";
+        $result = $conn->query($sql);
+
+        if ($result->num_rows > 0) {
+            $newJsons = [];
+            while ($row = $result->fetch_assoc()) {
+                if (\password_verify($current, $row['password'])) {
+                    $sql = '
+                    UPDATE
+                        users
+                    SET
+                        password=\'' . \password_hash($password, PASSWORD_DEFAULT) . '\'
+                    WHERE
+                        username = \'' . $user . '\';';
+                    if ($conn->query($sql) === false) {
+                        $data = [
+                            'type'     => 'error',
+                            'msg'      => 'Unkown error',
+                            'sqlError' => $conn->error,
+                            'sql'      => $sql,
+                        ];
+                    } else {
+                        $data = [
+                            'type' => 'success',
+                            'msg'  => 'Password Changed',
+                        ];
+
+                        $_SESSION["user"] = $user;
+                    }
+                } else {
+                    $data = [
+                        'type' => 'error',
+                        'msg'  => 'Wrong Password',
+                    ];
+                }
+            }
+        } else {
+            $data = [
+                'type' => 'error',
+                'msg'  => 'you dont exist lol',
+            ];
+        }
+
+        return $data;
+    }
+
+    public static function updateProfile($user, $name)
+    {
+        $conn = \Xnocken\Controller\DatabaseController::startConnection();
+
+        $user = $conn->real_escape_string($user);
+        $name = $conn->real_escape_string($name);
+
+        $lowerName = strtolower($name);
+
+        $userdata = UserController::getUserByName($lowerName);
+
+        if ($userdata) {
+            $data = [
+                'type' => 'error',
+                'msg'  => 'Username already exists'
+            ];
+
+            return $data;
+        }
+
+        $sql = '
+        UPDATE
+            users
+        SET
+            username=\'' . $name . '\',
+            namelower=\'' . $lowerName . '\'
+        WHERE
+            namelower = \'' . strtolower($user) . '\';';
+        if (!isset($conn) || $conn->query($sql) === false) {
+            return 'ERROR: ' . $conn->error;
+        } else {
+            $_SESSION['user'] = $lowerName;
+            return true;
+        }
     }
 }

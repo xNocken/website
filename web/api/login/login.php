@@ -1,5 +1,5 @@
 <?php
-namespace xnocken;
+namespace Xnocken;
 
 error_reporting(E_ERROR | E_PARSE);
 $data = [];
@@ -7,7 +7,7 @@ $user = strtolower($_POST['user']);
 $pw = $_POST['pw'];
 
 if (isset($user) && isset($pw)) {
-    $userdata = UserController::getLoginDataByName($user);
+    $userdata = Controller\UserController::getLoginDataByName($user);
 
     if (password_verify($pw, $userdata["password"])) {
         if ($userdata['banned'] == '1') {

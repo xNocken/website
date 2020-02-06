@@ -16,4 +16,6 @@ export default (route, args, callback, method = 'POST') => {
   };
   request.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
   request.send(getUrlEncodedString(args));
+
+  return request;
 };

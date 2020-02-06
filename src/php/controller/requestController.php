@@ -1,5 +1,5 @@
 <?php
-namespace xnocken;
+namespace Xnocken\Controller;
 
 use \DateTime;
 
@@ -7,7 +7,6 @@ class RequestController
 {
     private static function _getNewVideos()
     {
-        error_reporting(E_ERROR);
 
         $opts = array(
             'http' => array(
@@ -23,7 +22,7 @@ class RequestController
             $context
         );
 
-        return $context;
+        return $file;
     }
 
     public static function getYoutubeVideos()
@@ -35,15 +34,28 @@ class RequestController
             $modTime = filemtime($filePath);
             $changeDate = new DateTime();
             $changeDate->setTime(date("H", $modTime), date("i", $modTime));
-            $changeDate->setDate(date("Y", $modTime), date("m", $modTime), date("d", $modTime));
+            $changeDate->setDate(
+                date("Y", $modTime),
+                date("m", $modTime),
+                date("d", $modTime)
+            );
             $now = new DateTime();
-            $timeDiff = $changeDate->diff($now);
 
-            if ($timeDiff->format('%i') + ($timeDiff->format('%h') * 60)) {
-                $videos = _getNewVideos();
+            $timeDiff = $changeDate->diff($now);
+            $timeDiffDays = $timeDiff->format('%d');
+            $timeDiffHours = $timeDiff->format('%h') + ($timeDiffDays * 24);
+            $timeDiffMinutes = $timeDiff->format('%i') + ($timeDiffHours * 60);
+
+            if ($timeDiffMinutes > 30) {
+                $videos = RequestController::_getNewVideos();
                 \file_put_contents($filePath, $videos);
             } else {
                 $videos = \file_get_contents($filePath);
+
+                if (!$videos) {
+                    $videos = RequestController::_getNewVideos();
+                    \file_put_contents($filePath, $videos);
+                }
             }
         } else {
             $videos = RequestController::_getNewVideos();
@@ -51,6 +63,6 @@ class RequestController
             \file_put_contents($filePath, $videos);
         }
 
-        return $videos;
+        return json_decode($videos);
     }
 }

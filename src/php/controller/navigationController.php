@@ -1,6 +1,6 @@
 <?php
 
-namespace xnocken;
+namespace Xnocken\Controller;
 
 class NavigationController
 {
@@ -22,7 +22,7 @@ class NavigationController
 
     public function getNavigations()
     {
-        include getenv('PROJECT_ROOT') . '/src/php/controller/database.php';
+        $conn = \Xnocken\Controller\DatabaseController::startConnection();
 
         $sql = '
         SELECT
@@ -41,7 +41,7 @@ class NavigationController
 
     public function addNavigation($name, $path, $rank)
     {
-        include getenv('PROJECT_ROOT') . '/src/php/controller/database.php';
+        $conn = \Xnocken\Controller\DatabaseController::startConnection();
 
         $sql = '
         INSERT INTO
@@ -67,7 +67,7 @@ class NavigationController
 
     public function toggleNavigation($id, $isActive)
     {
-        include getenv('PROJECT_ROOT') . '/src/php/controller/database.php';
+        $conn = \Xnocken\Controller\DatabaseController::startConnection();
 
         $sql = '
         UPDATE
@@ -85,7 +85,7 @@ class NavigationController
 
     public function deleteNavigation($id)
     {
-        include getenv('PROJECT_ROOT') . '/src/php/controller/database.php';
+        $conn = \Xnocken\Controller\DatabaseController::startConnection();
 
         $sql = '
         DELETE FROM

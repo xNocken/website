@@ -1,5 +1,5 @@
 <?php
-namespace xnocken;
+namespace Xnocken;
 ?>
 
 <!DOCTYPE html>
@@ -14,7 +14,7 @@ namespace xnocken;
     <?php require getenv('PROJECT_ROOT') . '/src/php/snippets/header.php';  ?>
 
     <div class="content-wrapper">
-        <?php echo SnippetController::renderYoutubeVideos(); ?>
+        <?php echo Controller\SnippetController::renderYoutubeVideos(); ?>
     </div>
 
     <?php require getenv('PROJECT_ROOT') . '/src/php/snippets/scripts.php';  ?>

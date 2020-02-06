@@ -1,13 +1,13 @@
 <?php
-namespace xnocken;
+namespace Xnocken;
 
 $name = 'Not logged in';
 $rank = 0;
 $profilePicture = 'http://placekitten.com/50/50';
 
 if (isset($_SESSION['user'])) {
-    $user = UserController::getUserByName($_SESSION['user']);
-    $navigations = NavigationController::getAdminNavigations();
+    $user = Controller\UserController::getUserByName($_SESSION['user']);
+    $navigations = Controller\NavigationController::getAdminNavigations();
 
     $name = $user['username'];
     $rank = $user['rank'];

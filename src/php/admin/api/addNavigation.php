@@ -1,5 +1,5 @@
 <?php
-namespace xnocken;
+namespace Xnocken;
 
 $name = $_POST['name'];
 $path = $_POST['path'];
@@ -10,7 +10,7 @@ if (!isset($name) || !isset($path)) {
     die;
 }
 
-$result = NavigationController::addNavigation($name, $path, $rank);
+$result = Controller\NavigationController::addNavigation($name, $path, $rank);
 
 if ($result !== true) {
     echo '"' . $result . '"';

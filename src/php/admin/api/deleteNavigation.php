@@ -1,5 +1,5 @@
 <?php
-namespace xnocken;
+namespace Xnocken;
 $id = $_POST['id'];
 
-echo NavigationController::deleteNavigation($id);
+echo Controller\NavigationController::deleteNavigation($id);

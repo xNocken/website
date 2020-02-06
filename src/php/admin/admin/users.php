@@ -1,7 +1,7 @@
 <?php
-namespace xnocken;
+namespace Xnocken;
 
-$users = UserController::getAllUsers();
+$users = Controller\UserController::getAllUsers();
 ?>
 <!DOCTYPE html>
 <html lang="en">

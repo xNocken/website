@@ -1,6 +1,6 @@
 <?php
-namespace xnocken;
-$frontendNavigations = NavigationController::getNavigations();
+namespace Xnocken;
+$frontendNavigations = Controller\NavigationController::getNavigations();
 ?>
 <!DOCTYPE html>
 <html lang="en">

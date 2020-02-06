@@ -1,5 +1,5 @@
 <?php
-namespace xnocken;
+namespace Xnocken;
 
 $data = [];
 

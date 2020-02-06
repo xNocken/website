@@ -1,0 +1,57 @@
+.account {
+  display: flex;
+  justify-content: space-around;
+  flex-wrap: wrap;
+
+  &--data {
+    &--field {
+      margin-bottom: 5px;
+      width: 100%;
+      display: block;
+    }
+
+    &--submit {
+      width: 100%;
+      cursor: pointer;
+    }
+  }
+
+  &--password {
+    &--field {
+      display: block;
+      margin-bottom: 5px;
+      width: 100%;
+    }
+
+    &--submit {
+      width: 100%;
+      cursor: pointer;
+    }
+  }
+
+  &--picture {
+    margin: {
+      left: 10px;
+      right: 10px;
+    };
+
+    &--field {
+      display: block;
+      margin-bottom: 5px;
+
+      &__error {
+        border: red solid 2px;
+      }
+    }
+
+    &--img {
+      width: 100%;
+      height: auto;
+    }
+
+    &--submit {
+      width: 100%;
+      cursor: pointer;
+    }
+  }
+}

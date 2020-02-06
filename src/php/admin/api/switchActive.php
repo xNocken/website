@@ -1,6 +1,6 @@
 <?php
-namespace xnocken;
+namespace Xnocken;
 $isActive = $_POST['active'];
 $id = $_POST['id'];
 
-echo NavigationController::toggleNavigation($id, $isActive);
+echo Controller\NavigationController::toggleNavigation($id, $isActive);

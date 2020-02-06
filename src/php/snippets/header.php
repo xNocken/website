@@ -1,13 +1,13 @@
 <?php
-namespace xnocken;
-$navigations = NavigationController::getNavigations();
+namespace Xnocken;
+$navigations = Controller\NavigationController::getNavigations();
 
 $name = 'Not logged in';
 $rank = 0;
 $profilePicture = '';
 
 if (isset($_SESSION['user'])) {
-    $user = UserController::getUserByName($_SESSION['user']);
+    $user = Controller\UserController::getUserByName($_SESSION['user']);
 
     $name = $user['username'];
     $rank = $user['rank'];
@@ -44,12 +44,13 @@ if (isset($_SESSION['user'])) {
                     </div>
 
                     <div class="user--image">
-                        <img src="<?php echo $profilePicture; ?>">
+                        <img src="<?php echo $profilePicture; ?>&s=50">
                     </div>
 
                     <div class="user--dropdown">
                         <ul>
                             <?php if (isset($_SESSION['user'])) { ?>
+                                <li><a href="/account">Account</a></li>
                                 <li><a href="/api/login/logout">Logout</a></li>
 
                                 <?php if ($rank > 0) { ?>
