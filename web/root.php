@@ -11,7 +11,7 @@ namespace Xnocken;
   <title>xNocken</title>
 </head>
 <body>
-    <?php require getenv('PROJECT_ROOT') . '/src/php/snippets/header.php';  ?>
+    <?php \Xnocken\Controller\SnippetController::renderHeader(); ?>
 
     <div class="content-wrapper">
         <?php echo Controller\SnippetController::renderYoutubeVideos(); ?>

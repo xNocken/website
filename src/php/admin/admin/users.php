@@ -10,7 +10,7 @@ $users = Controller\UserController::getAllUsers();
     <title>Users - Admin - xNocken</title>
 </head>
 <body>
-    <?php require getenv('PROJECT_ROOT') . '/src/php/snippets/adminHeader.php'; ?>
+<?php \Xnocken\Controller\SnippetController::renderAdminHeader(); ?>
 
     <div class="content-wrapper">
     <?php

@@ -41,4 +41,56 @@ class SnippetController
 
         echo $twig->render('account.twig', ['user' => $user]);
     }
+
+    public static function renderHeader()
+    {
+        global $twig;
+
+        $navigations = NavigationController::getNavigations();
+        $userData = [];
+
+        if (isset($_SESSION['user'])) {
+            $user = UserController::getUserByName($_SESSION['user']);
+
+            $userData = [
+                'name' => $user['username'],
+                'rank' => $user['rank'],
+                'profile_picture' => $user['profilePicture'],
+            ];
+        }
+
+        echo $twig->render(
+            'header.twig',
+            [
+                'user_data' => $userData,
+                'navigations' => $navigations,
+            ]
+        );
+    }
+
+    public static function renderAdminHeader()
+    {
+        global $twig;
+
+        $navigations = NavigationController::getAdminNavigations();
+        $userData = [];
+
+        if (isset($_SESSION['user'])) {
+            $user = UserController::getUserByName($_SESSION['user']);
+
+            $userData = [
+                'name' => $user['username'],
+                'rank' => $user['rank'],
+                'profile_picture' => $user['profilePicture'],
+            ];
+        }
+
+        echo $twig->render(
+            'adminHeader.twig',
+            [
+                'user_data' => $userData,
+                'navigations' => $navigations,
+            ]
+        );
+    }
 }

@@ -9,9 +9,9 @@ $frontendNavigations = Controller\NavigationController::getNavigations();
     <title>Navigation - Admin - xNocken</title>
 </head>
 <body>
+    <?php \Xnocken\Controller\SnippetController::renderAdminHeader(); ?>
 
     <?php
-        require getenv('PROJECT_ROOT') . '/src/php/snippets/adminHeader.php';
         echo $twig->render('navigation.twig', ['navigations' => $frontendNavigations]);
         require getenv('PROJECT_ROOT') . '/src/php/snippets/scripts.php';
     ?>

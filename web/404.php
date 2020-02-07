@@ -3,11 +3,11 @@
 
 <head>
     <?php require getenv('PROJECT_ROOT') . '/src/php/snippets/head.php'; ?>
-    <title>Document</title>
+    <title>404 - xNocken</title>
 </head>
 
 <body>
-    <?php require getenv('PROJECT_ROOT') . '/src/php/snippets/header.php'; ?>
+    <?php \Xnocken\Controller\SnippetController::renderHeader(); ?>
     <div class="container content-wrapper">
         <h1>404</h1>
         <h2><?php echo trim($_SERVER['REQUEST_URI'], '/') ?> not found</h2>

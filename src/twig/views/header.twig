@@ -1,0 +1,63 @@
+<header>
+	<div class="container">
+		<div class="header">
+			<div class="header--navigation">
+				<div class="navigation">
+					{% for navigation in navigations %}
+						{% if navigation.active == 1 and (navigation.rank == null or (user_data.rank and user_data.rank >= navigation.rank)) %}
+							<div class="navigation--entry">
+								<a href="{{ navigation.path }}">
+									{{ navigation.name }}</a>
+							</div>
+						{% endif %}
+					{% endfor %}
+				</div>
+			</div>
+
+			<div class="header--user">
+				<div class="user">
+					<div class="user--name">
+						{% if user_data.name %}
+							{{ user_data.name }}
+						{% else %}
+							Not logged in
+						{% endif %}
+					</div>
+
+					<div class="user--image">
+						{% if user_data.profile_picture %}
+							<img src="{{ user_data.profile_picture }}&s=50">
+						{% endif %}
+					</div>
+
+					<div class="user--dropdown">
+						<ul>
+							{% if user_data.rank %}
+								<li>
+									<a href="/account">Account</a>
+								</li>
+								<li>
+									<a href="/api/login/logout">Logout</a>
+								</li>
+
+								{% if user_data.rank > 0 %}
+									<li>
+										<a href="/admin">Backend</a>
+									</li>
+								{% endif %}
+
+							{% else %}
+								<li>
+									<a href="/login">Login</a>
+								</li>
+								<li>
+									<a href="/register">Register</a>
+								</li>
+							{% endif %}
+						</ul>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</header>

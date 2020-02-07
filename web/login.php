@@ -7,14 +7,10 @@
 </head>
 
 <body>
-    <?php require getenv('PROJECT_ROOT') . '/src/php/snippets/header.php'; ?>
+<?php \Xnocken\Controller\SnippetController::renderHeader(); ?>
     <form class="login" id="login-form">
         <?php if (isset($_SESSION['user'])) { ?>
             <script> window.location.href='/'; </script>
-        <?php } ?>
-
-        <?php if (trim($_SERVER['REQUEST_URI'], '/') == 'admin') { ?>
-            <p>Login required to continue</p>
         <?php } ?>
 
         <h1>Login</h1>

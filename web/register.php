@@ -7,7 +7,7 @@
 </head>
 
 <body>
-    <?php require getenv('PROJECT_ROOT') . '/src/php/snippets/header.php'; ?>
+    <?php \Xnocken\Controller\SnippetController::renderHeader(); ?>
     <form class="register" id="register-form">
         <h1>Register</h1>
         <p class="register--status" id="register-status"></p>
