@@ -1,0 +1,31 @@
+.profile {
+  &--info {
+    &--image {
+      border-radius: 100px;
+      display: inline-block;
+      overflow: hidden;
+      height: 80px;
+      width: 80px;
+    }
+
+    &--name {
+      display: inline-block;
+      vertical-align: middle;
+      position: absolute;
+      margin-left: 20px;
+
+      &__1 {
+        color: $color-mod;
+      }
+
+      &__2 {
+        color: $color-admin;
+      }
+    }
+
+    &--about {
+      margin-top: 50px;
+      max-width: 100%;
+    }
+  }
+}

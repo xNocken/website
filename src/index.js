@@ -6,6 +6,7 @@ import register from './js/register';
 import request from './js/request';
 import users from './js/users';
 import profileSettings from './js/profileSettings';
+import profile from './js/profile';
 
 global.request = request;
 
@@ -15,4 +16,5 @@ document.addEventListener('DOMContentLoaded', () => {
   register();
   users();
   profileSettings();
+  profile();
 });

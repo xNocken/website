@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 4.9.2
+-- version 4.9.0.1
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Erstellungszeit: 01. Feb 2020 um 15:30
--- Server-Version: 10.4.11-MariaDB
--- PHP-Version: 7.4.1
+-- Erstellungszeit: 07. Feb 2020 um 11:58
+-- Server-Version: 10.3.16-MariaDB
+-- PHP-Version: 7.3.7
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET AUTOCOMMIT = 0;
@@ -47,7 +47,9 @@ CREATE TABLE `users` (
   `password` varchar(255) DEFAULT NULL,
   `rank` int(11) DEFAULT NULL,
   `banned` tinyint(4) DEFAULT 0,
-  `profilePicture` varchar(45) DEFAULT 'http://placekitten.com/50/50'
+  `profilePicture` varchar(100) DEFAULT '?d=mp',
+  `namelower` varchar(20) DEFAULT NULL,
+  `reason` varchar(300) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
@@ -80,7 +82,3 @@ COMMIT;
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
-
-
-ALTER TABLE `navigations`
-ADD COLUMN `rank` INT NULL AFTER `active`;

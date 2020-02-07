@@ -53,16 +53,17 @@ class SnippetController
             $user = UserController::getUserByName($_SESSION['user']);
 
             $userData = [
-                'name' => $user['username'],
-                'rank' => $user['rank'],
+                'name'            => $user['username'],
+                'rank'            => $user['rank'],
                 'profile_picture' => $user['profilePicture'],
+                'lowername'       => $user['namelower'],
             ];
         }
 
         echo $twig->render(
             'header.twig',
             [
-                'user_data' => $userData,
+                'user_data'   => $userData,
                 'navigations' => $navigations,
             ]
         );
@@ -79,18 +80,50 @@ class SnippetController
             $user = UserController::getUserByName($_SESSION['user']);
 
             $userData = [
-                'name' => $user['username'],
-                'rank' => $user['rank'],
+                'name'            => $user['username'],
+                'rank'            => $user['rank'],
                 'profile_picture' => $user['profilePicture'],
+                'lowername'       => $user['namelower'],
             ];
         }
 
         echo $twig->render(
             'adminHeader.twig',
             [
-                'user_data' => $userData,
+                'user_data'   => $userData,
                 'navigations' => $navigations,
             ]
         );
+    }
+
+    public static function renderProfile($name)
+    {
+        global $twig;
+        $user2;
+
+        if (isset($_SESSION['user'])) {
+            $user2 = $_SESSION['user'];
+        } else {
+            $user2 = '';
+        }
+
+        $userinfo = UserController::getUserByName($name);
+
+        if (isset($userinfo['username'])) {
+            $user = [
+                'name'            => $userinfo['username'],
+                'profile_picture' => $userinfo['profilePicture'],
+                'rank'            => $userinfo['rank'],
+                'about'           => $userinfo['about'],
+                'lowername'       => $userinfo['namelower'],
+            ];
+
+            return $twig->render('profile.twig', [
+                'user'         => $user,
+                'current_user' => $user2,
+            ]);
+        } else {
+            return false;
+        }
     }
 }

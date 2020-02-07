@@ -22,7 +22,7 @@ export default () => {
         window.location.href = window.location.href;
       }
 
-      loginStatus.innerText = msg;
+      loginStatus.innerHTML = msg;
     }, 'post');
   });
 };

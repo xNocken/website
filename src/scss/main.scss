@@ -2,6 +2,9 @@
 
 @import './global.scss';
 
+@import './admin/navigations.scss';
+@import './admin/users.scss';
+
 @import './account/account.scss';
 
 @import './header/header.scss';
@@ -9,7 +12,6 @@
 @import './login/login.scss';
 @import './login/register.scss';
 
-@import './admin/navigations.scss';
-@import './admin/users.scss';
+@import './profile/profile.scss';
 
 @import './snippets/videos.scss';

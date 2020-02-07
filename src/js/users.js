@@ -37,26 +37,33 @@ export default () => {
         'Ban',
       ];
 
-      button.addEventListener('click', () => {
-        const username = button.parentNode.parentNode.getAttribute('data-username');
-        let isBanned = button.getAttribute('data-active');
+      if (!button.hasAttribute('disabled')) {
+        button.addEventListener('click', () => {
+          const username = button.parentNode.parentNode.getAttribute('data-username');
+          let isBanned = button.getAttribute('data-active');
+          let reason = '';
 
-        if (loading) {
-          loading.abort();
-        }
-
-        loading = request('/admin/api/switchBanUser', { username, isBanned }, (response) => {
-          if (response.response === '1') {
-            button2.classList = classes[isBanned];
-            button2.innerHTML = names[isBanned];
-            isBanned = isBanned === '0' ? 1 : 0;
-            button.setAttribute('data-active', isBanned);
-            status.innerHTML = '';
-          } else {
-            status.innerHTML = response.response;
+          if (loading) {
+            loading.abort();
           }
+
+          if (isBanned === '0') {
+            reason = prompt('Enter reason');
+          }
+
+          loading = request('/admin/api/switchBanUser', { username, isBanned, reason }, (response) => {
+            if (response.response === '1') {
+              button2.classList = classes[isBanned];
+              button2.innerHTML = names[isBanned];
+              isBanned = isBanned === '0' ? 1 : 0;
+              button.setAttribute('data-active', isBanned);
+              status.innerHTML = '';
+            } else {
+              status.innerHTML = response.response;
+            }
+          });
         });
-      });
+      }
     });
   }
 };

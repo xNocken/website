@@ -6,14 +6,13 @@ class UserController
     public function getUserByName($name)
     {
         $conn = \Xnocken\Controller\DatabaseController::startConnection();
-
         $sql = "
         SELECT
             *
         FROM
             `users`
         WHERE
-            username = '" . $name . "'
+            namelower = '" . strtolower($name) . "'
         LIMIT
             1;";
         $result = $conn->query($sql);
@@ -53,11 +52,13 @@ class UserController
             username,
             password,
             rank,
-            banned
+            banned,
+            reason,
+            namelower
         FROM
             `users`
         WHERE
-            username = '$user'
+            namelower = '" . strtolower($user) . "'
         LIMIT
             1;";
         $result = $conn->query($sql);
@@ -82,7 +83,7 @@ class UserController
         SET
             rank=\'' . $rank . '\'
         WHERE
-            username = \'' . $name . '\';';
+            namelower = \'' . strtolower($name) . '\';';
         if (!isset($conn) || $conn->query($sql) === false) {
             return 'ERROR: ' . $conn->error;
         } else {
@@ -97,7 +98,7 @@ class UserController
         $pw = password_hash($pw, PASSWORD_DEFAULT);
         $user = $conn->real_escape_string($user);
 
-        $sql = "SELECT username FROM `users` WHERE username = '$user' LIMIT 1;";
+        $sql = "SELECT username FROM `users` WHERE namelower = '" . strtolower($user) . "' LIMIT 1;";
         $result = $conn->query($sql);
 
         if ($result->num_rows > 0) {
@@ -111,9 +112,9 @@ class UserController
         } else {
             $sql = '
         INSERT INTO
-            users (`username`, `password`, `rank`)
+            users (`username`, `password`, `rank`, `namelower`)
         VALUES
-            (\'' . $user . '\', \'' . $pw . '\', '  . 0 . ');';
+            (\'' . $user . '\', \'' . $pw . '\', '  . 0 . ', \'' . strtolower($user) . '\');';
             if ($conn->query($sql) === false) {
                 $data = [
                     'type'     => 'error',
@@ -127,14 +128,14 @@ class UserController
                     'msg'  => 'Registered',
                 ];
 
-                $_SESSION["user"] = $user;
+                $_SESSION["user"] = strtolower($user);
             }
         }
 
         return $data;
     }
 
-    public static function switchBan($name, $isBanned)
+    public static function switchBan($name, $isBanned, $reason)
     {
         $conn = \Xnocken\Controller\DatabaseController::startConnection();
 
@@ -142,9 +143,10 @@ class UserController
         UPDATE
             users
         SET
-            banned=\'' . !$isBanned . '\'
+            banned=\'' . !$isBanned . '\',
+            reason=\'' . $reason . '\'
         WHERE
-            username = \'' . $name . '\';';
+            namelower = \'' . strtolower($name) . '\';';
 
         if ($conn->query($sql) === false) {
             return $conn->error;
@@ -162,7 +164,7 @@ class UserController
         SET
             profilePicture=\'https://www.gravatar.com/avatar/' . $hash . '?d=mp\'
         WHERE
-            username = \'' . $name . '\';';
+            namelower = \'' . strtolower($name) . '\';';
 
         if ($conn->query($sql) === false) {
             return $conn->error;
@@ -181,7 +183,7 @@ class UserController
         FROM
             `users`
         WHERE
-            username = '" . $name . "'
+            namelower = '" . strtolower($name) . "'
         LIMIT
             1;";
         $result = $conn->query($sql);
@@ -198,7 +200,7 @@ class UserController
 
         $user = $conn->real_escape_string($user);
 
-        $sql = "SELECT password FROM `users` WHERE username = '$user' LIMIT 1;";
+        $sql = "SELECT password FROM `users` WHERE namelower = '" . strtolower($user) . "' LIMIT 1;";
         $result = $conn->query($sql);
 
         if ($result->num_rows > 0) {
@@ -209,9 +211,9 @@ class UserController
                     UPDATE
                         users
                     SET
-                        password=\'' . \password_hash($password, PASSWORD_DEFAULT) . '\'
+                        password=\''.\password_hash($password, PASSWORD_DEFAULT).'\'
                     WHERE
-                        username = \'' . $user . '\';';
+                        namelower = \'' . strtolower($user) . '\';';
                     if ($conn->query($sql) === false) {
                         $data = [
                             'type'     => 'error',
@@ -225,7 +227,7 @@ class UserController
                             'msg'  => 'Password Changed',
                         ];
 
-                        $_SESSION["user"] = $user;
+                        $_SESSION["user"] = strtolower($user);
                     }
                 } else {
                     $data = [
@@ -244,18 +246,19 @@ class UserController
         return $data;
     }
 
-    public static function updateProfile($user, $name)
+    public static function updateProfile($user, $name, $about)
     {
         $conn = \Xnocken\Controller\DatabaseController::startConnection();
 
         $user = $conn->real_escape_string($user);
         $name = $conn->real_escape_string($name);
+        $about = $conn->real_escape_string($about);
 
         $lowerName = strtolower($name);
 
         $userdata = UserController::getUserByName($lowerName);
 
-        if ($userdata) {
+        if ($userdata && ($user !== $lowerName)) {
             $data = [
                 'type' => 'error',
                 'msg'  => 'Username already exists'
@@ -269,7 +272,8 @@ class UserController
             users
         SET
             username=\'' . $name . '\',
-            namelower=\'' . $lowerName . '\'
+            namelower=\'' . $lowerName . '\',
+            about=\'' . $about . '\'
         WHERE
             namelower = \'' . strtolower($user) . '\';';
         if (!isset($conn) || $conn->query($sql) === false) {

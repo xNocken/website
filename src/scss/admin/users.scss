@@ -16,7 +16,7 @@
       }
 
       &--field {
-        width: (100% / $column-count);
+        width: (100% / $user-column-count);
         padding: {
           top: 10px;
           bottom: 10px;
@@ -37,8 +37,17 @@
     text-align: center;
     cursor: pointer;
 
+    &[disabled] {
+      opacity: 0.6;
+      cursor: default;
+    }
+
     &:hover {
       opacity: 0.8;
+
+      &[disabled] {
+        opacity: 0.6;
+      }
     }
 
     &__add {

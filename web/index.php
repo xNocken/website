@@ -9,7 +9,12 @@ $banState;
 if (isset($_SESSION['user'])) {
     $banState = Controller\UserController::getBanState($_SESSION['user']);
 } else {
-    $banState = '';
+    $banState = 0;
+}
+
+if ($banState) {
+    SessionController::destroySession();
+    die('error: please reload page');
 }
 
 $loader = new \Twig\Loader\FilesystemLoader(getenv('PROJECT_ROOT') . '/src/twig/views');
@@ -24,6 +29,7 @@ $fileToLoad ='';
 $isAdminCall = strpos($request, 'admin') === 0;
 $isAdminApiCall = strpos($request, 'admin/api') === 0;
 $isAdmin = (isset($_SESSION['rank']) && (intval($_SESSION['rank']) > 0));
+$isProfileCall = strpos($request, 'profile') === 0;
 $fileExists = file_exists(__DIR__  . '/' . $request . '.php');
 
 switch ($request) {
@@ -33,7 +39,7 @@ case '':
     break;
 
 default:
-    if ($fileExists || $isAdminCall) {
+    if ($fileExists || $isAdminCall || $isProfileCall) {
         if ($isAdminCall) {
             if ($isAdmin) {
                 if ($isAdminApiCall) {
@@ -44,6 +50,8 @@ default:
             } else {
                 $fileToLoad = __DIR__ . '/404.php';
             }
+        } else if ($isProfileCall) {
+            $fileToLoad = getenv('PROJECT_ROOT') . '/web/profile.php';
         } else {
             $fileToLoad = __DIR__  . '/' . $request . '.php';
         }

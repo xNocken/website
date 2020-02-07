@@ -6,25 +6,27 @@
 				<th class="users--table--row--field">Username</th>
 				<th class="users--table--row--field">Rank</th>
 				<th class="users--table--row--field">Banned</th>
+				<th class="users--table--row--field">Reason</th>
 				<th class="users--table--row--field">Profile picture</th>
 			</tr>
 			{% for user in users %}
 				<tr class="users--table--row" data-username="{{ user.username }}">
 					<th class="users--table--row--field">{{ user.username }}</th>
 					<th class="users--table--row--field">
-						<select class="users--table--row--field--select users-select" data-selected="{{ user.rank }}" {% if user.username == username %} disabled {% endif %}>
+						<select class="users--table--row--field--select users-select" data-selected="{{ user.rank }}" {% if user.namelower == username %} disabled {% endif %}>
 							<option value="0">User</option>
 							<option value="1">Moderator</option>
 							<option value="2">Admin</option>
 						</select>
 					</th>
 					<th class="users--table--row--field">
-            {% if user.banned == 0%}
-                <a data-active="0" class="users--button users--button__delete users-ban-button">Ban</a>
+            {% if user.banned == 0 %}
+                <a data-active="0" class="users--button users--button__delete users-ban-button" {% if user.namelower == username %} disabled {% endif %}>Ban</a>
             {% else %}
                 <a data-active="1" class="users--button users--button__add users-ban-button">Unban</a>
             {% endif %}
           </th>
+					<th class="users--table--row--field">{% if user.banned == 1 %}{{ user.reason }}{% else %}Not Banned{% endif %}</th>
 					<th class="users--table--row--field"><img src="{{ user.profilePicture }}"></th>
 				</tr>
 			{% endfor %}

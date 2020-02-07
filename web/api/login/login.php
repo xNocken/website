@@ -12,13 +12,13 @@ if (isset($user) && isset($pw)) {
     if (password_verify($pw, $userdata["password"])) {
         if ($userdata['banned'] == '1') {
             $data["type"]     = "error";
-            $data["msg"]      = "Your account has been banned";
+            $data["msg"]      = "Your account has been banned<br>Reason: " . $userdata['reason'];
 
             session_destroy();
         } else {
             $data["type"]     = "success";
             $data["msg"]      = "Logged in";
-            $_SESSION["user"] = $userdata["username"];
+            $_SESSION["user"] = $userdata["namelower"];
             $_SESSION['rank'] = $userdata['rank'];
         }
     } else {
