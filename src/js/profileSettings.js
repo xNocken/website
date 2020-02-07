@@ -5,38 +5,44 @@ export default () => {
   const profilePictureForm = document.getElementById('user-picture');
   const profilePasswordForm = document.getElementById('user-password');
 
-  profilePictureForm.addEventListener('submit', (event) => {
-    event.preventDefault();
+  if (profilePictureForm) {
+    profilePictureForm.addEventListener('submit', (event) => {
+      event.preventDefault();
 
-    const { gravatar } = event.target.elements;
+      const { gravatar } = event.target.elements;
 
-    if (gravatar.value.match(/^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/)) {
-      request('/api/account/updateProfilePicture', { email: gravatar.value }, () => {
-        gravatar.classList = 'account--picture--field';
-      });
-    } else {
-      gravatar.classList = 'account--picture--field account--picture--field__error';
-    }
-  });
-
-  profileDataform.addEventListener('submit', (event) => {
-    const { name } = event.target.elements;
-
-    event.preventDefault();
-    request('/api/account/updateProfileSettings', { name: name.value }, () => {
-
+      if (gravatar.value.match(/^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/)) {
+        request('/api/account/updateProfilePicture', { email: gravatar.value }, () => {
+          gravatar.classList = 'account--picture--field';
+        });
+      } else {
+        gravatar.classList = 'account--picture--field account--picture--field__error';
+      }
     });
-  });
+  }
 
-  profilePasswordForm.addEventListener('submit', (event) => {
-    event.preventDefault();
+  if (profileDataform) {
+    profileDataform.addEventListener('submit', (event) => {
+      const { name } = event.target.elements;
 
-    const { current, pw, pw2 } = event.target.elements;
+      event.preventDefault();
+      request('/api/account/updateProfileSettings', { name: name.value }, () => {
 
-    if (pw.value === pw2.value) {
-      request('/api/account/changePassword', { pw: pw.value, current: current.value }, (response) => {
-        console.log(response);
       });
-    }
-  });
+    });
+  }
+
+  if (profilePasswordForm) {
+    profilePasswordForm.addEventListener('submit', (event) => {
+      event.preventDefault();
+
+      const { current, pw, pw2 } = event.target.elements;
+
+      if (pw.value === pw2.value) {
+        request('/api/account/changePassword', { pw: pw.value, current: current.value }, (response) => {
+          console.log(response);
+        });
+      }
+    });
+  }
 };

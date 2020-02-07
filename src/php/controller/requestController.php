@@ -29,6 +29,7 @@ class RequestController
     {
         $videos = '';
         $filePath = getenv('PROJECT_ROOT') . '/cache/recentUploads.json';
+        $file = fopen($filePath, 'r+') or fopen($filePath, 'x+');
 
         if (file_exists($filePath)) {
             $modTime = filemtime($filePath);
@@ -48,19 +49,19 @@ class RequestController
 
             if ($timeDiffMinutes > 30) {
                 $videos = RequestController::_getNewVideos();
-                \file_put_contents($filePath, $videos);
+                fwrite($file, $videos);
             } else {
-                $videos = \file_get_contents($filePath);
+                $videos = fread($file, 10000);
 
                 if (!$videos) {
                     $videos = RequestController::_getNewVideos();
-                    \file_put_contents($filePath, $videos);
+                    fwrite($file, $videos);
                 }
             }
         } else {
             $videos = RequestController::_getNewVideos();
 
-            \file_put_contents($filePath, $videos);
+            fwrite($file, $videos);
         }
 
         return json_decode($videos);

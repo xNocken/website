@@ -1,5 +1,6 @@
 <?php
 namespace Xnocken;
+
 $navigations = Controller\NavigationController::getNavigations();
 
 $name = 'Not logged in';
@@ -44,7 +45,15 @@ if (isset($_SESSION['user'])) {
                     </div>
 
                     <div class="user--image">
-                        <img src="<?php echo $profilePicture; ?>&s=50">
+                    <?php
+                    if ($profilePicture) :
+                        ?>
+                        <img src="
+                            echo $profilePicture . '&s=50';
+                            ?>">
+                            <?php
+                    endif;
+                    ?>
                     </div>
 
                     <div class="user--dropdown">

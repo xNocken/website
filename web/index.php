@@ -4,8 +4,13 @@ namespace Xnocken;
 use Xnocken\Controller\SessionController;
 
 SessionController::createSession();
+$banState;
 
-$banState = Controller\UserController::getBanState($_SESSION['user']);
+if (isset($_SESSION['user'])) {
+    $banState = Controller\UserController::getBanState($_SESSION['user']);
+} else {
+    $banState = '';
+}
 
 $loader = new \Twig\Loader\FilesystemLoader(getenv('PROJECT_ROOT') . '/src/twig/views');
 $twig = new \Twig\Environment($loader, ['debug' => true]);
