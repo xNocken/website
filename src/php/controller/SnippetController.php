@@ -110,6 +110,9 @@ class SnippetController
         $userinfo = UserController::getUserByName($name);
 
         if (isset($userinfo['username'])) {
+            $about = str_replace('</div><div>', '<br>', $userinfo['about']);
+
+
             $user = [
                 'name'            => $userinfo['username'],
                 'profile_picture' => $userinfo['profilePicture'],
@@ -118,10 +121,13 @@ class SnippetController
                 'lowername'       => $userinfo['namelower'],
             ];
 
-            return $twig->render('profile.twig', [
-                'user'         => $user,
-                'current_user' => $user2,
-            ]);
+            return $twig->render(
+                'profile.twig',
+                [
+                    'user'         => $user,
+                    'current_user' => $user2,
+                ]
+            );
         } else {
             return false;
         }

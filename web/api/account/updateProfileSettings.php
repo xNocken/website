@@ -8,19 +8,35 @@ if (!isset($_SESSION['user'])) {
 $user = $_SESSION['user'];
 $name = trim(trim($_POST['name']), '$nbsp;');
 $about = $_POST['about'];
+$data;
 
 if (strlen($name) < 4) {
-    echo 'short';
-    die();
+    $data = [
+        'type' => 'error',
+        'msg'  => 'Name is too short'
+    ];
 } else if (strlen($name) > 20) {
-    echo 'long';
-    die();
+    $data = [
+        'type' => 'error',
+        'msg'  => 'Name is too long'
+    ];
+} else if (strlen($about) > 500) {
+    $data = [
+        'type' => 'error',
+        'msg'  => 'About is too long'
+    ];
 }
 
-echo json_encode(
-    Xnocken\Controller\UserController::updateProfile(
-        $user,
-        $name,
-        $about,
-    )
-);
+if (isset($data)) {
+    die(json_encode($data));
+}
+
+
+if (Xnocken\Controller\UserController::updateProfile($user, $name, $about)) {
+    $data = [
+        'type' => 'success',
+        'msg'  => 'Info successfully changed',
+    ];
+}
+
+echo json_encode($data);

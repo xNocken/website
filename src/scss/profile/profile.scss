@@ -1,5 +1,7 @@
 .profile {
   &--info {
+    position: relative;
+
     &--image {
       border-radius: 100px;
       display: inline-block;
@@ -13,6 +15,7 @@
       vertical-align: middle;
       position: absolute;
       margin-left: 20px;
+      min-width: 50px;
 
       &__1 {
         color: $color-mod;
@@ -26,6 +29,21 @@
     &--about {
       margin-top: 50px;
       max-width: 100%;
+      min-height: 50px;
+
+      &--charcount {
+        position: absolute;
+        right: 5px;
+        bottom: -10px;
+
+        &__limit-reached {
+          color: red;
+        }
+      }
+
+      &__empty {
+        border: red solid 1px;
+      }
     }
   }
 }

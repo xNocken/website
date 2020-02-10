@@ -12,7 +12,7 @@ class NavigationController
 
         $folders = array_map(
             function ($item) {
-                return trim($item, '.php');
+                return str_replace('.php', '', $item);
             },
             $folders
         );

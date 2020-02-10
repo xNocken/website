@@ -11,4 +11,8 @@ $email = $_POST['email'];
 
 $hash = md5(trim(strtolower($email)));
 
-UserController::updateProfilePicture($name, $hash);
+if (UserController::updateProfilePicture($name, $hash)) {
+    echo 'Successfully updated linked Gravatar account';
+} else {
+    echo 'Something went wrong. Please try again later';
+}
