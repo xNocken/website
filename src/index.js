@@ -7,6 +7,7 @@ import request from './js/request';
 import users from './js/users';
 import profileSettings from './js/profileSettings';
 import profile from './js/profile';
+import projects from './js/projects';
 
 global.request = request;
 
@@ -17,4 +18,5 @@ document.addEventListener('DOMContentLoaded', () => {
   users();
   profileSettings();
   profile();
+  projects();
 });

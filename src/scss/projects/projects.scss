@@ -1,0 +1,31 @@
+.project-list {
+  &--sort {
+    height: 50px;
+    width: 100%;
+  }
+
+  &--wrapper {
+    width: 100%;
+
+    &--entry {
+      padding: 20px;
+      background-color: rgb(245, 245, 245);
+      margin-top: 50px;
+
+      &--infos {
+        width: 100%;
+      }
+
+      &--ratings {
+        display: flex;
+        justify-content: space-between;
+
+        &--ratings {
+          display: flex;
+          justify-content: space-between;
+          width: 10%
+        }
+      }
+    }
+  }
+}

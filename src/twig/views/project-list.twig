@@ -1,0 +1,31 @@
+<div class="content-wrapper">
+  <div class="container">
+    <div class="project-list">
+    <h1>My Projects</h1>
+      <div class="project-list--sort">
+
+      </div>
+      <div class="project-list--wrapper">
+        {% for project in projects %}
+          {% if project.rank <= myrank %}
+            <div class="project-list--wrapper--entry">
+              <div class="project-list--wrapper--entry--infos">
+                <h2 class="project-list--wrapper--entry--infos--title">{{ project.name }}</h2>
+                <p class="project-list--wrapper--entry--infos--description">{{ project.description }}</p>
+              </div>
+
+              <div class="project-list--wrapper--entry--ratings">
+                <div class="project-list--wrapper--entry--ratings--ratings">
+                  <p class="project-list--wrapper--entry--ratings--ratings--likes">{{ project.likes }} L</p>
+                  <p class="project-list--wrapper--entry--ratings--ratings--dislikes">{{ project.dislikes }} D</p>
+                </div>
+
+                <a href="/feedback/{{ project.id }}" class="project-list--wrapper--entry--ratings--feedback">Want to leave feedback?</a>
+              </div>
+            </div>
+          {% endif %}
+        {% endfor %}
+      </div>
+    </div>
+  </div>
+</div>
