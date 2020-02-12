@@ -10,12 +10,20 @@
 
     $projects = Xnocken\Controller\ProjectsController::getProjects();
 
+    $rank;
+
+    if (isset($_SESSION['rank'])) {
+        $rank = $_SESSION['rank'];
+    } else {
+        $rank = 0;
+    }
+
     echo $twig->render(
         'project-list.twig',
         [
             'projects' => $projects,
-            'myrank'   => $_SESSION['rank'],
-        ],
+            'myrank'   => $rank,
+        ]
     );
 
     require getenv('PROJECT_ROOT') . '/src/php/snippets/scripts.php';
