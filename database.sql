@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Erstellungszeit: 12. Feb 2020 um 09:58
+-- Erstellungszeit: 12. Feb 2020 um 18:18
 -- Server-Version: 10.3.16-MariaDB
 -- PHP-Version: 7.3.7
 
@@ -21,6 +21,20 @@ SET time_zone = "+00:00";
 --
 -- Datenbank: `website`
 --
+
+-- --------------------------------------------------------
+
+--
+-- Tabellenstruktur für Tabelle `feedback`
+--
+
+CREATE TABLE `feedback` (
+  `userlower` char(20) DEFAULT NULL,
+  `id` int(11) NOT NULL,
+  `message` varchar(500) DEFAULT NULL,
+  `positive` smallint(6) DEFAULT NULL,
+  `projectId` int(11) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
 
@@ -49,7 +63,8 @@ CREATE TABLE `projects` (
   `path` varchar(200) DEFAULT NULL,
   `likes` int(11) DEFAULT 0,
   `dislikes` int(11) DEFAULT 0,
-  `description` varchar(200) DEFAULT NULL
+  `description` varchar(200) DEFAULT NULL,
+  `githublink` varchar(45) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
@@ -74,6 +89,12 @@ CREATE TABLE `users` (
 --
 
 --
+-- Indizes für die Tabelle `feedback`
+--
+ALTER TABLE `feedback`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indizes für die Tabelle `navigations`
 --
 ALTER TABLE `navigations`
@@ -94,6 +115,12 @@ ALTER TABLE `users`
 --
 -- AUTO_INCREMENT für exportierte Tabellen
 --
+
+--
+-- AUTO_INCREMENT für Tabelle `feedback`
+--
+ALTER TABLE `feedback`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT für Tabelle `navigations`

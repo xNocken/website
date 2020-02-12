@@ -87,8 +87,8 @@ class ProjectsController
 
     public static function getprojectByName($name)
     {
-        $name = $conn->real_escape_string($name);
         $conn = DatabaseController::startConnection();
+        $name = $conn->real_escape_string($name);
 
         $sql = '
         SELECT
@@ -100,12 +100,31 @@ class ProjectsController
 
         $result = $conn->query($sql);
 
-        $items = [];
-
         while ($row = $result->fetch_assoc()) {
-            $items[] = $row;
+            return $row;
         }
 
         return $items;
+    }
+
+    public static function getprojectById($id)
+    {
+        $conn = DatabaseController::startConnection();
+        $id = $conn->real_escape_string($id);
+
+        $sql = '
+        SELECT
+            *
+        FROM
+            projects
+        WHERE
+            id = \'' . $id . '\';';
+
+        $result = $conn->query($sql);
+
+        while ($row = $result->fetch_assoc()) {
+            return $row;
+        }
+
     }
 }

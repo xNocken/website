@@ -30,6 +30,7 @@ $isAdminCall = strpos($request, 'admin') === 0;
 $isAdminApiCall = strpos($request, 'admin/api') === 0;
 $isAdmin = (isset($_SESSION['rank']) && (intval($_SESSION['rank']) > 0));
 $isProfileCall = strpos($request, 'profile') === 0;
+$isFeedbackCall = strpos($request, 'projects/') === 0;
 $fileExists = file_exists(__DIR__  . '/' . $request . '.php');
 
 switch ($request) {
@@ -39,7 +40,7 @@ case '':
     break;
 
 default:
-    if ($fileExists || $isAdminCall || $isProfileCall) {
+    if ($fileExists || $isAdminCall || $isProfileCall || $isFeedbackCall) {
         if ($isAdminCall) {
             if ($isAdmin) {
                 if ($isAdminApiCall) {
@@ -52,6 +53,8 @@ default:
             }
         } else if ($isProfileCall) {
             $fileToLoad = getenv('PROJECT_ROOT') . '/web/profile.php';
+        } else if ($isFeedbackCall) {
+            $fileToLoad = getenv('PROJECT_ROOT') . '/web/feedback.php';
         } else {
             $fileToLoad = __DIR__  . '/' . $request . '.php';
         }

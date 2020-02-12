@@ -2,9 +2,6 @@
   <div class="container">
     <div class="project-list">
     <h1>My Projects</h1>
-      <div class="project-list--sort">
-
-      </div>
       <div class="project-list--wrapper">
         {% for project in projects %}
           {% if project.rank <= myrank %}
@@ -16,11 +13,11 @@
 
               <div class="project-list--wrapper--entry--ratings">
                 <div class="project-list--wrapper--entry--ratings--ratings">
-                  <p class="project-list--wrapper--entry--ratings--ratings--likes">{{ project.likes }} L</p>
-                  <p class="project-list--wrapper--entry--ratings--ratings--dislikes">{{ project.dislikes }} D</p>
+                  <p class="project-list--wrapper--entry--ratings--ratings--likes">{{ project.likes }}{% include "./svg/thumbs-up-regular.svg" %}</p>
+                  <p class="project-list--wrapper--entry--ratings--ratings--dislikes">{% include "./svg/thumbs-down-regular.svg" %}{{ project.dislikes }}</p>
                 </div>
 
-                <a href="/feedback/{{ project.id }}" class="project-list--wrapper--entry--ratings--feedback">Want to leave feedback?</a>
+                <a href="/projects/{{ project.id }}" class="project-list--wrapper--entry--ratings--feedback">Want to leave feedback?</a>
               </div>
             </div>
           {% endif %}

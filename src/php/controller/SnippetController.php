@@ -99,12 +99,12 @@ class SnippetController
     public static function renderProfile($name)
     {
         global $twig;
-        $user2;
+        $currentUser;
 
         if (isset($_SESSION['user'])) {
-            $user2 = $_SESSION['user'];
+            $currentUser = $_SESSION['user'];
         } else {
-            $user2 = '';
+            $currentUser = '';
         }
 
         $userinfo = UserController::getUserByName($name);
@@ -125,7 +125,52 @@ class SnippetController
                 'profile.twig',
                 [
                     'user'         => $user,
-                    'current_user' => $user2,
+                    'current_user' => $currentUser,
+                ]
+            );
+        } else {
+            return false;
+        }
+    }
+
+    public static function renderFeedback($projectId)
+    {
+        global $twig;
+        $currentUser;
+
+        if (isset($_SESSION['user'])) {
+            $currentUser = $_SESSION['user'];
+        } else {
+            $currentUser = '';
+        }
+
+        $projectFeedback = FeedbackController::getFeedbackForProject($projectId);
+        $projectInfo = ProjectsController::getprojectById($projectId);
+        $projectList = [];
+
+
+        if (isset($projectInfo['name'])) {
+            if (isset($projectFeedback['projects'])) {
+                foreach ($projectFeedback['projects'] as $i => $project) {
+                    $userInfos = $projectFeedback['userlist'][$i];
+                    $projectList[] = [
+                        'id'              => $project['id'],
+                        'message'         => $project['message'],
+                        'positive'        => $project['positive'],
+                        'username'        => $userInfos['username'],
+                        'rank'            => $userInfos['rank'],
+                        'banned'          => $userInfos['banned'],
+                        'profile_picture' => $userInfos['profilePicture'],
+                    ];
+                }
+            }
+
+            return $twig->render(
+                'feedback.twig',
+                [
+                    'project_feedback' => $projectList,
+                    'current_user'      => $currentUser,
+                    'projectinfo'       => $projectInfo,
                 ]
             );
         } else {

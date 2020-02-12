@@ -1,0 +1,59 @@
+<div class="content-wrapper">
+	<div class="container">
+		<div class="feedback">
+			<div class="project">
+				<div class="project--header">
+					<h1 class="project--header--title">{{ projectinfo.name }}</h1>
+					<p class="project--header--desc">{{ projectinfo.description }}</p>
+				</div>
+
+				<div class="project--links">Check it out on the
+					<a href="{{ projectinfo.path }}" class="project--links--link">live Server</a>
+					or fork it on
+					<a href="https://github.com/xNocken/{{ projectinfo.githublink }}" class="project--links--link">Github</a>
+				</div>
+			</div>
+
+			<h2 class="project--headline">Feedback</h2>
+
+			<div class="feedback">
+				<div class="feedback--leave">
+					<h3 class="feedback--headline">Leave Feedback</h3>
+					<div class="feedback--leave--button feedback--leave--button__like">{% include "./svg/thumbs-up-regular.svg" %}</div>
+					<div class="feedback--leave--button feedback--leave--button__dislike">{% include "./svg/thumbs-down-regular.svg" %}</div>
+					<textarea name="feedback-message" id="feedback-message" class="feedback--leave--message" rows="10"></textarea>
+				</div>
+
+				<div class="feedback--wrapper">
+					<h3 class="feedback--headline">Read Feedback</h3>
+
+					{% if feedback %}
+						{% for feedback in project_feedback %}
+							<div class="feedback--entry" feedback-id="{{ feedback.id }}">
+								<div
+									class="feedback--entry--user">
+									{# TODO: add somthing for banned users (feedback.banned) #}
+									<img src="{{ feedback.profile_picture }}" alt="{{ feedback.username }}'s profile picture" class="feedback--entry--user--picture">
+									<p class="feedback--entry--user--name feedback--entry--user--name__{{ feedback.rank }}">{{ feedback.username }}</p>
+								</div>
+
+								<div class="feedback--entry--feedback">
+									<div class="feedback--entry--feedback--message">{{ feedback.message }}</div>
+									<div class="feedback--entry--feedback--reaction feedback--leave--button__{% if feedback.positive == 1 %}like{% else %}dislike{% endif %}__clicked">
+										{% if feedback.positive == 1 %}
+											{% include "./svg/thumbs-up-regular.svg" %}
+										{% else %}
+											{% include "./svg/thumbs-down-regular.svg" %}
+										{% endif %}
+									</div>
+								</div>
+							</div>
+						{% endfor %}
+					{% else %}
+						No Feedback was left
+					{% endif %}
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

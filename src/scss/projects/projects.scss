@@ -23,7 +23,33 @@
         &--ratings {
           display: flex;
           justify-content: space-between;
-          width: 10%
+          width: 10%;
+
+          &--dislikes {
+            transform: rotateY(180deg);
+            width: 50%;
+
+            svg {
+              vertical-align: middle;
+              margin-right: 10px;
+              width: 30%
+            }
+          }
+
+          &--likes {
+            width: 50%;
+            svg {
+              vertical-align: middle;
+              margin-left: 10px;
+              width: 30%;
+            }
+          }
+        }
+
+        &--feedback {
+          margin-top: 17px;
+          height: 25px;
+          text-decoration: none;
         }
       }
     }

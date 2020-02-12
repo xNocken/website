@@ -1,0 +1,71 @@
+.feedback {
+  .project {
+    &--links {
+      &--link {
+        text-decoration: none;
+        color: blue;
+      }
+    }
+  }
+
+  .feedback {
+    &--leave {
+      &--button {
+        display: inline-block;
+        width: 20px;
+        margin-bottom: 20px;
+        cursor: pointer;
+        height: 30px;
+        width: 30px;
+
+        &:hover {
+          opacity: 0.7;
+        }
+
+        &__like__clicked {
+          color: green;
+        }
+
+        &__dislike__clicked {
+          color: red;
+        }
+      }
+
+      &--message {
+        width: 100%;
+        resize: none;
+      }
+    }
+
+    &--entry {
+      background-color: rgb(245, 245, 245);
+      position: relative;
+      margin-bottom: 20px;
+      padding: 20px;
+
+      &--user {
+        &--picture {
+          height: 50px;
+          width: 50px;
+          border-radius: 100px;
+        }
+
+        &--name {
+          display: inline-block;
+          margin-left: 30px;
+          vertical-align: middle;
+          transform: translateY(-100%);
+        }
+      }
+
+      &--feedback {
+        &--reaction {
+          width: 30px;
+          position: absolute;
+          top: 20px;
+          right: 20px;
+        }
+      }
+    }
+  }
+}

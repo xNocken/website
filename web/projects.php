@@ -2,7 +2,7 @@
 <html>
 <head>
     <?php require getenv('PROJECT_ROOT') . '/src/php/snippets/head.php'; ?>
-    <title>Projects - Admin - xNocken</title>
+    <title>My Projects - xNocken</title>
 </head>
 <body>
     <?php
