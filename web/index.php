@@ -17,9 +17,28 @@ if ($banState) {
     die('error: please reload page');
 }
 
+$navigations = Controller\NavigationController::getNavigations();
+$adminNavs = Controller\NavigationController::getAdminNavigations();
+
+$userData = [];
+
+if (isset($_SESSION['user'])) {
+    $user = Controller\UserController::getUserByName($_SESSION['user']);
+
+    $userData = [
+        'name'            => $user['username'],
+        'rank'            => $user['rank'],
+        'profile_picture' => $user['profilePicture'],
+        'lowername'       => $user['namelower'],
+    ];
+}
+
 $loader = new \Twig\Loader\FilesystemLoader(getenv('PROJECT_ROOT') . '/src/twig/views');
 $twig = new \Twig\Environment($loader, ['debug' => true]);
 $twig->addExtension(new \Twig\Extension\DebugExtension());
+$twig->addGlobal('user_data', $userData);
+$twig->addGlobal('navigations', $navigations);
+$twig->addGlobal('adminNavs', $adminNavs);
 
 $request = $_SERVER['REQUEST_URI'];
 $request = trim(explode('?', $request)[0], '/');
@@ -49,19 +68,20 @@ default:
                     $fileToLoad = getenv('PROJECT_ROOT').'/src/php/admin/'.$request.'.php';
                 }
             } else {
-                $fileToLoad = __DIR__ . '/404.php';
+                Controller\SnippetController::render404();
             }
-        } else if ($isProfileCall) {
+        } elseif ($isProfileCall) {
             $fileToLoad = getenv('PROJECT_ROOT') . '/web/profile.php';
-        } else if ($isFeedbackCall) {
+        } elseif ($isFeedbackCall) {
             $fileToLoad = getenv('PROJECT_ROOT') . '/web/feedback.php';
         } else {
             $fileToLoad = __DIR__  . '/' . $request . '.php';
         }
     } else {
-        http_response_code(404);
-        $fileToLoad = __DIR__ . '/404.php';
+        Controller\SnippetController::render404();
     }
 }
 
-require $fileToLoad;
+if ($fileToLoad) {
+    include $fileToLoad;
+}

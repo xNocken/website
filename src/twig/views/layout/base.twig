@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  {% include "/layout/head.twig" %}
+  <title>{% block title %}xNocken{% endblock %}</title>
+</head>
+<body>
+    {% block header %}
+      {% include "/header.twig" %}
+    {% endblock %}
+
+    <div class="content-wrapper">
+      {% block content %}
+      <div class="container">No Content set yet</div>
+      {% endblock %}
+    </div>
+
+    {% include "/layout/scripts.twig" %}
+</body>
+
+</html>

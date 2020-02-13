@@ -3,6 +3,27 @@ namespace Xnocken\Controller;
 
 class ProjectsController
 {
+    public static function defaultAction()
+    {
+        global $twig;
+        $projects = ProjectsController::getProjects();
+        $rank;
+
+        if (isset($_SESSION['rank'])) {
+            $rank = $_SESSION['rank'];
+        } else {
+            $rank = 0;
+        }
+
+        echo $twig->render(
+            'project-list.twig',
+            [
+                'projects' => $projects,
+                'myrank'   => $rank,
+            ]
+        );
+    }
+
     public static function addProject($name, $path, $rank)
     {
         $conn = DatabaseController::startConnection();
@@ -125,6 +146,5 @@ class ProjectsController
         while ($row = $result->fetch_assoc()) {
             return $row;
         }
-
     }
 }

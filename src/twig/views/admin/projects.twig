@@ -1,3 +1,9 @@
+{% extends "layout/base.twig" %}
+
+{% block header %}{% include "admin/adminheader.twig" %}{% endblock %}
+{% block title %}Projects - Admin - xNocken{% endblock %}
+
+{% block content %}
 <div class="content-wrapper container">
 	<div class="projects">
 		<div class="projects--toolbar">
@@ -44,3 +50,4 @@
 		</table>
 	</div>
 </div>
+{% endblock %}

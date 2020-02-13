@@ -3,6 +3,52 @@ namespace Xnocken\Controller;
 
 class FeedbackController
 {
+    public static function defaultAction()
+    {
+        global $twig;
+        $projectId = urldecode(substr(trim($_SERVER['REQUEST_URI'], '/'), 9, 29));
+         $currentUser;
+
+        if (isset($_SESSION['user'])) {
+            $currentUser = $_SESSION['user'];
+        } else {
+            $currentUser = '';
+        }
+
+        $projectFeedback = FeedbackController::getFeedbackForProject($projectId);
+        $projectInfo = ProjectsController::getprojectById($projectId);
+        $projectList = [];
+
+
+        if (isset($projectInfo['name'])) {
+            if (isset($projectFeedback['projects'])) {
+                foreach ($projectFeedback['projects'] as $i => $project) {
+                    $userInfos = $projectFeedback['userlist'][$i];
+                    $projectList[] = [
+                        'id'              => $project['id'],
+                        'message'         => $project['message'],
+                        'positive'        => $project['positive'],
+                        'username'        => $userInfos['username'],
+                        'rank'            => $userInfos['rank'],
+                        'banned'          => $userInfos['banned'],
+                        'profile_picture' => $userInfos['profilePicture'],
+                    ];
+                }
+            }
+
+            echo $twig->render(
+                'feedback.twig',
+                [
+                    'project_feedback'  => $projectList,
+                    'current_user'      => $currentUser,
+                    'projectinfo'       => $projectInfo,
+                ]
+            );
+        } else {
+            SnippetController::render404();
+        }
+    }
+
     public static function addFeedback($user, $message, $positive, $projectId)
     {
         $conn = DatabaseController::startConnection();

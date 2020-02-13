@@ -1,3 +1,6 @@
+{% extends "/layout/base.twig" %}
+
+{% block content %}
 <div class="content-wrapper">
   <div class="container">
     <div class="project-list">
@@ -14,7 +17,7 @@
               <div class="project-list--wrapper--entry--ratings">
                 <div class="project-list--wrapper--entry--ratings--ratings">
                   <p class="project-list--wrapper--entry--ratings--ratings--likes">{{ project.likes }}{% include "./svg/thumbs-up-regular.svg" %}</p>
-                  <p class="project-list--wrapper--entry--ratings--ratings--dislikes">{% include "./svg/thumbs-down-regular.svg" %}{{ project.dislikes }}</p>
+                  <p class="project-list--wrapper--entry--ratings--ratings--dislikes">{{ project.dislikes }}{% include "./svg/thumbs-down-regular.svg" %}</p>
                 </div>
 
                 <a href="/projects/{{ project.id }}" class="project-list--wrapper--entry--ratings--feedback">Want to leave feedback?</a>
@@ -26,3 +29,4 @@
     </div>
   </div>
 </div>
+{% endblock %}

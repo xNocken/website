@@ -1,9 +1,12 @@
+{% extends "/layout/base.twig" %}
+
+
+{% block content %}
 {% if user.lowername == current_user %}
   {% set isOwnPage = true %}
 {% else %}
   {% set isOwnPage = false %}
 {% endif %}
-
 <div class="content-wrapper">
 	<div class="container">
 		<div class="profile">
@@ -25,3 +28,4 @@ No About set
 		</div>
 	</div>
 </div>
+{% endblock %}

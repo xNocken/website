@@ -1,0 +1,21 @@
+{% extends "layout/base.twig" %}
+
+{% block title %}Login - xNocken
+{% endblock %}
+
+{% block content %}
+	<form class="login" id="login-form">
+		{% if is_logged_in %}
+			<script>
+				window.location.href = '/';
+			</script>
+		{% endif %}
+
+		<h1>Login</h1>
+		<p class="login--status" id="login-status"></p>
+		<input class="login--username" tabindex="1" name="user" type="text" placeholder="Username"><br>
+		<input class="login--password" name="pw" tabindex="2" type="password" placeholder="Password"><br>
+		<input class="login--submit" tabindex="0" type="submit"><br>
+		<a href="/register/">Need a Account?</a>
+	</form>
+{% endblock %}
