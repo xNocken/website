@@ -22,15 +22,15 @@
 			<div class="feedback">
 				<div class="feedback--leave">
 					<h3 class="feedback--headline">Leave Feedback</h3>
-					<div class="feedback--leave--button feedback--leave--button__like">{% include "./svg/thumbs-up-regular.svg" %}</div>
-					<div class="feedback--leave--button feedback--leave--button__dislike">{% include "./svg/thumbs-down-regular.svg" %}</div>
-					<textarea name="feedback-message" id="feedback-message" class="feedback--leave--message" rows="10"></textarea>
+					<div id="feedback-like" class="feedback--leave--button feedback--leave--button__like">{% include "./svg/thumbs-up-regular.svg" %}</div>
+					<div id="feedback-dislike" class="feedback--leave--button feedback--leave--button__dislike">{% include "./svg/thumbs-down-regular.svg" %}</div>
+					<textarea name="feedback-message" id="feedback-message" class="feedback--leave--message" rows="5"></textarea>
+          <input type="submit" value="Send Feedback" id="feedback-submit">
 				</div>
 
 				<div class="feedback--wrapper">
 					<h3 class="feedback--headline">Read Feedback</h3>
-
-					{% if feedback %}
+					{% if project_feedback %}
 						{% for feedback in project_feedback %}
 							<div class="feedback--entry" feedback-id="{{ feedback.id }}">
 								<div
@@ -42,7 +42,7 @@
 
 								<div class="feedback--entry--feedback">
 									<div class="feedback--entry--feedback--message">{{ feedback.message }}</div>
-									<div class="feedback--entry--feedback--reaction feedback--leave--button__{% if feedback.positive == 1 %}like{% else %}dislike{% endif %}__clicked">
+									<div class="feedback--entry--feedback--reaction feedback--leave--button__{% if feedback.positive == 1 %}like{% else %}dislike{% endif %} clicked">
 										{% if feedback.positive == 1 %}
 											{% include "./svg/thumbs-up-regular.svg" %}
 										{% else %}

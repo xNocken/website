@@ -1,5 +1,6 @@
 import './scss/main.scss';
 
+import feedback from './js/feedback';
 import login from './js/login';
 import navigation from './js/navigations';
 import register from './js/register';
@@ -8,10 +9,13 @@ import users from './js/users';
 import profileSettings from './js/profileSettings';
 import profile from './js/profile';
 import projects from './js/projects';
-
-global.request = request;
+import notify from './js/utils/notify';
+//             |                |
+// todo: bye   V                V
+global.request = request; global.notify = notify;
 
 document.addEventListener('DOMContentLoaded', () => {
+  feedback();
   login();
   navigation();
   register();

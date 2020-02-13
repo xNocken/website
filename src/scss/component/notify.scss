@@ -1,0 +1,31 @@
+.notification {
+  position: absolute;
+  top: 0;
+  right: 0;
+  min-width: 300px;
+  padding: 0.5rem 1rem;
+  border-bottom: {
+    left-radius: $notification-border-radius;
+    right-radius: $notification-border-radius;
+  };
+  color: white;
+  transform: translateY(-100%);
+  transition: transform $notification-anim-time $notification-anim-type;
+  z-index: 20;
+
+  &--is-visible {
+    transform: translateY(0);
+  }
+
+  &--primary {
+    background-color: black;
+  }
+
+  &--error {
+    background-color: red;
+  }
+
+  &--success {
+    background-color: green;
+  }
+}

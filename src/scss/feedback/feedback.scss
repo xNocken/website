@@ -22,11 +22,11 @@
           opacity: 0.7;
         }
 
-        &__like__clicked {
+        &__like.clicked {
           color: green;
         }
 
-        &__dislike__clicked {
+        &__dislike.clicked {
           color: red;
         }
       }

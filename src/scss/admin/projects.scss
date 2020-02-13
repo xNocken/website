@@ -31,6 +31,7 @@
 
       &--field {
         width: (100% / $column-count);
+        word-wrap: break-word;
         padding: {
           top: 10px;
           bottom: 10px;
