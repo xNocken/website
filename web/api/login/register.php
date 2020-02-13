@@ -1,8 +1,6 @@
 <?php
 namespace Xnocken;
 
-require_once getenv('PROJECT_ROOT') . '/src/php/controller/database.php';
-
 error_reporting(E_ERROR | E_PARSE);
 $data = [];
 

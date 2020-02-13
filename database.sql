@@ -78,7 +78,7 @@ CREATE TABLE `users` (
   `password` varchar(255) DEFAULT NULL,
   `rank` int(11) DEFAULT NULL,
   `banned` tinyint(4) DEFAULT 0,
-  `profilePicture` varchar(100) DEFAULT 'd=mp',
+  `profilePicture` varchar(100) DEFAULT 'https://gravatar.com/avatar/mp?d=mp',
   `namelower` varchar(20) DEFAULT NULL,
   `reason` varchar(300) DEFAULT NULL,
   `about` varchar(500) DEFAULT NULL
