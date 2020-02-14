@@ -35,6 +35,7 @@ if (isset($_SESSION['user'])) {
 
 $loader = new \Twig\Loader\FilesystemLoader(getenv('PROJECT_ROOT') . '/src/twig/views');
 $twig = new \Twig\Environment($loader, ['debug' => true]);
+$twig->addExtension(new \Xnocken\Extention\NewExtention());
 $twig->addExtension(new \Twig\Extension\DebugExtension());
 $twig->addGlobal('user_data', $userData);
 $twig->addGlobal('navigations', $navigations);

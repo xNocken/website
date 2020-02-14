@@ -18,10 +18,9 @@
 				</div>
 
 				<h2 contenteditable="{% if isOwnPage %}true{% else %}false{% endif %}" id="profile-name" class="profile--info--name profile--info--name__{{ user.rank }}">{{ user.name }}</h2>
-
 				<div class="profile--info--about" id="profile-about" contenteditable="{% if isOwnPage %}true{% else %}false{% endif %}">
 {% if user.about %}
-{{ user.about|striptags('<div>')|raw }}{% elseif isOwnPage %}<div>Click here to edit your about</div>{% else %}
+{{ user.about|striptags('<div>')|removeAttr|raw }}{% elseif isOwnPage %}<div>Click here to edit your about</div>{% else %}
 No About set
 {% endif %}</div>
         <p class="profile--info--about--charcount" id="profile-charcount"></p>
