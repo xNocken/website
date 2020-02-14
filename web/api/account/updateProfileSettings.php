@@ -6,7 +6,7 @@ if (!isset($_SESSION['user'])) {
 }
 
 $user = $_SESSION['user'];
-$name = trim(trim($_POST['name']), '$nbsp;');
+$name = str_replace('&nbsp;', '', trim($_POST['name']));
 $about = $_POST['about'];
 $data;
 
