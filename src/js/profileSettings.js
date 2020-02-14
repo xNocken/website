@@ -1,4 +1,4 @@
-import request from './request';
+import request from './utils/request';
 
 export default () => {
   const profileDataform = document.getElementById('user-data');
@@ -11,7 +11,7 @@ export default () => {
 
       const { gravatar } = event.target.elements;
 
-      if (gravatar.value.match(/^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/)) {
+      if (gravatar.value.match(/[A-Za-z0-9]@[A-Za-z0-9]/)) {
         request('/api/account/updateProfilePicture', { email: gravatar.value }, () => {
           gravatar.classList = 'account--picture--field';
         });

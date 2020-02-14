@@ -1,0 +1,34 @@
+{% extends "/layout/base.twig" %}
+
+{% block title %}Feedback - Admin - xNocken{% endblock %}
+{% block header %}{% include "/admin/adminheader.twig" %}{% endblock %}
+
+{% block content %}
+<div class="container">
+	<div class="admin">
+  <p id="status"></p>
+		<table class="admin--table">
+			<tr class="admin--table--row">
+				<th class="admin--table--row--field">Username</th>
+				<th class="admin--table--row--field">Message</th>
+				<th class="admin--table--row--field">Is Positive</th>
+				<th class="admin--table--row--field">Project Id</th>
+				<th class="admin--table--row--field">Id</th>
+				<th class="admin--table--row--field">Actions</th>
+			</tr>
+			{% for feedback in project_feedback %}
+				<tr class="admin--table--row" data-id="{{ feedback.id }}">
+					<th class="admin--table--row--field">{{ feedback.user_name }}</th>
+					<th class="admin--table--row--field">{{ feedback.message }}</th>
+					<th class="admin--table--row--field">{{ feedback.positive }}</th>
+					<th class="admin--table--row--field">{{ feedback.project_id }}</th>
+					<th class="admin--table--row--field">{{ feedback.id }}</th>
+					<th class="admin--table--row--field">
+            <a data-active="1" class="admin--button admin--button__delete feedback-delete">Delete</a>
+          </th>
+				</tr>
+			{% endfor %}
+		</table>
+	</div>
+</div>
+{% endblock %}

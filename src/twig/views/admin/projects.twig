@@ -6,41 +6,41 @@
 {% block content %}
 <div class="content-wrapper container">
 	<div class="projects">
-		<div class="projects--toolbar">
-			<input type="text" class="projects--toolbar--input" placeholder="Name" id="add-projects-name">
-			<input type="text" class="projects--toolbar--input" placeholder="URL" id="add-projects-path">
-			<input type="number" class="projects--toolbar--input" placeholder="Rank" id="add-projects-rank">
-			<a id="add-projects-button" class="projects--button projects--button__add">Add projects</a>
+		<div class="admin--toolbar">
+			<input type="text" class="admin--toolbar--input" placeholder="Name" id="add-projects-name">
+			<input type="text" class="admin--toolbar--input" placeholder="URL" id="add-projects-path">
+			<input type="number" class="admin--toolbar--input" placeholder="Rank" id="add-projects-rank">
+			<a id="add-projects-button" class="admin--button admin--button__add">Add projects</a>
 		</div>
 
-		<table class="projects--table">
-			<tr class="projects--table--row">
-				<th class="projects--table--row--field">Name</th>
-				<th class="projects--table--row--field">Path</th>
-				<th class="projects--table--row--field">Rank</th>
-				<th class="projects--table--row--field">ID</th>
-				<th class="projects--table--row--field">Action</th>
+		<table class="admin--table">
+			<tr class="admin--table--row">
+				<th class="admin--table--row--field">Name</th>
+				<th class="admin--table--row--field">Path</th>
+				<th class="admin--table--row--field">Rank</th>
+				<th class="admin--table--row--field">ID</th>
+				<th class="admin--table--row--field">Action</th>
 			</tr>
 
 			{% for project in projects %}
 
-				<tr class="projects--table--row" data-id="{{ project.id }}">
-					<th class="projects--table--row--field">
+				<tr class="admin--table--row" data-id="{{ project.id }}">
+					<th class="admin--table--row--field">
 						{{ project.name }}
 					</th>
-					<th class="projects--table--row--field">
+					<th class="admin--table--row--field">
 						{{ project.path }}
 					</th>
-					<th class="projects--table--row--field">
+					<th class="admin--table--row--field">
 						{% if project.rank == NULL %}
 							NULL
 						{% else %}
 							{{ project.rank }}
 						{% endif %}
 					</th>
-					<th class="projects--table--row--field">{{ project.id }}</th>
-					<th class="projects--table--row--field">
-						<a class="projects--button projects-delete-button projects--button__delete">
+					<th class="admin--table--row--field">{{ project.id }}</th>
+					<th class="admin--table--row--field">
+						<a class="admin--button projects-delete-button admin--button__delete">
 							Delete
 						</a>
 					</th>

@@ -7,7 +7,7 @@ class FeedbackController
     {
         global $twig;
         $projectId = urldecode(substr(trim($_SERVER['REQUEST_URI'], '/'), 9, 29));
-         $currentUser;
+        $currentUser;
 
         if (isset($_SESSION['user'])) {
             $currentUser = $_SESSION['user'];
@@ -40,13 +40,36 @@ class FeedbackController
                 'feedback.twig',
                 [
                     'project_feedback'  => $projectList,
-                    'current_user'      => $currentUser,
                     'projectinfo'       => $projectInfo,
                 ]
             );
         } else {
             SnippetController::render404();
         }
+    }
+
+    public static function adminAction()
+    {
+        global $twig;
+        $projectFeedback = FeedbackController::getAllFeedback();
+
+        $projectList = [];
+        foreach ($projectFeedback as $i => $project) {
+            $projectList[] = [
+                'id'              => $project['id'],
+                'message'         => $project['message'],
+                'positive'        => $project['positive'],
+                'project_id'      => $project['projectId'],
+                'user_name'       => $project['userlower'],
+            ];
+        }
+
+        echo $twig->render(
+            'admin/feedback.twig',
+            [
+                'project_feedback'  => $projectList,
+            ]
+        );
     }
 
     public static function addFeedback($user, $message, $positive, $projectId)
@@ -58,12 +81,40 @@ class FeedbackController
         $positive = $conn->real_escape_string($positive);
         $projectId = $conn->real_escape_string($projectId);
 
-        $data = [];
+        $sql = '
+        SELECT
+            *
+        FROM
+            feedback
+        WHERE
+            userlower = \'' . $user . '\'
+        AND
+            projectId = \'' . $projectId . '\';';
 
+        $result = $conn->query($sql);
+        if ($result->num_rows > 0) {
+            while ($row = $result->fetch_assoc()) {
+                $data = [
+                    'type' => 'error',
+                    'msg'  => 'You can only post one Feedback per Project',
+                ];
+
+                return $data;
+            }
+        }
+
+        $positive2;
+        if ($positive == true) {
+            $positive2 = 1;
+        } else {
+            $positive2 = 0;
+        }
+
+        $data = [];
         $sql = 'INSERT INTO
             feedback (`userlower`, `message`, `positive`, `projectId`)
         VALUES
-            (\'' . $name . '\', \'' . $message . '\', \'' . $positive . '\', \'' . $projectId . '\')';
+            (\'' . $user . '\', \'' . $message . '\', \'' . $positive2 . '\', \'' . $projectId . '\')';
 
         $result = $conn->query($sql);
 

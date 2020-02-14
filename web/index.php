@@ -39,6 +39,9 @@ $twig->addExtension(new \Twig\Extension\DebugExtension());
 $twig->addGlobal('user_data', $userData);
 $twig->addGlobal('navigations', $navigations);
 $twig->addGlobal('adminNavs', $adminNavs);
+if (isset($_SESSION['user'])) {
+    $twig->addGlobal('current_user', $_SESSION['user']);
+}
 
 $request = $_SERVER['REQUEST_URI'];
 $request = trim(explode('?', $request)[0], '/');

@@ -5,48 +5,48 @@
 
 {% block content %}
 <div class="content-wrapper container">
-	<div class="navigations">
-		<div class="navigations--toolbar">
-			<input type="text" class="navigations--toolbar--input" placeholder="Name" id="add-navigation-name">
-			<input type="text" class="navigations--toolbar--input" placeholder="URL" id="add-navigation-path">
-			<input type="number" class="navigations--toolbar--input" placeholder="Rank" id="add-navigation-rank">
-			<a id="add-navigation-button" class="navigations--button navigations--button__add">Add Navigation</a>
+	<div class="admin">
+		<div class="admin--toolbar">
+			<input type="text" class="admin--toolbar--input" placeholder="Name" id="add-navigation-name">
+			<input type="text" class="admin--toolbar--input" placeholder="URL" id="add-navigation-path">
+			<input type="number" class="admin--toolbar--input" placeholder="Rank" id="add-navigation-rank">
+			<a id="add-navigation-button" class="admin--button admin--button__add">Add Navigation</a>
 		</div>
 
-		<table class="navigations--table">
-			<tr class="navigations--table--row">
-				<th class="navigations--table--row--field">Name</th>
-				<th class="navigations--table--row--field">URL</th>
-				<th class="navigations--table--row--field">Rank</th>
-				<th class="navigations--table--row--field">Active</th>
-				<th class="navigations--table--row--field">Action</th>
+		<table class="admin--table">
+			<tr class="admin--table--row">
+				<th class="admin--table--row--field">Name</th>
+				<th class="admin--table--row--field">URL</th>
+				<th class="admin--table--row--field">Rank</th>
+				<th class="admin--table--row--field">Active</th>
+				<th class="admin--table--row--field">Action</th>
 			</tr>
 
 			{% for navigation in navigations %}
 
-				<tr class="navigations--table--row" data-id="{{ navigation.id }}">
-					<th class="navigations--table--row--field">
+				<tr class="admin--table--row" data-id="{{ navigation.id }}">
+					<th class="admin--table--row--field">
 						{{ navigation.name }}
 					</th>
-					<th class="navigations--table--row--field">
+					<th class="admin--table--row--field">
 						{{ navigation.path }}
 					</th>
-					<th class="navigations--table--row--field">
+					<th class="admin--table--row--field">
 						{% if navigation.rank == NULL %}
 							NULL
 						{% else %}
 							{{ navigation.rank }}
 						{% endif %}
 					</th>
-					<th class="navigations--table--row--field">
+					<th class="admin--table--row--field">
 						{% if navigation.active == 0 %}
-							<a data-active="0" class="navigations--button navigations--button__add navigation-active-button">Enable</a>
+							<a data-active="0" class="admin--button admin--button__add navigation-active-button">Enable</a>
 						{% else %}
-							<a data-active="1" class="navigations--button navigations--button__delete navigation-active-button">Disable</a>
+							<a data-active="1" class="admin--button admin--button__delete navigation-active-button">Disable</a>
 						{% endif %}
 					</th>
-					<th class="navigations--table--row--field">
-						<a class="navigations--button navigation-delete-button navigations--button__delete">
+					<th class="admin--table--row--field">
+						<a class="admin--button navigation-delete-button admin--button__delete">
 							Delete
 						</a>
 					</th>

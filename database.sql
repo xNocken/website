@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Erstellungszeit: 12. Feb 2020 um 18:18
+-- Erstellungszeit: 14. Feb 2020 um 11:51
 -- Server-Version: 10.3.16-MariaDB
 -- PHP-Version: 7.3.7
 
@@ -34,7 +34,7 @@ CREATE TABLE `feedback` (
   `message` varchar(500) DEFAULT NULL,
   `positive` smallint(6) DEFAULT NULL,
   `projectId` int(11) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
 
@@ -48,7 +48,7 @@ CREATE TABLE `navigations` (
   `name` varchar(20) NOT NULL,
   `path` varchar(45) DEFAULT NULL,
   `active` tinyint(4) DEFAULT 1
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
 
@@ -58,14 +58,12 @@ CREATE TABLE `navigations` (
 
 CREATE TABLE `projects` (
   `id` int(11) NOT NULL,
-  `name` varchar(45) NOT NULL,
+  `name` varchar(45) CHARACTER SET latin1 NOT NULL,
   `rank` int(11) DEFAULT NULL,
-  `path` varchar(200) DEFAULT NULL,
-  `likes` int(11) DEFAULT 0,
-  `dislikes` int(11) DEFAULT 0,
-  `description` varchar(200) DEFAULT NULL,
-  `githublink` varchar(45) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+  `path` varchar(200) CHARACTER SET latin1 DEFAULT NULL,
+  `description` varchar(200) CHARACTER SET latin1 DEFAULT NULL,
+  `githublink` varchar(45) CHARACTER SET latin1 DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
 
@@ -82,7 +80,7 @@ CREATE TABLE `users` (
   `namelower` varchar(20) DEFAULT NULL,
   `reason` varchar(300) DEFAULT NULL,
   `about` varchar(500) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Indizes der exportierten Tabellen

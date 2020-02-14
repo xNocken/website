@@ -98,9 +98,48 @@ class ProjectsController
         $result = $conn->query($sql);
 
         $items = [];
+        $sql = '
+        SELECT
+            positive,
+            projectId
+        FROM
+            feedback';
+
+        $feedback = $conn->query($sql);
+
+        $likes = [];
+        $dislikes = [];
+
+        while ($row = $feedback->fetch_assoc()) {
+            if ($row['positive']) {
+                if (isset($likes[$row['projectId']])) {
+                    $likes[$row['projectId']] += 1;
+                } else {
+                    $likes[$row['projectId']] = 1;
+                }
+            } else {
+                if (isset($dislikes[$row['projectId']])) {
+                    $dislikes[$row['projectId']] += 1;
+                } else {
+                    $dislikes[$row['projectId']] = 1;
+                }
+            }
+        }
 
         while ($row = $result->fetch_assoc()) {
-            $items[] = $row;
+            $info = $row;
+            if (isset($likes[$info['id']])) {
+                $info['likes'] = $likes[$info['id']];
+            } else {
+                $info['likes'] = 0;
+            }
+
+            if (isset($dislikes[$info['id']])) {
+                $info['dislikes'] = $dislikes[$info['id']];
+            } else {
+                $info['dislikes'] = 0;
+            }
+            $items[] = $info;
         }
 
         return $items;
@@ -143,8 +182,32 @@ class ProjectsController
 
         $result = $conn->query($sql);
 
+        $sql = '
+        SELECT
+            positive
+        FROM
+            feedback
+        WHERE
+            projectid = \'' . $id . '\';';
+
+        $feedback = $conn->query($sql);
+
+        $likes = 0;
+        $dislikes = 0;
+
+        while ($row = $feedback->fetch_assoc()) {
+            if ($row['positive']) {
+                $likes += 1;
+            } else {
+                $dislikes += 1;
+            }
+        }
+
         while ($row = $result->fetch_assoc()) {
-            return $row;
+            $info = $row;
+            $info['likes'] = $likes;
+            $info['dislikes'] = $dislikes;
+            return $info;
         }
     }
 }
