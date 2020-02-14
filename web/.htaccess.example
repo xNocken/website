@@ -5,8 +5,6 @@ SetEnv DB_PASSWORD ""
 SetEnv DB_SCHEMA "website"
 SetEnv YOUTUBE_AUTH_KEY "get key at https://cloud.google.com/"
 
-php_value auto_prepend_file "D:/path/to/project/src/php/controller/controllerManager.php"
-
 RewriteEngine On
 RewriteBase /
 RewriteCond %{REQUEST_FILENAME} !-d

@@ -3,6 +3,8 @@ namespace Xnocken;
 
 use Xnocken\Controller\SessionController;
 
+require \getenv('PROJECT_ROOT') . '/vendor/autoload.php';
+
 SessionController::createSession();
 $banState;
 
