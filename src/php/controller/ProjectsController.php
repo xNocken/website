@@ -24,20 +24,22 @@ class ProjectsController
         );
     }
 
-    public static function addProject($name, $path, $rank)
+    public static function addProject($name, $path, $rank, $desc, $github)
     {
         $conn = DatabaseController::startConnection();
 
         $name = $conn->real_escape_string($name);
         $path = $conn->real_escape_string($path);
         $rank = $conn->real_escape_string($rank);
+        $desc = $conn->real_escape_string($desc);
+        $github = $conn->real_escape_string($github);
 
         $data = [];
 
         $sql = 'INSERT INTO
-            projects (`name`, `path`, `rank`)
+            projects (`name`, `path`, `rank`, `description`, `githublink`)
         VALUES
-            (\'' . $name . '\', \'' . $path . '\', \'' . $rank . '\')';
+            (\'' . $name . '\', \'' . $path . '\', \'' . $rank . '\', \'' . $desc . '\', \'' . $github . '\')';
 
         $result = $conn->query($sql);
 

@@ -280,7 +280,18 @@ class UserController
             return 'ERROR: ' . $conn->error;
         } else {
             $_SESSION['user'] = $lowerName;
-            return true;
+            $sql = '
+                UPDATE
+                    feedback
+                SET
+                    userlower=\'' . $lowerName . '\'
+                WHERE
+                    userlower = \'' . strtolower($user) . '\';';
+            if ($conn->query($sql) === true) {
+                return true;
+            } else {
+                return $conn->error;
+            }
         }
     }
 }

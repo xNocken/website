@@ -1,0 +1,5 @@
+$projects-column-count: 6;
+
+.projects .admin--table--row--field {
+  width: 100% / $projects-column-count;
+}

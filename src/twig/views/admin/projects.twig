@@ -5,10 +5,12 @@
 
 {% block content %}
 <div class="content-wrapper container">
-	<div class="projects">
+	<div class="admin projects">
 		<div class="admin--toolbar">
 			<input type="text" class="admin--toolbar--input" placeholder="Name" id="add-projects-name">
 			<input type="text" class="admin--toolbar--input" placeholder="URL" id="add-projects-path">
+			<input type="text" class="admin--toolbar--input" placeholder="Description" id="add-projects-desc">
+			<input type="text" class="admin--toolbar--input" placeholder="Github link" id="add-projects-github">
 			<input type="number" class="admin--toolbar--input" placeholder="Rank" id="add-projects-rank">
 			<a id="add-projects-button" class="admin--button admin--button__add">Add projects</a>
 		</div>
@@ -18,7 +20,8 @@
 				<th class="admin--table--row--field">Name</th>
 				<th class="admin--table--row--field">Path</th>
 				<th class="admin--table--row--field">Rank</th>
-				<th class="admin--table--row--field">ID</th>
+				<th class="admin--table--row--field">Description</th>
+				<th class="admin--table--row--field">Github Link</th>
 				<th class="admin--table--row--field">Action</th>
 			</tr>
 
@@ -38,7 +41,8 @@
 							{{ project.rank }}
 						{% endif %}
 					</th>
-					<th class="admin--table--row--field">{{ project.id }}</th>
+					<th class="admin--table--row--field">{{ project.description }}</th>
+					<th class="admin--table--row--field">{{ project.githublink }}</th>
 					<th class="admin--table--row--field">
 						<a class="admin--button projects-delete-button admin--button__delete">
 							Delete

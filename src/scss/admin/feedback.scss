@@ -1,7 +1,5 @@
 $feedback-column-count: 6;
 
-body {
-  .admin--table--row--field {
-    width: 100% / $feedback-column-count;
-  }
+.feedback .admin--table--row--field {
+  width: 100% / $feedback-column-count;
 }

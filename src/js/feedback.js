@@ -33,7 +33,7 @@ export default () => {
     const { value } = textArea;
 
     if (likeActive !== undefined) {
-      if (value.length > 1 && value.length <= 500) {
+      if (value.length > 0 && value.length <= 500) {
         request('/api/feedback/addFeedback', {
           message: value,
           isPositive: likeActive,
@@ -42,7 +42,11 @@ export default () => {
           const response = JSON.parse(enswer.response);
           notify({ text: response.msg, type: response.type });
         });
+      } else {
+        notify({ text: 'Feedback must be between 1 and 500 characters', type: 'error' });
       }
+    } else {
+      notify({ text: 'You need to select like or dislike', type: 'error' });
     }
   });
 };

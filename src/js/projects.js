@@ -7,6 +7,8 @@ export default () => {
   const addprojectsName = document.getElementById('add-projects-name');
   const addprojectsPath = document.getElementById('add-projects-path');
   const addprojectsRank = document.getElementById('add-projects-rank');
+  const addprojectsDesc = document.getElementById('add-projects-desc');
+  const addprojectsGithub = document.getElementById('add-projects-github');
 
   if (toggleActiveButtons) {
     Array.from(toggleActiveButtons).forEach((button) => {
@@ -22,7 +24,13 @@ export default () => {
 
   if (addprojectsButton) {
     addprojectsButton.addEventListener('click', () => {
-      request('/admin/api/projects/addProject', { name: addprojectsName.value, path: addprojectsPath.value, rank: addprojectsRank.value }, () => {
+      request('/admin/api/projects/addProject', {
+        name: addprojectsName.value,
+        path: addprojectsPath.value,
+        rank: addprojectsRank.value,
+        github: addprojectsGithub.value,
+        desc: addprojectsDesc.value,
+      }, () => {
       });
     });
   }

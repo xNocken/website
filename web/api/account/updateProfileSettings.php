@@ -32,10 +32,15 @@ if (isset($data)) {
 }
 
 
-if (Xnocken\Controller\UserController::updateProfile($user, $name, $about)) {
+if (Xnocken\Controller\UserController::updateProfile($user, $name, $about) === true) {
     $data = [
         'type' => 'success',
         'msg'  => 'Info successfully changed',
+    ];
+} else {
+    $data = [
+        'type' => 'error',
+        'msg'  => 'Unkown error',
     ];
 }
 
