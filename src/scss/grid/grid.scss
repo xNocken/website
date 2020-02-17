@@ -1,0 +1,27 @@
+.grid {
+  display: flex;
+  flex: 0 1 auto;
+  flex-direction: row;
+  flex-wrap: wrap;
+
+  > *,
+  [class^="col-"],
+  [class*=" col-"] {
+    width: 100%;
+    flex-basis: auto;
+    flex-grow: 0;
+    flex-shrink: 0;
+    box-sizing: border-box;
+  }
+
+  @include grid-columns();
+
+  @each $bp, $size in $breakpoints {
+    @include grid-columns($bp);
+  }
+}
+
+.grid {
+  margin-right: -1 * $grid-gutter;
+  margin-left: -1 * $grid-gutter;
+}

@@ -7,6 +7,8 @@ class RequestController
 {
     private static function _getNewVideos()
     {
+        $results = 6;
+        $channelId = 'UCKSa71OIt6TL25f_fqT2qnQ';
 
         $opts = array(
             'http' => array(
@@ -16,7 +18,7 @@ class RequestController
 
         $context = stream_context_create($opts);
         $file = file_get_contents(
-            'https://www.googleapis.com/youtube/v3/search?channelId=UCKSa71OIt6TL25f_fqT2qnQ&type=video&part=snippet,id&order=date&maxResults=5&key='
+            'https://www.googleapis.com/youtube/v3/search?channelId=' . $channelId . '&type=video&part=snippet,id&order=date&maxResults=' . $results . '&key='
             . getenv('YOUTUBE_AUTH_KEY'),
             false,
             $context

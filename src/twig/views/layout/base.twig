@@ -10,9 +10,11 @@
     {% endblock %}
 
     <div class="content-wrapper">
-      {% block content %}
-      <div class="container">No Content set yet</div>
-      {% endblock %}
+      <div class="container-wrapper">
+        {% block content %}
+        <div class="container">No Content set yet</div>
+        {% endblock %}
+      </div>
     </div>
 
     {% include "/layout/scripts.twig" %}

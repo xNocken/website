@@ -1,0 +1,53 @@
+.grid {
+  & {
+    > [class^="col-"],
+    > [class*=" col-"] {
+      padding: $grid-gutter;
+    }
+  }
+
+  &.no-gutter {
+    margin: 0;
+
+    & {
+      > [class^="col-"],
+      > [class*=" col-"] {
+        padding: 0;
+      }
+    }
+  }
+
+  &.no-gutter-x {
+    margin: {
+      left: 0;
+      right: 0;
+    };
+
+    & {
+      > [class^="col-"],
+      > [class*=" col-"] {
+        padding: {
+          left: 0;
+          right: 0;
+        };
+      }
+    }
+  }
+
+  &.no-gutter-y {
+    margin: {
+      top: 0;
+      bottom: 0;
+    };
+
+    & {
+      > [class^="col-"],
+      > [class*=" col-"] {
+        padding: {
+          top: 0;
+          bottom: 0;
+        };
+      }
+    }
+  }
+}

@@ -1,0 +1,17 @@
+$breakpoints: (
+  xm: 360px,
+  sm: 640px,
+  md: 1024px,
+  lg: 1200px,
+  xl: 1440px,
+) !default;
+
+$container-sizes: (
+  sm: map-get($breakpoints, sm) * 0.95,
+  md: map-get($breakpoints, md) * 0.95,
+  lg: map-get($breakpoints, lg) * 0.95,
+  xl: map-get($breakpoints, xl) * 0.95,
+) !default;
+
+$grid-columns: 12 !default;
+$grid-gutter: 8px !default;

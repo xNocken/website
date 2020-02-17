@@ -1,6 +1,7 @@
 import './scss/main.scss';
 
 import feedback from './js/feedback';
+import globalJs from './js/global';
 import login from './js/login';
 import navigation from './js/navigations';
 import register from './js/register';
@@ -18,6 +19,7 @@ global.request = request; global.notify = notify;
 document.addEventListener('DOMContentLoaded', () => {
   adminFeedback();
   feedback();
+  globalJs();
   login();
   navigation();
   register();

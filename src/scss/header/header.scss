@@ -1,19 +1,23 @@
 .header {
+  margin-top: 5px;
   background-color: white;
   padding-bottom: 10px;
   z-index: 100;
-  width: 1200px;
+  width: 100%;
   top: 0;
   position: fixed;
 
+  &--wrapper {
+    display: flex;
+    justify-content: space-between;
+  }
+
   &--navigation {
     display: inline-block;
-    width: $navigation-size;
   }
 
   &--user {
     display: inline-block;
-    width: 99.5% - $navigation-size;
   }
 }
 
@@ -52,6 +56,7 @@
 
     ul {
       list-style-type: none;
+      padding-left: 10px;
     }
   }
 

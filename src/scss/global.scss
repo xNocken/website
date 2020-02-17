@@ -3,13 +3,33 @@
   font-family: "Open Sans";
 }
 
-.container {
-  max-width: 1200px;
-  margin: auto;
+body {
+  margin: 0;
 }
 
-.content-wrapper {
-  margin-top: 70px;
+.container {
+  display: block;
+  margin: 0 auto;
+  overflow: hidden;
+  width: 100%;
+
+  @each $bp, $size in $container-sizes {
+    @include breakpoint($bp) {
+      $width: $size;
+
+      @if $width != 0 and $width != null {
+        width: $width;
+      }
+    }
+  }
+
+  &-wrapper {
+    padding: 0 $grid-gutter;
+  }
+
+  &--has-visible-overflow {
+    overflow: visible;
+  }
 }
 
 pre.sf-dump {
@@ -19,4 +39,8 @@ pre.sf-dump {
 
 .fa-thumbs-down {
   transform: rotateY(180deg);
+}
+
+.content-wrapper {
+  margin-top: 70px;
 }

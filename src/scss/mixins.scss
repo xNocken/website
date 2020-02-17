@@ -1,0 +1,31 @@
+@mixin breakpoint($name, $query: min-width) {
+  $width: map-get($breakpoints, $name);
+
+  @if $width == 0 or $width == null {
+    @content;
+  } @else {
+     @media (#{$query}: $width) {
+      @content;
+    }
+  }
+}
+
+@mixin grid-columns($bp: '') {
+  $name: '-#{$bp}';
+  @if $name == '-' {
+    $name: '';
+  }
+
+  @include breakpoint($bp) {
+    @for $col from 1 through $grid-columns {
+      .col#{$name}-#{$col} {
+        flex-basis: 100% / $grid-columns * $col;
+        max-width: 100% / $grid-columns * $col;
+      }
+      // TODO: gucken ob ichs brauch
+      .col#{$name}-offset-#{$col} {
+        margin-left: 100% / $grid-columns * $col;
+      }
+    }
+  }
+}
