@@ -7,7 +7,6 @@ $breakpoints: (
 ) !default;
 
 $container-sizes: (
-  sm: map-get($breakpoints, sm) * 0.95,
   md: map-get($breakpoints, md) * 0.95,
   lg: map-get($breakpoints, lg) * 0.95,
   xl: map-get($breakpoints, xl) * 0.95,
