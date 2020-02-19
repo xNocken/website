@@ -1,60 +1,68 @@
-<header>
-	<div class="header">
+<header class="header">
+	<div class="container-wrapper">
 		<div class="container container--has-visible-overflow">
-			<div class="header--navigation">
-				<div class="navigation">
-					<div class="navigation--entry">
-						<a href="/admin">Startseite</a>
-					</div>
-					{% for navigation in adminNavs %}
-						<div class="navigation--entry">
-							<a href="/admin/{{ navigation }}">{{ navigation }}</a>
-						</div>
-					{% endfor %}
-				</div>
+			<div class="header--burger mobile-only" id="header-burger">
+				<div class="header--burger--part"></div>
+				<div class="header--burger--part"></div>
+				<div class="header--burger--part"></div>
 			</div>
-
-			<div class="header--user">
-				<div class="user">
-					<div class="user--name">
-						{% if user_data.name %}
-							{{ user_data.name }}
-						{% else %}
-							Not logged in
-						{% endif %}
+			<div class="header--background mobile-only"></div>
+			<div class="header--wrapper">
+				<div class="header--navigation">
+					<div class="navigation">
+						<div class="navigation--entry">
+							<a href="/admin">Startseite</a>
+						</div>
+						{% for navigation in adminNavs %}
+							<div class="navigation--entry">
+								<a href="/admin/{{ navigation }}">{{ navigation }}</a>
+							</div>
+						{% endfor %}
 					</div>
+				</div>
 
-					<div class="user--image">
-						{% if user_data.profile_picture %}
-							<img src="{{ user_data.profile_picture }}&s=50">
-						{% endif %}
-					</div>
+				<div class="header--user">
+					<div class="user">
+						<div class="user--name">
+							{% if user_data.name %}
+								{{ user_data.name }}
+							{% else %}
+								Not logged in
+							{% endif %}
+						</div>
 
-					<div class="user--dropdown">
-						<ul>
-							{% if user_data.rank %}
-								<li>
-									<a href="/account">Account</a>
-								</li>
-								<li>
-									<a href="/api/login/logout">Logout</a>
-								</li>
+						<div class="user--image">
+							{% if user_data.profile_picture %}
+								<img src="{{ user_data.profile_picture }}&s=50">
+							{% endif %}
+						</div>
 
-								{% if user_data.rank > 0 %}
+						<div class="user--dropdown">
+							<ul>
+								{% if user_data.rank %}
 									<li>
-										<a href="/">Frontend</a>
+										<a href="/account">Account</a>
+									</li>
+									<li>
+										<a href="/api/login/logout">Logout</a>
+									</li>
+
+									{% if user_data.rank > 0 %}
+										<li>
+											<a href="/">Frontend</a>
+										</li>
+									{% endif %}
+
+								{% else %}
+									<li>
+										<a href="/login">Login</a>
+									</li>
+									<li>
+										<a href="/register">Register</a>
 									</li>
 								{% endif %}
-
-							{% else %}
-								<li>
-									<a href="/login">Login</a>
-								</li>
-								<li>
-									<a href="/register">Register</a>
-								</li>
-							{% endif %}
-						</ul>
+							</ul>
+						</div>
 					</div>
 				</div>
 			</div>

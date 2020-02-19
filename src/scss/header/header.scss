@@ -1,15 +1,59 @@
 .header {
-  margin-top: 5px;
-  background-color: white;
+  background-color: whitesmoke;
+  padding-top: 5px;
   padding-bottom: 10px;
   z-index: 100;
   width: 100%;
   top: 0;
   position: fixed;
 
+  &--background {
+    background-color: whitesmoke;
+    position: absolute;
+    top: -5px;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: -5;
+  }
+
+  &--burger {
+    position: absolute;
+    cursor: pointer;
+    height: 100%;
+
+    &--part {
+      border-bottom: 3px solid black;
+      width: 50px;
+      margin-top: 10px;
+      transition: all 0.3s;
+
+      .is-open & {
+        width: 0;
+        left: 50%;
+        transform: translateY(50%);
+
+        &:last-child {
+          transform: rotateZ(45deg);
+          margin: 0;
+          width: 50px;
+          left: 0;
+      }
+
+        &:first-child {
+          margin: 0;
+          left: 0;
+          transform:  translateY(547%) rotateZ(-45deg);
+          width: 50px;
+        }
+      }
+    }
+  }
+
   &--wrapper {
     display: flex;
     justify-content: space-between;
+    flex-wrap: nowrap;
   }
 
   &--navigation {
@@ -25,7 +69,10 @@
   display: flex;
   justify-content: flex-end;
   flex-wrap: nowrap;
-  position: relative;
+
+  @include breakpoint(md) {
+    position: relative;
+  }
 
   &--name {
     display: inline-block;
@@ -47,16 +94,38 @@
   }
 
   &--dropdown {
-    display: none;
     position: absolute;
-    border: black solid 1px;
     background-color: white;
-    top: 50px;
+    top: 57px;
+    left: 0;
     width: 100%;
+    background-color: whitesmoke;
+    transition: all ease-in-out 0.3s;
+    transform: translateY(calc(-200% - 100px));
+    z-index: -20;
+    padding-bottom: 24px;
+
+    .is-open & {
+      transform: translateY(0);
+    }
+
+    @include breakpoint(md) {
+      z-index: 0;
+      transform: translateY(0);
+      padding-bottom: 0;
+      border: black solid 1px;
+      display: none;
+    }
 
     ul {
       list-style-type: none;
       padding-left: 10px;
+
+      a {
+        text-decoration: none;
+        display: block;
+        color: black;
+      }
     }
   }
 
@@ -66,20 +135,46 @@
 }
 
 .navigation {
-  display: flex;
-  justify-content: flex-start;
+  position: absolute;
+  width: 100%;
+  top: 148px;
+  background-color: whitesmoke;
+  padding-bottom: 20px;
+  padding-top: 15px;
+  transition: all ease-in-out 0.3s;
+  transform: translateY(calc(-200% - 100px));
+  z-index: -10;
+
+  .is-open & {
+    transform: translateY(0);
+  }
+
+  @include breakpoint(md) {
+    z-index: 0;
+    transform: translateY(0);
+    top: 0;
+    display: flex;
+    justify-content: flex-start;
+  }
 
   &--entry {
-    display: inline-block;
-    transform: translateY(80%);
-    margin: {
-      right: 40px;
-    };
+    display: block;
+    padding-left: 10px;
+
+    @include breakpoint(md) {
+      z-index: 0;
+      display: inline-block;
+      margin: {
+        right: 40px;
+      }
+    }
 
     a {
       color: black;
       text-transform: capitalize;
+      display: block;
       text-decoration: none;
+      pointer-events: all;
     }
   }
 }

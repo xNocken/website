@@ -1,7 +1,13 @@
 <header class="header">
 	<div class="container-wrapper">
-    <div class="container container--has-visible-overflow">
-      <div class="header--wrapper">
+		<div class="container container--has-visible-overflow">
+      <div class="header--burger mobile-only" id="header-burger">
+        <div class="header--burger--part"></div>
+        <div class="header--burger--part"></div>
+        <div class="header--burger--part"></div>
+      </div>
+      <div class="header--background mobile-only"></div>
+			<div class="header--wrapper">
 				<div class="header--navigation">
 					<div class="navigation">
 						{% for navigation in navigations %}

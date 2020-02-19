@@ -11,6 +11,7 @@ body {
   display: block;
   margin: 0 auto;
   overflow: hidden;
+  position: relative;
   width: 100%;
 
   @each $bp, $size in $container-sizes {
@@ -43,4 +44,16 @@ pre.sf-dump {
 
 .content-wrapper {
   margin-top: 70px;
+}
+
+.mobile-only {
+  @include breakpoint(md) {
+    display: none;
+  }
+}
+
+.desktop-only {
+  @include breakpoint(md, max-width) {
+    display: none;
+  }
 }
