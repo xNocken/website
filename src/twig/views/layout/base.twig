@@ -1,23 +1,23 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="{{ lang }}">
 <head>
   {% include "/layout/head.twig" %}
   <title>{% block title %}xNocken{% endblock %}</title>
 </head>
 <body>
-    {% block header %}
-      {% include "/layout/header.twig" %}
-    {% endblock %}
+  {% block header %}
+    {% include "/layout/header.twig" %}
+  {% endblock %}
 
-    <div class="content-wrapper">
-      <div class="container-wrapper">
-        {% block content %}
-        <div class="container">No Content set yet</div>
-        {% endblock %}
-      </div>
+  <div class="content-wrapper">
+    <div class="container-wrapper">
+      {% block content %}
+      <div class="container">No Content set yet</div>
+      {% endblock %}
     </div>
+  </div>
 
-    {% include "/layout/scripts.twig" %}
+  {% include "/layout/scripts.twig" %}
 </body>
 
 </html>

@@ -11,6 +11,7 @@ class NewExtention extends \Twig\Extension\AbstractExtension
     {
         return [
             new TwigFilter('removeAttr', [$this, 'removeAttribute']),
+            new TwigFilter('trans', [$this, 'trans']),
         ];
     }
 
@@ -27,6 +28,35 @@ class NewExtention extends \Twig\Extension\AbstractExtension
         $string = str_replace('onload', '', $string);
         $string = str_replace('onerror', '', $string);
         return $string;
+    }
+
+    public function trans($string, $replace = [])
+    {
+        global $lang;
+
+        $translations;
+
+        if (\file_exists(getenv('PROJECT_ROOT') . '/translations/' . $lang . '.json')) {
+            $translations = \json_decode(file_get_contents(\getenv('PROJECT_ROOT') . '/translations/' . $lang . '.json'), true);
+        }
+
+        $enTranslations = \json_decode(file_get_contents(\getenv('PROJECT_ROOT') . '/translations/en.json'), true);
+
+        $word = '';
+
+        if (isset($translations[$string])) {
+            $word = $translations[$string];
+        } else if (isset($enTranslations[$string])) {
+            $word = $enTranslations[$string];
+        } else {
+            return $string;
+        }
+
+        foreach ($replace as $key => $word2) {
+            $word = str_replace($key, $word2, $word);
+        }
+
+        return $word;
     }
 
     public function twigDumper($dump)

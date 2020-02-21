@@ -6,6 +6,7 @@ import header from './js/header';
 import login from './js/login';
 import navigation from './js/navigations';
 import register from './js/register';
+import translations from './js/translations';
 import request from './js/utils/request';
 import users from './js/users';
 import profileSettings from './js/profileSettings';
@@ -26,6 +27,7 @@ document.addEventListener('DOMContentLoaded', () => {
   login();
   navigation();
   register();
+  translations();
   users();
   profileSettings();
   profile();

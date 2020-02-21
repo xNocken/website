@@ -3,6 +3,10 @@ namespace Xnocken;
 
 use Xnocken\Controller\SessionController;
 
+$lang = substr($_SERVER['HTTP_ACCEPT_LANGUAGE'], 0, 2);
+
+global $lang;
+
 require \getenv('PROJECT_ROOT') . '/vendor/autoload.php';
 
 SessionController::createSession();
@@ -42,6 +46,8 @@ $twig->addExtension(new \Twig\Extension\DebugExtension());
 $twig->addGlobal('user_data', $userData);
 $twig->addGlobal('navigations', $navigations);
 $twig->addGlobal('adminNavs', $adminNavs);
+$twig->addGlobal('lang', $lang);
+
 if (isset($_SESSION['user'])) {
     $twig->addGlobal('current_user', $_SESSION['user']);
 }
@@ -65,29 +71,27 @@ case '':
     break;
 
 default:
-    if ($fileExists || $isAdminCall || $isProfileCall || $isFeedbackCall) {
-        if ($isAdminCall) {
-            if ($isAdmin) {
-                if ($isAdminApiCall) {
-                    $fileToLoad = getenv('PROJECT_ROOT') . '/src/php/' . $request . '.php';
-                } else {
-                    $fileToLoad = getenv('PROJECT_ROOT').'/src/php/admin/'.$request.'.php';
-                }
+    if ($isAdminCall) {
+        if ($isAdmin) {
+            if ($isAdminApiCall) {
+                $fileToLoad = getenv('PROJECT_ROOT') . '/src/php/' . $request . '.php';
             } else {
-                Controller\SnippetController::render404();
+                $fileToLoad = getenv('PROJECT_ROOT').'/src/php/admin/'.$request.'.php';
             }
-        } elseif ($isProfileCall) {
-            $fileToLoad = getenv('PROJECT_ROOT') . '/web/profile.php';
-        } elseif ($isFeedbackCall) {
-            $fileToLoad = getenv('PROJECT_ROOT') . '/web/feedback.php';
         } else {
-            $fileToLoad = __DIR__  . '/' . $request . '.php';
+            Controller\SnippetController::render404();
         }
-    } else {
+    } elseif ($isProfileCall) {
+        $fileToLoad = getenv('PROJECT_ROOT') . '/web/profile.php';
+    } elseif ($isFeedbackCall) {
+        $fileToLoad = getenv('PROJECT_ROOT') . '/web/feedback.php';
+    } elseif (!$fileExists) {
         Controller\SnippetController::render404();
+    } else {
+        $fileToLoad = __DIR__  . '/' . $request . '.php';
     }
-}
 
+}
 if ($fileToLoad) {
     include $fileToLoad;
 }

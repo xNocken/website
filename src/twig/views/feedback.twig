@@ -12,10 +12,11 @@
 					<p class="project--header--desc">{{ projectinfo.description }}</p>
 				</div>
 
-				<div class="project--links">Check it out on the
-					<a href="{{ projectinfo.path }}" class="project--links--link">live Server</a>
-					or fork it on
-					<a href="https://github.com/xNocken/{{ projectinfo.githublink }}" class="project--links--link">Github</a>
+        <div class="project--links">
+          {{ 'feedback.links'|trans({
+            ':github:': projectinfo.githublink,
+            ':url:': projectinfo.path,
+          })|raw }}
 				</div>
 			</div>
 
@@ -23,7 +24,7 @@
 
 			<div class="feedback">
 				<div class="feedback--leave">
-					<h3 class="feedback--headline">Leave Feedback</h3>
+					<h3 class="feedback--headline">{{ "feedback.leave_feedback"|trans }}</h3>
 					<div id="feedback-like" class="feedback--leave--button feedback--leave--button__like">{% include "./svg/thumbs-up-regular.svg" %}</div>
 					<div id="feedback-dislike" class="feedback--leave--button feedback--leave--button__dislike">{% include "./svg/thumbs-down-regular.svg" %}</div>
 					<textarea name="feedback-message" id="feedback-message" class="feedback--leave--message" rows="5"></textarea>
@@ -31,7 +32,7 @@
 				</div>
 
 				<div class="feedback--wrapper">
-					<h3 class="feedback--headline">Read Feedback</h3>
+					<h3 class="feedback--headline">{{ "feedback.leave_feedback"|trans }}</h3>
 					{% if project_feedback %}
 						{% for feedback in project_feedback %}
 							<div class="feedback--entry" feedback-id="{{ feedback.id }}">

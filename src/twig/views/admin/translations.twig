@@ -1,0 +1,40 @@
+{% extends "layout/base.twig" %}
+{% block title %}Admin - xNocken{% endblock %}
+{% block header %}{% include "/admin/adminHeader.twig" %}{% endblock %}
+
+{% block content %}
+<div class="content-wrapper container">
+	<div class="admin projects">
+		<div class="admin--toolbar">
+			<input type="text" class="admin--toolbar--input" placeholder="Lang" id="translations-lang">
+			<input type="text" class="admin--toolbar--input" placeholder="Key" id="translations-key">
+			<input type="text" class="admin--toolbar--input" placeholder="Value" id="translations-value">
+			<a id="translations-submit" class="admin--button admin--button__add">Add projects</a>
+		</div>
+
+		<table class="admin--table">
+			<tr class="admin--table--row">
+				<th class="admin--table--row--field">Lang</th>
+				<th class="admin--table--row--field">Key</th>
+				<th class="admin--table--row--field">Value</th>
+			</tr>
+
+			{% for translation in translations %}
+
+				<tr class="admin--table--row" data-id="{{ translation.id }}">
+					<th class="admin--table--row--field">
+						{{ translation.lang }}
+					</th>
+					<th class="admin--table--row--field">
+						{{ translation.key }}
+					</th>
+					<th class="admin--table--row--field">
+							{{ translation.value }}
+					</th>
+				</tr>
+
+			{% endfor %}
+		</table>
+	</div>
+</div>
+{% endblock %}

@@ -1,12 +1,12 @@
 {% extends "/layout/base.twig" %}
 
-{% block title %}My Projects - xNocken{% endblock %}
+{% block title %}{{ 'projects.title'|trans }} - xNocken{% endblock %}
 
 {% block content %}
 <div class="content-wrapper">
   <div class="container">
     <div class="project-list">
-    <h1>My Projects</h1>
+      <h1>{{ 'projects.title'|trans }}</h1>
       <div class="project-list--wrapper">
         {% for project in projects %}
           {% if project.rank <= myrank %}
@@ -22,7 +22,7 @@
                   <p class="project-list--wrapper--entry--ratings--ratings--dislikes">{{ project.dislikes }}{% include "./svg/thumbs-down-regular.svg" %}</p>
                 </div>
 
-                <a href="/projects/{{ project.id }}" class="project-list--wrapper--entry--ratings--feedback">Want to leave feedback?</a>
+                <a href="/projects/{{ project.id }}" class="project-list--wrapper--entry--ratings--feedback">{{ 'project.leave_feedback'|trans }}</a>
               </div>
             </div>
           {% endif %}

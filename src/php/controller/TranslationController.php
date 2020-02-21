@@ -1,0 +1,98 @@
+<?php
+namespace Xnocken\Controller;
+
+class TranslationController
+{
+    public static function defaultAction()
+    {
+        global $twig;
+
+        $translations = TranslationController::getTranslations();
+
+        echo $twig->render('/admin/translations.twig', [
+            'translations' => $translations,
+        ]);
+    }
+
+    public static function addTranslation($lang, $key, $value)
+    {
+        $filePath = getenv('PROJECT_ROOT') . '/translations/' . $lang . '.json';
+        if (!file_exists($filePath)) {
+            fopen($filePath, 'w+');
+        }
+
+        $content = \file_get_contents($filePath);
+
+        $content = json_decode($content, true);
+
+        $content[$key] = $value;
+
+        $content = json_encode($content);
+
+        file_put_contents($filePath, $content);
+    }
+
+    public static function removeTranslation($lang, $key)
+    {
+        $filePath = getenv('PROJECT_ROOT') . '/translations/' . $lang . '.json';
+        if (!file_exists($filePath)) {
+            fopen($filePath, 'w+');
+        }
+
+        $content = \file_get_contents($filePath);
+
+        $content = json_decode($content, true);
+
+        $index = array_search($key, $content);
+
+        $content = \array_splice($content, $index, 1);
+
+        $content = json_encode($content);
+
+        file_put_contents($filePath, $content);
+    }
+
+
+    public static function getTranslations()
+    {
+        $langs = scandir(getenv('PROJECT_ROOT') . '/translations/');
+
+        array_splice($langs, 0, 2);
+        $translations = [];
+
+        foreach ($langs as $lang) {
+
+            $filePath = getenv('PROJECT_ROOT') . '/translations/' . $lang;
+            if (!file_exists($filePath)) {
+                fopen($filePath, 'w+');
+            }
+
+            $content = \file_get_contents($filePath, true);
+
+            $content = json_decode($content);
+
+            foreach ($content as $key => $item) {
+                $test = [];
+
+                $test['value'] = $item;
+                $test['key']  = $key;
+                $test['lang'] = str_replace('.json', '', $lang);
+                $translations[] = $test;
+            }
+        }
+
+        return $translations;
+    }
+
+    public static function getTranslationsPerLang($lang)
+    {
+        $filePath = getenv('PROJECT_ROOT') . '/translations/' . $lang . '.json';
+        if (!file_exists($filePath)) {
+            fopen($filePath, 'w+');
+        }
+
+        $content = \file_get_contents($filePath);
+
+        return json_decode($content);
+    }
+}
