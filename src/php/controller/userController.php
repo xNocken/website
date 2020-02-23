@@ -173,13 +173,14 @@ class UserController
         }
     }
 
-    public static function getBanState($name)
+    public static function getUserState($name)
     {
         $conn = \Xnocken\Controller\DatabaseController::startConnection();
 
         $sql = "
         SELECT
-            banned
+            banned,
+            rank
         FROM
             `users`
         WHERE
@@ -189,7 +190,12 @@ class UserController
         $result = $conn->query($sql);
         if ($result->num_rows == 1) {
             while ($row = $result->fetch_assoc()) {
-                return $row['banned'];
+                $userData = [
+                    'banned' => $row['banned'],
+                    'rank' => $row['rank'],
+                ];
+
+                return $userData;
             }
         }
     }

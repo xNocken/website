@@ -10,17 +10,20 @@ global $lang;
 require \getenv('PROJECT_ROOT') . '/vendor/autoload.php';
 
 SessionController::createSession();
-$banState;
+$userData;
 
 if (isset($_SESSION['user'])) {
-    $banState = Controller\UserController::getBanState($_SESSION['user']);
+    $userData = Controller\UserController::getUserState($_SESSION['user']);
 } else {
-    $banState = 0;
+    $userData = 0;
 }
 
-if ($banState) {
-    SessionController::destroySession();
-    die('error: please reload page');
+if (isset($userData['banned'])) {
+    if ($userData['banned'] == 1) {
+        die('Your account was banned :)');
+    }
+
+    $_SESSION['rank'] = $userData['rank'];
 }
 
 $navigations = Controller\NavigationController::getNavigations();

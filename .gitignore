@@ -3,3 +3,4 @@ web/dist
 web/.htaccess
 vendor
 cache
+translations

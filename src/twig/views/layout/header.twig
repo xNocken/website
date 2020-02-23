@@ -14,7 +14,7 @@
 							{% if navigation.active == 1 and (navigation.rank == null or (user_data.rank and user_data.rank >= navigation.rank)) %}
 								<div class="navigation--entry">
 									<a href="{{ navigation.path }}">
-										{{ navigation.name }}</a>
+										{{ navigation.name|trans }}</a>
 								</div>
 							{% endif %}
 						{% endfor %}
@@ -27,7 +27,7 @@
 							{% if user_data.name %}
 								{{ user_data.name }}
 							{% else %}
-								Not logged in
+								{{ 'user.not_logged_in'|trans }}
 							{% endif %}
 						</div>
 
@@ -41,24 +41,24 @@
 							<ul>
 								{% if user_data.rank or (user_data.rank == 0 and user_data.rank != NULL) %}
 									<li>
-										<a href="/profile/{{ user_data.name }}">Profile</a>
+										<a href="/profile/{{ user_data.name }}">{{ 'profile.profile'|trans }}</a>
 									</li>
 
 									{% if user_data.rank > 0 %}
 										<li>
-											<a href="/admin">Backend</a>
+											<a href="/admin">{{ 'admin.backend'|trans }}</a>
 										</li>
 									{% endif %}
 
 									<li>
-										<a id="logout" href="#">Logout</a>
+										<a id="logout" href="#">{{ 'login.logout'|trans }}</a>
 									</li>
 								{% else %}
 									<li>
-										<a href="/login">Login</a>
+										<a href="/login">{{ 'login.login'|trans }}</a>
 									</li>
 									<li>
-										<a href="/register">Register</a>
+										<a href="/register">{{ 'login.register'|trans }}</a>
 									</li>
 								{% endif %}
 							</ul>

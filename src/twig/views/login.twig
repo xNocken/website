@@ -1,7 +1,6 @@
 {% extends "layout/base.twig" %}
 
-{% block title %}Login - xNocken
-{% endblock %}
+{% block title %}{{ 'login.login'|trans }} - xNocken{% endblock %}
 
 {% block content %}
 	<form class="login" id="login-form">
@@ -11,11 +10,11 @@
 			</script>
 		{% endif %}
 
-		<h1>Login</h1>
+		<h1>{{ 'login.login'|trans }}</h1>
 		<p class="login--status" id="login-status"></p>
-		<input class="login--username" tabindex="1" name="user" type="text" placeholder="Username"><br>
-		<input class="login--password" name="pw" tabindex="2" type="password" placeholder="Password"><br>
+		<input class="login--username" tabindex="1" name="user" type="text" placeholder="{{ 'login.username'|trans }}"><br>
+		<input class="login--password" name="pw" tabindex="2" type="password" placeholder="{{ 'login.password'|trans }}"><br>
 		<input class="login--submit" tabindex="0" type="submit"><br>
-		<a href="/register/">Need a Account?</a>
+		<a href="/register/">{{ 'login.need_account'|trans }}</a>
 	</form>
 {% endblock %}

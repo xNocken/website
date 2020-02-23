@@ -5,6 +5,8 @@
 {% block content %}
   <div class="container">
       <h1>404</h1>
-      <h2>{{ url }} not found</h2>
+      <h2>{{ '404.not_found'|trans({
+        ':path:': url
+      }) }}</h2>
   </div>
 {% endblock %}

@@ -1,6 +1,6 @@
 {% extends "/layout/base.twig" %}
 
-{% block title %}{{ user.name }} - Profile - xNocken{% endblock %}
+{% block title %}{{ user.name }} - {{ 'profile.profile'|trans }} - xNocken{% endblock %}
 
 {% block content %}
 {% if user.lowername == current_user %}
@@ -20,8 +20,8 @@
 				<h2 contenteditable="{% if isOwnPage %}true{% else %}false{% endif %}" id="profile-name" class="profile--info--name profile--info--name__{{ user.rank }}">{{ user.name }}</h2>
 				<div class="profile--info--about" id="profile-about" contenteditable="{% if isOwnPage %}true{% else %}false{% endif %}">
 {% if user.about %}
-{{ user.about|striptags('<div>')|removeAttr|raw }}{% elseif isOwnPage %}<div>Click here to edit your about</div>{% else %}
-No About set
+{{ user.about|striptags('<div>')|removeAttr|raw }}{% elseif isOwnPage %}<div>{{ 'profile.edit_about'|trans }}</div>{% else %}
+{{ 'profile.no_about'|trans }}
 {% endif %}</div>
         <p class="profile--info--about--charcount" id="profile-charcount"></p>
 			</div>

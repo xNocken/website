@@ -12,8 +12,8 @@
           {% if project.rank <= myrank %}
             <div class="project-list--wrapper--entry">
               <div class="project-list--wrapper--entry--infos">
-                <h2 class="project-list--wrapper--entry--infos--title">{{ project.name }}</h2>
-                <p class="project-list--wrapper--entry--infos--description">{{ project.description }}</p>
+                <h2 class="project-list--wrapper--entry--infos--title">{{ project.name|trans }}</h2>
+                <p class="project-list--wrapper--entry--infos--description">{{ project.description|trans }}</p>
               </div>
 
               <div class="project-list--wrapper--entry--ratings">

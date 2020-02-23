@@ -1,6 +1,6 @@
 {% extends "/layout/base.twig" %}
 
-{% block title %}{{ projectinfo.name }} - xNocken{% endblock %}
+{% block title %}{{ projectinfo.name|trans }} - xNocken{% endblock %}
 
 {% block content %}
 <div class="content-wrapper">
@@ -8,8 +8,8 @@
 		<div class="feedback" project-id="{{ projectinfo.id }}">
 			<div class="project">
 				<div class="project--header">
-					<h1 class="project--header--title">{{ projectinfo.name }}</h1>
-					<p class="project--header--desc">{{ projectinfo.description }}</p>
+					<h1 class="project--header--title">{{ projectinfo.name|trans }}</h1>
+					<p class="project--header--desc">{{ projectinfo.description|trans }}</p>
 				</div>
 
         <div class="project--links">
@@ -32,7 +32,7 @@
 				</div>
 
 				<div class="feedback--wrapper">
-					<h3 class="feedback--headline">{{ "feedback.leave_feedback"|trans }}</h3>
+					<h3 class="feedback--headline">{{ "feedback.read_feedback"|trans }}</h3>
 					{% if project_feedback %}
 						{% for feedback in project_feedback %}
 							<div class="feedback--entry" feedback-id="{{ feedback.id }}">
@@ -56,7 +56,7 @@
 							</div>
 						{% endfor %}
 					{% else %}
-						No Feedback was left
+						{{ 'feedback.no_feedback'|trans }}
 					{% endif %}
 				</div>
 			</div>

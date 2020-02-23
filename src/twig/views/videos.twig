@@ -1,5 +1,5 @@
 <div class="container">
-	<h3>Recent Uploads</h3>
+	<h3>{{ 'videos.title'|trans }}</h3>
 	<div class="videos grid">
 		{% if videos %}
 			{% for video in videos %}
@@ -19,7 +19,7 @@
 				</div>
 			{% endfor %}
 		{% else %}
-			<p>Error while loading videos</p>
+			<p>{{ 'videos.error'|trans }}</p>
 		{% endif %}
 	</div>
 </div>
