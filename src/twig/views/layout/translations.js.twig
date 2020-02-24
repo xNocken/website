@@ -1,0 +1,24 @@
+translations = {
+  {% for language in languages %}
+    '{{language|raw}}': {
+      {% for translation in translations %}
+        {% if translation.lang == language %}
+          '{{translation.key|raw}}': `{{translation.value|raw}}`,
+        {% endif %}
+      {% endfor %}
+    },
+  {% endfor %}
+};
+
+
+window.translate = (key, replace = []) => {
+  const lang = navigator.language.slice(0, 2);
+
+  let word = translations[lang][key] || key;
+
+  replace.forEach((item) => {
+    word = word.replace(item.key, item.word);
+  });
+
+  return word;
+};

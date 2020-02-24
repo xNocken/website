@@ -61,7 +61,7 @@ export default () => {
     });
 
     profilePicture.addEventListener('click', () => {
-      messages.input('Please enter your Gravatar email', (email) => {
+      messages.input(window.translate('profile.gravatar_email'), (email) => {
         if (email) {
           if (email.match(/[A-Za-z0-9]@[A-Za-z0-9]/)) {
             request('/api/account/updateProfilePicture', { email }, (response) => {
@@ -71,7 +71,7 @@ export default () => {
               }, 3000);
             });
           } else {
-            status.innerText = 'Please enter a valid E-Mail adress';
+            status.innerText = window.translate('profile.invalid_email');
             setTimeout(() => {
               status.innerText = '';
             }, 3000);

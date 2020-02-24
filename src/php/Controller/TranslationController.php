@@ -14,6 +14,20 @@ class TranslationController
         ]);
     }
 
+    public static function javaScriptAction()
+    {
+        global $twig;
+
+        $languages = TranslationController::getLanguages();
+
+        $translations = TranslationController::getTranslations();
+
+        echo $twig->render('/layout/translations.js.twig', [
+            'translations' => $translations,
+            'languages'    => $languages,
+        ]);
+    }
+
     public static function addTranslation($lang, $key, $value)
     {
         $filePath = getenv('PROJECT_ROOT') . '/translations/' . $lang . '.json';
@@ -82,6 +96,19 @@ class TranslationController
         }
 
         return $translations;
+    }
+
+    public static function getLanguages()
+    {
+        $langs = scandir(getenv('PROJECT_ROOT') . '/translations/');
+
+        array_splice($langs, 0, 2);
+
+        foreach ($langs as $key =>$lang) {
+            $langs[$key] = str_replace('.json', '', $lang);
+        }
+
+        return $langs;
     }
 
     public static function getTranslationsPerLang($lang)

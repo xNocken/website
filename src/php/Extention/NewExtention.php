@@ -40,7 +40,11 @@ class NewExtention extends \Twig\Extension\AbstractExtension
             $translations = \json_decode(file_get_contents(\getenv('PROJECT_ROOT') . '/translations/' . $lang . '.json'), true);
         }
 
-        $enTranslations = \json_decode(file_get_contents(\getenv('PROJECT_ROOT') . '/translations/en.json'), true);
+        if (\file_exists(\getenv('PROJECT_ROOT') . '/translations/en.json')) {
+            $enTranslations = \json_decode(file_get_contents(\getenv('PROJECT_ROOT') . '/translations/en.json'), true);
+        } else {
+            return $string;
+        }
 
         $word = '';
 

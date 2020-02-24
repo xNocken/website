@@ -43,10 +43,10 @@ export default () => {
           notify({ text: response.msg, type: response.type });
         });
       } else {
-        notify({ text: 'Feedback must be between 1 and 500 characters', type: 'error' });
+        notify({ text: window.translate('feedback.error.length'), type: 'error' });
       }
     } else {
-      notify({ text: 'You need to select like or dislike', type: 'error' });
+      notify({ text: window.translate('feedback.error.noselect'), type: 'error' });
     }
   });
 };
