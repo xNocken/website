@@ -65,36 +65,21 @@ $isAdminApiCall = strpos($request, 'admin/api') === 0;
 $isAdmin = (isset($_SESSION['rank']) && (intval($_SESSION['rank']) > 0));
 $isProfileCall = strpos($request, 'profile') === 0;
 $isFeedbackCall = strpos($request, 'projects/') === 0;
-$fileExists = file_exists(__DIR__  . '/' . $request . '.php');
+$fileExists = file_exists(\getenv('PROJECT_ROOT')  . '/src/php/pages/' . $request . '.php');
 $isTranslationsJsCall = strpos($request, 'dist/translations.js') === 0;
 
 switch ($request) {
 case '/':
 case '':
+case 'index':
     $fileToLoad = __DIR__ . '/root.php';
     break;
 
 default:
-    if ($isAdminCall) {
-        if ($isAdmin) {
-            if ($isAdminApiCall) {
-                $fileToLoad = getenv('PROJECT_ROOT') . '/src/php/' . $request . '.php';
-            } else {
-                $fileToLoad = getenv('PROJECT_ROOT').'/src/php/admin/'.$request.'.php';
-            }
-        } else {
-            Controller\SnippetController::render404();
-        }
-    } elseif ($isProfileCall) {
-        $fileToLoad = getenv('PROJECT_ROOT') . '/web/profile.php';
-    } elseif ($isFeedbackCall) {
-        $fileToLoad = getenv('PROJECT_ROOT') . '/web/feedback.php';
-    } elseif ($isTranslationsJsCall) {
-        Controller\TranslationController::javaScriptAction();
-    } elseif (!$fileExists) {
-        Controller\SnippetController::render404();
+    if ($fileExists) {
+
     } else {
-        $fileToLoad = __DIR__  . '/' . $request . '.php';
+        Controller\SnippetController::render404();
     }
 
 }

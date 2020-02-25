@@ -15,6 +15,7 @@ export default () => {
   }
 
   const projectId = feedbackWrapper.getAttribute('project-id');
+
   like.addEventListener('click', () => {
     like.classList.add('clicked');
     dislike.classList.remove('clicked');
