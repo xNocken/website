@@ -1,4 +1,4 @@
-import request from './utils/request';
+import request from '../utils/request';
 
 export default () => {
   const selects = document.getElementsByClassName('users-select');
@@ -14,7 +14,7 @@ export default () => {
       field.value = rank;
 
       select.addEventListener('change', () => {
-        request('/admin/api/changeUserRank', { username, rank: select.value }, (response) => {
+        request('/admin/api/user/changeUserRank', { username, rank: select.value }, (response) => {
           if (response.status !== 200) {
             field.value = rank;
             status.innerHTML = response.response;
@@ -51,7 +51,7 @@ export default () => {
             reason = prompt('Enter reason');
           }
 
-          loading = request('/admin/api/switchBanUser', { username, isBanned, reason }, (response) => {
+          loading = request('/admin/api/user/switchBanUser', { username, isBanned, reason }, (response) => {
             if (response.response === '1') {
               button2.classList = classes[isBanned];
               button2.innerHTML = names[isBanned];

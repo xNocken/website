@@ -1,4 +1,4 @@
-import request from './utils/request';
+import request from '../utils/request';
 
 export default () => {
   const toggleActiveButtons = document.getElementsByClassName('navigation-active-button');
@@ -14,7 +14,7 @@ export default () => {
         const id = event.target.parentNode.parentNode.getAttribute('data-id');
         const active = event.target.getAttribute('data-active');
 
-        request('/admin/api/switchActive', { id, active }, () => {
+        request('/admin/api/navigations/switchActive', { id, active }, () => {
           window.location.reload();
         });
       });
@@ -23,7 +23,7 @@ export default () => {
 
   if (addNavigationButton) {
     addNavigationButton.addEventListener('click', () => {
-      request('/admin/api/addNavigation', { name: addNavigationName.value, path: addNavigationPath.value, rank: addNavigationRank.value }, () => {
+      request('/admin/api/navigations/addNavigation', { name: addNavigationName.value, path: addNavigationPath.value, rank: addNavigationRank.value }, () => {
         window.location.reload();
       });
     });
@@ -34,7 +34,7 @@ export default () => {
       button.addEventListener('click', (event) => {
         const id = event.target.parentNode.parentNode.getAttribute('data-id');
 
-        request('/admin/api/deleteNavigation', { id }, () => {
+        request('/admin/api/navigations/deleteNavigation', { id }, () => {
           window.location.reload();
         });
       });

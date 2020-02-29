@@ -6,9 +6,9 @@ class NavigationController
 {
     public function getAdminNavigations()
     {
-        $folders = scandir(getenv('PROJECT_ROOT') . '/src/php/admin/admin/');
+        $folders = scandir(getenv('PROJECT_ROOT') . '/src/php/pages/admin/');
 
-        array_splice($folders, 0, 2);
+        array_splice($folders, 0, 3);
 
         $folders = array_map(
             function ($item) {

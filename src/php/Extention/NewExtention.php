@@ -34,7 +34,7 @@ class NewExtention extends \Twig\Extension\AbstractExtension
     {
         global $lang;
 
-        $translations;
+        $translations = [];
 
         if (\file_exists(getenv('PROJECT_ROOT') . '/translations/' . $lang . '.json')) {
             $translations = \json_decode(file_get_contents(\getenv('PROJECT_ROOT') . '/translations/' . $lang . '.json'), true);

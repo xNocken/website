@@ -39,8 +39,9 @@ class AdminController
         echo $twig->render(
             'admin/users.twig',
             [
-                'users'    => $users,
-                'username' => $_SESSION['user'],
+                'users'         => $users,
+                'username'      => $_SESSION['user'],
+                'can_edit_rank' => $_SESSION['rank'] > 1,
             ]
         );
     }

@@ -12,19 +12,24 @@
 	<div class="container">
 		<div class="profile">
 			<div class="profile--info">
-        <p class="profile--info--status" id="profile-status"></p>
+        		<p class="profile--info--status" id="profile-status"></p>
 				<div class="profile--info--image">
 					<img src="{{ user.profile_picture }}" id="profile-picture">
 				</div>
 
 				<h2 contenteditable="{% if isOwnPage %}true{% else %}false{% endif %}" id="profile-name" class="profile--info--name profile--info--name__{{ user.rank }}">{{ user.name }}</h2>
-				<div class="profile--info--about" id="profile-about" contenteditable="{% if isOwnPage %}true{% else %}false{% endif %}">
-{% if user.about %}
-{{ user.about|striptags('<div>')|removeAttr|raw }}{% elseif isOwnPage %}<div>{{ 'profile.edit_about'|trans }}</div>{% else %}
-{{ 'profile.no_about'|trans }}
-{% endif %}</div>
-        <p class="profile--info--about--charcount" id="profile-charcount"></p>
-			</div>
+				{% if isOwnPage %}
+					<textarea class="profile--info--about--edit" id="profile-about">{% if user.about %}{{ user.about }}{% else %}{{ 'profile.edit_about'|trans }}{% endif %}</textarea>
+				{% else %}
+					<div class="profile--info--about">
+						{% if user.about %}
+							{{ user.about|striptags('<div>')|removeAttr|raw }}
+						{% else %}
+							{{ 'profile.no_about'|trans }}
+						{% endif %}
+					</div>
+				{% endif %}
+        	<p class="profile--info--about--charcount" id="profile-charcount"></p>
 		</div>
 	</div>
 </div>

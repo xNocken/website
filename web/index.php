@@ -68,21 +68,37 @@ $isFeedbackCall = strpos($request, 'projects/') === 0;
 $fileExists = file_exists(\getenv('PROJECT_ROOT')  . '/src/php/pages/' . $request . '.php');
 $isTranslationsJsCall = strpos($request, 'dist/translations.js') === 0;
 
+$fileToLoad = getenv('PROJECT_ROOT')  . '/src/php/pages/' . $request . '.php';
+
 switch ($request) {
 case '/':
 case '':
 case 'index':
-    $fileToLoad = __DIR__ . '/root.php';
+    $fileToLoad = getenv('PROJECT_ROOT')  . '/src/php/pages/root.php';
     break;
 
 default:
     if ($fileExists) {
-
+        if ($isAdminCall) {
+            if (!$isAdmin) {
+                $fileToLoad = '';
+                Controller\SnippetController::render404();
+                return;
+            }
+        }
+    } else if ($isProfileCall) {
+        $fileToLoad = getenv('PROJECT_ROOT')  . '/src/php/pages/profile.php';
+    } else if ($isFeedbackCall) {
+        $fileToLoad = getenv('PROJECT_ROOT')  . '/src/php/pages/feedback.php';
+    } else if ($isTranslationsJsCall) {
+        Controller\TranslationController::javaScriptAction();
+        return;
     } else {
         Controller\SnippetController::render404();
+        return;
     }
-
 }
+
 if ($fileToLoad) {
     include $fileToLoad;
 }

@@ -1,4 +1,4 @@
-import request from './utils/request';
+import request from '../utils/request';
 
 export default () => {
   const lang = document.getElementById('translations-lang');
@@ -11,7 +11,7 @@ export default () => {
   }
 
   submit.addEventListener('click', () => {
-    request('/admin/api/addTranslation', { key: key.value, value: value.value, lang: lang.value }, () => {
+    request('/admin/api/translations/addTranslation', { key: key.value, value: value.value, lang: lang.value }, () => {
       window.location.reload();
     });
   });

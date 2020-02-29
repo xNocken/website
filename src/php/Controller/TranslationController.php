@@ -69,7 +69,13 @@ class TranslationController
 
     public static function getTranslations()
     {
-        $langs = scandir(getenv('PROJECT_ROOT') . '/translations/');
+        $langs = [];
+
+        if (file_exists(getenv('PROJECT_ROOT') . '/translations/')) {
+            $langs = scandir(getenv('PROJECT_ROOT') . '/translations/');
+        } else {
+            $langs = [];
+        }
 
         array_splice($langs, 0, 2);
         $translations = [];

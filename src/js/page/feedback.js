@@ -1,5 +1,5 @@
-import request from './utils/request';
-import notify from './utils/notify';
+import request from '../utils/request';
+import notify from '../utils/notify';
 
 export default () => {
   const like = document.getElementById('feedback-like');

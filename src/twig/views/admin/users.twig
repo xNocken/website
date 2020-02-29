@@ -20,7 +20,7 @@
 				<tr class="admin--table--row" data-username="{{ user.username }}">
 					<th class="admin--table--row--field">{{ user.username }}</th>
 					<th class="admin--table--row--field">
-						<select class="admin--table--row--field--select users-select" data-selected="{{ user.rank }}" {% if user.namelower == username %} disabled {% endif %}>
+						<select class="admin--table--row--field--select users-select" data-selected="{{ user.rank }}" {% if user.namelower == username or not can_edit_rank%} disabled {% endif %}>
 							<option value="0">User</option>
 							<option value="1">Moderator</option>
 							<option value="2">Admin</option>

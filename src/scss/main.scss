@@ -2,7 +2,7 @@
 
 @import './variables.scss';
 
-@import './overlay.scss';
+@import './component/overlay.scss';
 
 @import './global.scss';
 
@@ -13,18 +13,18 @@
 
 @import './component/notify.scss';
 
-@import './feedback/feedback.scss';
+@import './page/feedback.scss';
 
-@import './header/header.scss';
+@import './layout/header.scss';
 
-@import './login/login.scss';
-@import './login/register.scss';
+@import './page/login.scss';
+@import './page/register.scss';
 
-@import './profile/profile.scss';
+@import './page/profile.scss';
 
-@import './snippets/videos.scss';
+@import './bricks/videos.scss';
 
-@import './projects/projects.scss';
+@import './page/projects.scss';
 
-@import './grid/grid.scss';
-@import './grid/gutter.scss';
+@import './layout/grid.scss';
+@import './layout/gutter.scss';

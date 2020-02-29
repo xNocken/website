@@ -1,5 +1,5 @@
-import request from './utils/request';
-import messages from './messages';
+import request from '../utils/request';
+import messages from '../utils/messages';
 
 export default () => {
   const editArea = document.getElementById('profile-about');
@@ -14,10 +14,10 @@ export default () => {
   }
 
   const eventListener = () => {
-    const about = editArea.innerHTML;
+    const about = editArea.value;
     const name = nameArea.innerText;
 
-    if (editArea.innerText !== '') {
+    if (about.length > 0) {
       editArea.classList.remove('profile--info--about__empty');
       request('/api/account/updateProfileSettings', { about, name }, (response) => {
         if (status) {
@@ -49,8 +49,9 @@ export default () => {
   if (editArea) {
     editArea.addEventListener('focusout', eventListener);
     nameArea.addEventListener('focusout', eventListener);
+
     editArea.addEventListener('keyup', () => {
-      const { length } = editArea.innerHTML;
+      const { length } = editArea.value;
       charcount.innerText = `${length}/500`;
 
       if (length >= 500) {
