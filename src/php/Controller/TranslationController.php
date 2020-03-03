@@ -22,6 +22,9 @@ class TranslationController
 
         $translations = TranslationController::getTranslations();
 
+        header('Content-Type: application/javascript');
+        header('Cache-Control: max-age=100000');
+
         echo $twig->render('/layout/translations.js.twig', [
             'translations' => $translations,
             'languages'    => $languages,

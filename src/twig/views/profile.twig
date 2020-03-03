@@ -14,7 +14,7 @@
 			<div class="profile--info">
         		<p class="profile--info--status" id="profile-status"></p>
 				<div class="profile--info--image">
-					<img src="{{ user.profile_picture }}" id="profile-picture">
+					<img src="{{ user.profile_picture }}" alt="{{ user.name }}'s profilepicture" id="profile-picture">
 				</div>
 
 				<h2 contenteditable="{% if isOwnPage %}true{% else %}false{% endif %}" id="profile-name" class="profile--info--name profile--info--name__{{ user.rank }}">{{ user.name }}</h2>
