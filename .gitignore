@@ -4,3 +4,4 @@
 /vendor
 /cache
 /translations
+/web/deploy-log*

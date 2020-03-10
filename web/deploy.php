@@ -24,7 +24,7 @@ EOT;
 // Check whether client is allowed to trigger an update
 
 $allowed_ips = array(
-    '207.97.227.', '50.57.128.', '108.171.174.', '50.57.231.', '204.232.175.', '192.30.252.', '185.199.108.', '140.82.112.0', // GitHub
+    '207.97.227.', '50.57.128.', '108.171.174.', '50.57.231.', '204.232.175.', '192.30.252.', '185.199.108.', '140.82.112.0', '::1', // GitHub
     '195.37.139.','193.174.' // VZG
 );
 $allowed = false;
@@ -47,8 +47,7 @@ foreach ($allowed_ips as $allow) {
 
 if (!$allowed) {
 	header('HTTP/1.1 403 Forbidden');
- 	echo "<span style=\"color: #ff0000\">Sorry, no hamster - better convince your parents!</span>\n";
-    echo "</pre>\n</body>\n</html>";
+    echo 'Your ip: ' . $ip;
     exit;
 }
 
@@ -57,11 +56,9 @@ flush();
 // Actually run the update
 
 $commands = array(
-	'echo $PWD',
-	'whoami',
     'git pull',
-    'composer install',
-    'composer dump-autoload',
+    'cd .. && composer install',
+    'cd .. && composer dump-autoload',
     'yarn',
     'yarn prod',
     'test -e /usr/share/update-notifier/notify-reboot-required && echo "system restart required"',
@@ -75,15 +72,16 @@ foreach($commands AS $command){
     // Run it
     $tmp = shell_exec("$command 2>&1");
     // Output
-    $output .= "<span style=\"color: #6BE234;\">\$</span> <span style=\"color: #729FCF;\">{$command}\n</span>";
+    $output .= "{$command}: <br>";
     $output .= htmlentities(trim($tmp)) . "\n";
+    $output .= '<br><br><br>';
 
     $log  .= "\$ $command\n".trim($tmp)."\n";
 }
 
 $log .= "\n";
 
-file_put_contents ('deploy-log.txt',$log,FILE_APPEND);
+file_put_contents('deploy-log-' . date('Y-m-d_H-i-s') . '.txt', $log, FILE_APPEND);
 
 echo $output;
 
