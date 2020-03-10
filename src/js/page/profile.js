@@ -38,7 +38,7 @@ export default () => {
         }
       });
     } else {
-      status.innerText = 'Please fill in something in your about';
+      status.innerText = global.translate('profile.error.empty.about');
 
       if (!editArea.classList.contains('profile--info--about__empty')) {
         editArea.classList.add('profile--info--about__empty');

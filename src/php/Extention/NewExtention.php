@@ -4,6 +4,7 @@ namespace Xnocken\Extention;
 use Twig\Extension\AbstractExtension;
 use Twig\TwigFunction;
 use Twig\TwigFilter;
+use Xnocken\Controller\TranslationController;
 
 class NewExtention extends \Twig\Extension\AbstractExtension
 {
@@ -32,35 +33,7 @@ class NewExtention extends \Twig\Extension\AbstractExtension
 
     public function trans($string, $replace = [])
     {
-        global $lang;
-
-        $translations = [];
-
-        if (\file_exists(getenv('PROJECT_ROOT') . '/translations/' . $lang . '.json')) {
-            $translations = \json_decode(file_get_contents(\getenv('PROJECT_ROOT') . '/translations/' . $lang . '.json'), true);
-        }
-
-        if (\file_exists(\getenv('PROJECT_ROOT') . '/translations/en.json')) {
-            $enTranslations = \json_decode(file_get_contents(\getenv('PROJECT_ROOT') . '/translations/en.json'), true);
-        } else {
-            return $string;
-        }
-
-        $word = '';
-
-        if (isset($translations[$string])) {
-            $word = $translations[$string];
-        } else if (isset($enTranslations[$string])) {
-            $word = $enTranslations[$string];
-        } else {
-            return $string;
-        }
-
-        foreach ($replace as $key => $word2) {
-            $word = str_replace($key, $word2, $word);
-        }
-
-        return $word;
+        return TranslationController::translate($string, $replace);
     }
 
     public function twigDumper($dump)

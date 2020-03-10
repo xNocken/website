@@ -7,13 +7,6 @@ class FeedbackController
     {
         global $twig;
         $projectId = urldecode(substr(trim($_SERVER['REQUEST_URI'], '/'), 9, 29));
-        $currentUser;
-
-        if (isset($_SESSION['user'])) {
-            $currentUser = $_SESSION['user'];
-        } else {
-            $currentUser = '';
-        }
 
         $projectFeedback = FeedbackController::getFeedbackForProject($projectId);
         $projectInfo = ProjectsController::getprojectById($projectId);
@@ -96,14 +89,15 @@ class FeedbackController
             while ($row = $result->fetch_assoc()) {
                 $data = [
                     'type' => 'error',
-                    'msg'  => 'You can only post one Feedback per Project',
+                    'msg'  => TranslationController::translate('feedback.error.limit'),
                 ];
 
                 return $data;
             }
         }
 
-        $positive2;
+        $positive2 = 0;
+
         if ($positive == true) {
             $positive2 = 1;
         } else {
@@ -121,13 +115,13 @@ class FeedbackController
         if ($result === false) {
             $data = [
                 'type'  => 'error',
-                'msg'   => 'Unkown error',
+                'msg'   => TranslationController::translate('error.unknown'),
                 'error' => $conn->error,
             ];
         } else {
             $data = [
                 'type'  => 'success',
-                'msg'   => 'Successfully posted feedback',
+                'msg'   => TranslationController::translate('feedback.success.post'),
             ];
         }
 
@@ -150,13 +144,13 @@ class FeedbackController
         if ($result === false) {
             $data = [
                 'type'  => 'error',
-                'msg'   => 'Unkown error',
+                'msg'   => TranslationController::translate('error.unknown'),
                 'error' => $conn->error,
             ];
         } else {
             $data = [
                 'type'  => 'success',
-                'msg'   => 'Successfully deleted feedback',
+                'msg'   => TranslationController::translate('feedback.success.remove'),
             ];
         }
 
@@ -178,13 +172,13 @@ class FeedbackController
         if ($result === false) {
             $data = [
                 'type'  => 'error',
-                'msg'   => 'Unkown error',
+                'msg'   => TranslationController::translate('error.unknown'),
                 'error' => $conn->error,
             ];
         } else {
             $data = [
                 'type'  => 'success',
-                'msg'   => 'Successfully deleted feedback',
+                'msg'   => TranslationController::translate('feedback.success.remove'),
             ];
         }
 

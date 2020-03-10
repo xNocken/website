@@ -1,6 +1,8 @@
 <?php
 namespace Xnocken;
 
+use Xnocken\Controller\TranslationController;
+
 error_reporting(E_ERROR | E_PARSE);
 $data = [];
 $user = strtolower($_POST['user']);
@@ -12,21 +14,23 @@ if (isset($user) && isset($pw)) {
     if (password_verify($pw, $userdata["password"])) {
         if ($userdata['banned'] == '1') {
             $data["type"]     = "error";
-            $data["msg"]      = "Your account has been banned<br>Reason: " . $userdata['reason'];
+            $data["msg"]      = TranslationController::translate('login.error.banned', [
+                ':reason:' => $userdata['reason'],
+                ]);
 
             session_destroy();
         } else {
             $data["type"]     = "success";
-            $data["msg"]      = "Logged in";
+            $data["msg"]      = TranslationController::translate('login.success');
             $_SESSION["user"] = $userdata["namelower"];
             $_SESSION['rank'] = $userdata['rank'];
         }
     } else {
         $data["type"] = "error";
-        $data["msg"]  = "Wrong Password or Username";
+        $data["msg"]  = TranslationController::translate('login.error.invalid_pass');
     }
 } else {
-    $data['msg'] = 'username and password required';
+    $data['msg'] = TranslationController::translate('login.error.none');
     $data['type'] = 'error';
     http_response_code(400);
 }

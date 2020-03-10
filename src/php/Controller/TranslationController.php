@@ -91,7 +91,7 @@ class TranslationController
             }
 
             $content = \file_get_contents($filePath, true);
-
+            
             $content = json_decode($content);
 
             foreach ($content as $key => $item) {
@@ -130,5 +130,38 @@ class TranslationController
         $content = \file_get_contents($filePath);
 
         return json_decode($content);
+    }
+
+    public function translate($string, $replace = [])
+    {
+        global $lang;
+
+        $translations = [];
+
+        if (\file_exists(getenv('PROJECT_ROOT') . '/translations/' . $lang . '.json')) {
+            $translations = \json_decode(file_get_contents(\getenv('PROJECT_ROOT') . '/translations/' . $lang . '.json'), true);
+        }
+
+        if (\file_exists(\getenv('PROJECT_ROOT') . '/translations/en.json')) {
+            $enTranslations = \json_decode(file_get_contents(\getenv('PROJECT_ROOT') . '/translations/en.json'), true);
+        } else {
+            return $string;
+        }
+
+        $word = '';
+
+        if (isset($translations[$string])) {
+            $word = $translations[$string];
+        } else if (isset($enTranslations[$string])) {
+            $word = $enTranslations[$string];
+        } else {
+            return $string;
+        }
+
+        foreach ($replace as $key => $word2) {
+            $word = str_replace($key, $word2, $word);
+        }
+
+        return $word;
     }
 }

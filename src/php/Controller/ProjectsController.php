@@ -7,7 +7,7 @@ class ProjectsController
     {
         global $twig;
         $projects = ProjectsController::getProjects();
-        $rank;
+        $rank = 0;
 
         if (isset($_SESSION['rank'])) {
             $rank = $_SESSION['rank'];
@@ -46,13 +46,13 @@ class ProjectsController
         if ($result === false) {
             $data = [
                 'type'  => 'error',
-                'msg'   => 'Unkown error',
+                'msg'   => TranslationController::translate('admin.error'),
                 'error' => $conn->error,
             ];
         } else {
             $data = [
                 'type'  => 'success',
-                'msg'   => 'Successfully added project',
+                'msg'   => TranslationController::translate('admin.success'),
             ];
         }
 
@@ -74,13 +74,13 @@ class ProjectsController
         if ($result === false) {
             $data = [
                 'type'  => 'error',
-                'msg'   => 'Unkown error',
+                'msg'   => TranslationController::translate('admin.error'),
                 'error' => $conn->error,
             ];
         } else {
             $data = [
                 'type'  => 'success',
-                'msg'   => 'Successfully deleted project',
+                'msg'   => TranslationController::translate('admin.success'),
             ];
         }
 
@@ -165,8 +165,6 @@ class ProjectsController
         while ($row = $result->fetch_assoc()) {
             return $row;
         }
-
-        return $items;
     }
 
     public static function getprojectById($id)

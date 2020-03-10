@@ -8,7 +8,7 @@ class ProfileController
         $name = urldecode(substr(trim($_SERVER['REQUEST_URI'], '/'), 8, 20));
 
         global $twig;
-        $currentUser;
+        $currentUser = '';
 
         if (isset($_SESSION['user'])) {
             $currentUser = $_SESSION['user'];

@@ -1,8 +1,10 @@
 <?php
 
+use Xnocken\Controller\TranslationController;
+
 if (!isset($_SESSION['user'])) {
     http_response_code(403);
-    die('please log in first');
+    die(TranslationController::translate('error.login'));
 }
 
 $user = $_SESSION['user'];
@@ -13,17 +15,17 @@ $data;
 if (strlen($name) < 4) {
     $data = [
         'type' => 'error',
-        'msg'  => 'Name is too short'
+        'msg'  => TranslationController::translate('profile.error.name.short'),
     ];
 } else if (strlen($name) > 20) {
     $data = [
         'type' => 'error',
-        'msg'  => 'Name is too long'
+        'msg'  => TranslationController::translate('profile.error.name.long')
     ];
 } else if (strlen($about) > 500) {
     $data = [
         'type' => 'error',
-        'msg'  => 'About is too long'
+        'msg'  => TranslationController::translate('profile.error.about.long')
     ];
 }
 
@@ -35,12 +37,12 @@ if (isset($data)) {
 if (Xnocken\Controller\UserController::updateProfile($user, $name, $about) === true) {
     $data = [
         'type' => 'success',
-        'msg'  => 'Info successfully changed',
+        'msg'  => TranslationController::translate('profile.success.update'),
     ];
 } else {
     $data = [
         'type' => 'error',
-        'msg'  => 'Unkown error',
+        'msg'  => TranslationController::translate('error.unknown'),
     ];
 }
 

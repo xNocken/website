@@ -1,6 +1,8 @@
 <?php
 namespace Xnocken\Controller;
 
+Use Xnocken\Controller\TranslationController;
+
 class UserController
 {
     public function getUserByName($name)
@@ -106,7 +108,7 @@ class UserController
             while ($row = $result->fetch_assoc()) {
                 $data = [
                     'type' => 'error',
-                    'msg'  => 'Username already exists',
+                    'msg'  => TranslationController::translate('register.error.not_available'),
                 ];
             }
         } else {
@@ -118,13 +120,11 @@ class UserController
             if ($conn->query($sql) === false) {
                 $data = [
                     'type'     => 'error',
-                    'msg'      => 'Unkown error',
-                    'sqlError' => $conn->error,
-                    'sql'      => $sql,
+                    'msg'      => TranslationController::translate('error.unknown'),
                 ];
             } else {
                 $data = [
-                    'type' => 'success',
+                    'type' => TranslationController::translate('register.success'),
                     'msg'  => 'Registered',
                 ];
 
@@ -223,14 +223,14 @@ class UserController
                     if ($conn->query($sql) === false) {
                         $data = [
                             'type'     => 'error',
-                            'msg'      => 'Unkown error',
+                            'msg'      => TranslationController::translate('error.unknown'),
                             'sqlError' => $conn->error,
                             'sql'      => $sql,
                         ];
                     } else {
                         $data = [
                             'type' => 'success',
-                            'msg'  => 'Password Changed',
+                            'msg'  => TranslationController::translate('profile.success.password'),
                         ];
 
                         $_SESSION["user"] = strtolower($user);
@@ -238,7 +238,7 @@ class UserController
                 } else {
                     $data = [
                         'type' => 'error',
-                        'msg'  => 'Wrong Password',
+                        'msg'  => TranslationController::translate('profile.error.invalid_pass'),
                     ];
                 }
             }
@@ -267,7 +267,7 @@ class UserController
         if ($userdata && ($user !== $lowerName)) {
             $data = [
                 'type' => 'error',
-                'msg'  => 'Username already exists'
+                'msg'  => TranslationController::translate('profile.error.not_available')
             ];
 
             return $data;

@@ -18,12 +18,12 @@ class SessionController
 
             $data = [
                 'type' => 'success',
-                'msg'  => 'Logged out',
+                'msg'  => TranslationController::translate('logout.success'),
             ];
         } else {
             $data = [
                 'type' => 'error',
-                'msg'  => 'There was an unexpected error',
+                'msg'  => TranslationController::translate('logout.error'),
             ];
         }
     }
