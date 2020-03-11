@@ -40,7 +40,7 @@ class RequestController
             $changeDate->setDate(
                 date("Y", $modTime),
                 date("m", $modTime),
-                date("d", $modTime),
+                date("d", $modTime)
             );
             $now = new DateTime();
 
