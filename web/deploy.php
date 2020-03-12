@@ -24,8 +24,9 @@ EOT;
 // Check whether client is allowed to trigger an update
 
 $allowed_ips = array(
-    '207.97.227.', '50.57.128.', '108.171.174.', '50.57.231.', '204.232.175.', '192.30.252.', '185.199.108.', '140.82.112.0', '::1', // GitHub
-    '195.37.139.','193.174.' // VZG
+    '207.97.227.', '50.57.128.', '108.171.174.', '50.57.231.', '204.232.175.', '192.30.252.', '185.199.108.', '140.82.112.', // GitHub
+    '195.37.139.','193.174.', // VZG
+    '::1', '127.0.0.1' // local
 );
 $allowed = false;
 
@@ -64,6 +65,7 @@ $commands = array(
     'test -e /usr/share/update-notifier/notify-reboot-required && echo "system restart required"',
 );
 
+
 $output = "\n";
 
 $log = "####### ".date('Y-m-d H:i:s'). " #######\n";
@@ -77,9 +79,14 @@ foreach($commands AS $command){
     $output .= '<br><br><br>';
 
     $log  .= "\$ $command\n".trim($tmp)."\n";
+
+    $log .= "\n";
 }
 
-$log .= "\n";
+$translationCount = updateTranslations();
+
+$log .= $translationCount . ' translations added';
+$output .= $translationCount . ' translations added';
 
 file_put_contents('deploy-log-' . date('Y-m-d_H-i-s') . '.txt', $log, FILE_APPEND);
 
@@ -89,3 +96,72 @@ echo $output;
 </pre>
 </body>
 </html>
+
+
+<?php
+function getTranslations()
+{
+    $langs = [];
+
+    if (file_exists(getenv('PROJECT_ROOT') . '/example-translations/')) {
+        $langs = scandir(getenv('PROJECT_ROOT') . '/example-translations/');
+    } else {
+        $langs = [];
+    }
+
+    array_splice($langs, 0, 2);
+    $translations = [];
+
+    foreach ($langs as $lang) {
+
+        $filePath = getenv('PROJECT_ROOT') . '/example-translations/' . $lang;
+        if (!file_exists($filePath)) {
+            fopen($filePath, 'w+');
+        }
+
+        $content = \file_get_contents($filePath, true);
+
+        $content = json_decode($content);
+
+        foreach ($content as $key => $item) {
+            $test = [];
+
+            $test['value'] = $item;
+            $test['key']  = $key;
+            $test['lang'] = str_replace('.json', '', $lang);
+            $translations[] = $test;
+        }
+    }
+
+    return $translations;
+}
+
+function addTranslation($lang, $key, $value)
+{
+    $filePath = getenv('PROJECT_ROOT') . '/translations/' . $lang . '.json';
+    if (!file_exists($filePath)) {
+        fopen($filePath, 'w+');
+    }
+
+    $content = \file_get_contents($filePath);
+
+    $content = json_decode($content, true);
+
+    $content[$key] = $value;
+
+    $content = json_encode($content);
+
+    file_put_contents($filePath, $content);
+}
+
+function updateTranslations()
+{
+    $translations = getTranslations();
+
+    foreach ($translations as $translation) {
+        addTranslation($translation['lang'], $translation['key'], $translation['value']);
+    }
+
+    return sizeof($translations);
+}
+?>
