@@ -1,3 +1,15 @@
 {% extends "layout/base.twig" %}
 {% block title %}Admin - xNocken{% endblock %}
 {% block header %}{% include "/admin/adminHeader.twig" %}{% endblock %}
+
+{% block content %}
+  <div class="container">
+    <div class="grid">
+      {% for values in data %}
+        <div class="col-4">
+          
+        </div>
+      {% endfor %}
+    </div>
+  </div>
+{% endblock %}

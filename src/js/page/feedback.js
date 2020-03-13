@@ -39,8 +39,8 @@ export default () => {
           message: value,
           isPositive: likeActive,
           projectId,
-        }, (enswer) => {
-          const response = JSON.parse(enswer.response);
+        }, (answer) => {
+          const response = JSON.parse(answer.response);
           notify({ text: response.msg, type: response.type });
         });
       } else {

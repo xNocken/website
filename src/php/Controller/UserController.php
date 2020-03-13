@@ -2,6 +2,7 @@
 namespace Xnocken\Controller;
 
 Use Xnocken\Controller\TranslationController;
+use Carbon\Carbon;
 
 class UserController
 {
@@ -112,11 +113,13 @@ class UserController
                 ];
             }
         } else {
+            $time = new \DateTime();
             $sql = '
         INSERT INTO
-            users (`username`, `password`, `rank`, `namelower`)
+            users (`username`, `password`, `rank`, `namelower`, `joined`)
         VALUES
-            (\'' . $user . '\', \'' . $pw . '\', '  . 0 . ', \'' . strtolower($user) . '\');';
+            (\'' . $user . '\', \'' . $pw . '\', '  . 0 . ', \'' . strtolower($user) . '\', \'' . $time->getTimestamp() . '\');';
+            echo $sql;
             if ($conn->query($sql) === false) {
                 $data = [
                     'type'     => 'error',
@@ -299,5 +302,32 @@ class UserController
                 return $conn->error;
             }
         }
+    }
+
+    public static function getUserCount()
+    {
+        $conn = \Xnocken\Controller\DatabaseController::startConnection();
+
+        $sql = 'SELECT \'\' FROM users;';
+
+        $conn->query($sql);
+
+        return $conn->affected_rows;
+    }
+
+    public static function joinedLastDays($days = 7, $offset = 0)
+    {
+        $users = UserController::getAllUsers();
+        $count = 0;
+
+        foreach ($users as $user) {
+            $date = Carbon::createFromTimestamp($user['joined'])->diffInDays(Carbon::now()->subDays($offset));
+
+            if ($date < $days) {
+                $count++;
+            }
+        }
+
+        return $count;
     }
 }

@@ -229,4 +229,15 @@ class FeedbackController
 
         return $items;
     }
+
+    public static function getFeedbackCount()
+    {
+        $conn = \Xnocken\Controller\DatabaseController::startConnection();
+
+        $sql = 'SELECT \'\' FROM feedback;';
+
+        $conn->query($sql);
+
+        return $conn->affected_rows;
+    }
 }

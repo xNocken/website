@@ -1,13 +1,34 @@
 <?php
 namespace Xnocken\Controller;
 
+use Carbon\Carbon;
+
 class AdminController
 {
     public static function defaultAction()
     {
         global $twig;
 
-        echo $twig->render('admin/root.twig');
+        $usercount = UserController::getUserCount();
+        $feedbackCount = FeedbackController::getFeedbackCount();
+        $joinedLastDays = UserController::joinedLastDays(7);
+
+        echo $twig->render('admin/root.twig', [
+            'data' => [
+                'user_count'       => [
+                    'value' => $usercount,
+                    'name' => 'stats.usercount'
+                ],
+                'feedback_count'   => [
+                    'value' => $feedbackCount,
+                    'name' => 'stats.feedback-count'
+                ],
+                'joined_last_days' => [
+                    'value' => $joinedLastDays,
+                    'name' => 'stats.lastdays'
+                ]
+            ]
+        ]);
     }
 
     public static function navigationAction()

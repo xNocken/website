@@ -8,14 +8,16 @@
 <div class="container">
 	<div class="admin">
   <p id="status"></p>
-		<table class="admin--table">
+		<table class="users admin--table">
 			<tr class="admin--table--row">
 				<th class="admin--table--row--field">Username</th>
 				<th class="admin--table--row--field">Rank</th>
 				<th class="admin--table--row--field">Banned</th>
 				<th class="admin--table--row--field">Reason</th>
 				<th class="admin--table--row--field">Profile picture</th>
+				<th class="admin--table--row--field">Joined</th>
 			</tr>
+
 			{% for user in users %}
 				<tr class="admin--table--row" data-username="{{ user.username }}">
 					<th class="admin--table--row--field">{{ user.username }}</th>
@@ -35,6 +37,7 @@
           </th>
 					<th class="admin--table--row--field">{% if user.banned == 1 %}{{ user.reason }}{% else %}Not Banned{% endif %}</th>
 					<th class="admin--table--row--field"><img src="{{ user.profilePicture }}"></th>
+					<th class="admin--table--row--field">{{ user.joined|date('d.m.Y') }}</th>
 				</tr>
 			{% endfor %}
 		</table>

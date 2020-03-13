@@ -1,0 +1,5 @@
+$users-column-count: 6;
+
+.users .admin--table--row--field {
+  width: 100% / $users-column-count;
+}
