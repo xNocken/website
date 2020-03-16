@@ -210,4 +210,15 @@ class ProjectsController
             return $info;
         }
     }
+
+    public static function getProjectsCount()
+    {
+        $conn = \Xnocken\Controller\DatabaseController::startConnection();
+
+        $sql = 'SELECT \'\' FROM projects;';
+
+        $conn->query($sql);
+
+        return $conn->affected_rows;
+    }
 }

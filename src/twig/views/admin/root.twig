@@ -3,13 +3,20 @@
 {% block header %}{% include "/admin/adminHeader.twig" %}{% endblock %}
 
 {% block content %}
+<div class="stats">
   <div class="container">
     <div class="grid">
       {% for values in data %}
         <div class="col-4">
-          
+          <h2 class="stats__title">{{ values.name|trans }}</h2>
+          <h3 class="stats__value">{{ values.value }}</h3>
+
+          {% if values.difference is defined %}
+            <p class="stats__difference stats__difference--{{ values.joined_class }}">{{ values.difference }}</p>
+          {% endif %}
         </div>
       {% endfor %}
     </div>
   </div>
+</div>
 {% endblock %}

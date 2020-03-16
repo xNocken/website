@@ -1,0 +1,24 @@
+.stats {
+  &__title {
+    text-align: center;
+    min-height: 106px;
+  }
+
+  &__value {
+    text-align: center;
+    font-size: 30px;
+  }
+
+  &__difference {
+    text-align: center;
+    transform: translate(30px, -50px);
+
+    &--negative {
+      color: red;
+    }
+
+    &--positive {
+      color: green;
+    }
+  }
+}

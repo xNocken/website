@@ -12,6 +12,19 @@ class AdminController
         $usercount = UserController::getUserCount();
         $feedbackCount = FeedbackController::getFeedbackCount();
         $joinedLastDays = UserController::joinedLastDays(7);
+        $joinedLastDaysBefore = UserController::joinedLastDays(7, 7);
+        $joinedDifference = $joinedLastDays - $joinedLastDaysBefore;
+        $projectCount = ProjectsController::getProjectsCount();
+
+        dump($joinedLastDaysBefore);
+
+        if ($joinedDifference === 0) {
+            $joinedClass ="neutral";
+        } else if ($joinedDifference < 0) {
+            $joinedClass ="negative";
+        } else {
+            $joinedClass = "positive";
+        }
 
         echo $twig->render('admin/root.twig', [
             'data' => [
@@ -21,11 +34,17 @@ class AdminController
                 ],
                 'feedback_count'   => [
                     'value' => $feedbackCount,
-                    'name' => 'stats.feedback-count'
+                    'name' => 'stats.feedback_count'
+                ],
+                'projects' => [
+                    'value' => $projectCount,
+                    'name' => 'stats.project_count'
                 ],
                 'joined_last_days' => [
                     'value' => $joinedLastDays,
-                    'name' => 'stats.lastdays'
+                    'name' => 'stats.lastdays',
+                    'difference' => $joinedLastDays - $joinedLastDaysBefore,
+                    'joined_class' => $joinedClass
                 ]
             ]
         ]);
