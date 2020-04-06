@@ -320,11 +320,13 @@ class UserController
         $users = UserController::getAllUsers();
         $count = 0;
         $now = Carbon::now()->subDays($offset);
+        $zero = Carbon::createFromTimestamp(0);
+        $userJoined = Carbon::createFromTimestamp($user['joined']);
 
         foreach ($users as $user) {
-            $date = Carbon::createFromTimestamp($user['joined'])->diffInDays($now);
+            $joinedDaysAgo = $userJoined->diffInDays($now);
 
-            if ($date < $days && ($now->diffInDays(Carbon::createFromTimestamp(0)) - Carbon::createFromTimestamp($user['joined'])->diffInDays(Carbon::createFromTimestamp(0))) > 0) {
+            if ($joinedDaysAgo < $days && ($now->diffInDays($zero) - $userJoined->diffInDays($zero)) > 0) {
                 $count++;
             }
         }

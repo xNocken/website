@@ -16,7 +16,7 @@ if (isset($user) && isset($pw)) {
             $data["type"]     = "error";
             $data["msg"]      = TranslationController::translate('login.error.banned', [
                 ':reason:' => $userdata['reason'],
-                ]);
+            ]);
 
             session_destroy();
         } else {
