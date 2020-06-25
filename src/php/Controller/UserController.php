@@ -1,7 +1,7 @@
 <?php
 namespace Xnocken\Controller;
 
-Use Xnocken\Controller\TranslationController;
+use Xnocken\Controller\TranslationController;
 use Carbon\Carbon;
 
 class UserController
@@ -332,5 +332,52 @@ class UserController
         }
 
         return $count;
+    }
+
+    public static function updateDiscord($user, $discordName, $discordId, $discordDiscriminator, $discordServer, $refreshtoken)
+    {
+        $conn = \Xnocken\Controller\DatabaseController::startConnection();
+        $newServer = [];
+
+        foreach ($discordServer as $serv) {
+            $newServer[] = [
+                'id' => $serv['id'],
+                'owner' => $serv['owner'],
+                'permissions' => $serv['permissions'],
+            ];
+        }
+
+        $sql = '
+        UPDATE
+            users
+        SET
+            discord_username=\'' . $conn->real_escape_string($discordName) . '\',
+            discord_id=\'' . $discordId . '\',
+            discord_discriminator=\'' . $discordDiscriminator . '\',
+            discord_refreshtoken=\'' . $refreshtoken . '\',
+            discord_guilds=\'' . \json_encode($newServer) . '\'
+        WHERE
+            namelower = \'' . strtolower($user) . '\';';
+
+        $conn->query($sql);
+    }
+
+    public static function removeDiscord($user) {
+
+        $conn = \Xnocken\Controller\DatabaseController::startConnection();
+
+        $sql = '
+        UPDATE
+            users
+        SET
+            discord_username=NULL,
+            discord_id=NULL,
+            discord_discriminator=NULL,
+            discord_refreshtoken=NULL,
+            discord_guilds=NULL
+        WHERE
+            namelower = \'' . strtolower($user) . '\';';
+
+        $conn->query($sql);
     }
 }

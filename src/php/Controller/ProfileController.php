@@ -25,6 +25,7 @@ class ProfileController
                 'rank'            => $userinfo['rank'],
                 'about'           => $userinfo['about'],
                 'lowername'       => $userinfo['namelower'],
+                'discordName'     => $userinfo['discord_username'] . '#' . $userinfo['discord_discriminator']
             ];
 
             echo $twig->render(

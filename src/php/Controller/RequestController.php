@@ -68,4 +68,106 @@ class RequestController
 
         return json_decode($videos);
     }
+
+    public static function getDiscordAuth($code)
+    {
+        $data = array(
+            'client_id' => getenv('Client_Id'),
+            'client_secret' => getenv('Client_Secret'),
+            'code' => $code,
+            'grant_type' => 'authorization_code',
+            'redirect_uri' => getenv('Redirect_Uri'),
+            'scope' => 'identify email connections',
+        );
+
+        $opts = array(
+            'http' => array(
+                'method' => 'POST',
+                'header' => "Content-type: application/x-www-form-urlencoded\r\n",
+                'content' => http_build_query($data)
+            ),
+        );
+
+        $context = stream_context_create($opts);
+        try {
+            $file = file_get_contents(
+                'https://discord.com/api/v6/oauth2/token',
+                false,
+                $context
+            );
+        } catch (Error $error) {
+            echo 'Invalid code';
+        }
+
+        return $file;
+    }
+
+    public static function getDiscordAuthRefresh($code)
+    {
+        $data = array(
+            'client_id' => getenv('Client_Id'),
+            'client_secret' => getenv('Client_Secret'),
+            'refresh_token' => $code,
+            'grant_type' => 'authorization_code',
+            'redirect_uri' => getenv('Redirect_Uri'),
+            'scope' => 'identify email connections',
+        );
+
+        $opts = array(
+            'http' => array(
+                'method' => 'POST',
+                'header' => "Content-type: application/x-www-form-urlencoded\r\n",
+                'content' => http_build_query($data)
+            ),
+        );
+
+        \dump($opts);
+
+        $context = stream_context_create($opts);
+        $file = file_get_contents(
+            'https://discord.com/api/v6/oauth2/token',
+            false,
+            $context
+        );
+
+        return $file;
+    }
+
+    public static function getDiscordUser($auth)
+    {
+        $opts = array(
+            'http' => array(
+                'method' => 'GET',
+                'header' => 'Authorization: Bearer ' . $auth . "\r\n"
+            ),
+        );
+
+        $context = stream_context_create($opts);
+        $file = file_get_contents(
+            'https://discord.com/api/v6/users/@me',
+            false,
+            $context
+        );
+
+        return $file;
+    }
+
+    public static function getDiscordServer($auth)
+    {
+        $opts = array(
+            'http' => array(
+                'method' => 'GET',
+                'header' => 'Authorization: Bearer ' . $auth . "\r\n"
+            ),
+        );
+
+        $context = stream_context_create($opts);
+        $file = file_get_contents(
+            'https://discord.com/api/v6/users/@me/guilds',
+            false,
+            $context
+        );
+
+        return $file;
+    }
 }

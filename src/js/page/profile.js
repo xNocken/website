@@ -7,6 +7,7 @@ export default () => {
   const nameArea = document.getElementById('profile-name');
   const charcount = document.getElementById('profile-charcount');
   const profilePicture = document.getElementById('profile-picture');
+  const discordUnlink = document.getElementById('discord-unlink');
   let originalName;
 
   if (nameArea) {
@@ -80,5 +81,16 @@ export default () => {
         }
       });
     });
+
+    if (discordUnlink) {
+      discordUnlink.addEventListener('click', () => {
+        request('/api/account/removeDiscord', {}, () => {
+          status.innerText = window.translate('discord.remove.success');
+          setTimeout(() => {
+            status.innerText = '';
+          }, 3000);
+        });
+      });
+    }
   }
 };
