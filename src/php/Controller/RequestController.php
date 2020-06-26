@@ -77,7 +77,7 @@ class RequestController
             'code' => $code,
             'grant_type' => 'authorization_code',
             'redirect_uri' => getenv('Redirect_Uri'),
-            'scope' => 'identify email connections',
+            'scope' => 'identify guilds',
         );
 
         $opts = array(
@@ -87,41 +87,6 @@ class RequestController
                 'content' => http_build_query($data)
             ),
         );
-
-        $context = stream_context_create($opts);
-        try {
-            $file = file_get_contents(
-                'https://discord.com/api/v6/oauth2/token',
-                false,
-                $context
-            );
-        } catch (Error $error) {
-            echo 'Invalid code';
-        }
-
-        return $file;
-    }
-
-    public static function getDiscordAuthRefresh($code)
-    {
-        $data = array(
-            'client_id' => getenv('Client_Id'),
-            'client_secret' => getenv('Client_Secret'),
-            'refresh_token' => $code,
-            'grant_type' => 'authorization_code',
-            'redirect_uri' => getenv('Redirect_Uri'),
-            'scope' => 'identify email connections',
-        );
-
-        $opts = array(
-            'http' => array(
-                'method' => 'POST',
-                'header' => "Content-type: application/x-www-form-urlencoded\r\n",
-                'content' => http_build_query($data)
-            ),
-        );
-
-        \dump($opts);
 
         $context = stream_context_create($opts);
         $file = file_get_contents(
@@ -129,6 +94,37 @@ class RequestController
             false,
             $context
         );
+
+        return $file;
+    }
+
+    public static function getDiscordAuthRefresh($code)
+    {
+        $data = [
+            'client_id' => getenv('Client_Id'),
+            'client_secret' => getenv('Client_Secret'),
+            'grant_type' => 'refresh_token',
+            'refresh_token' => $code,
+            'redirect_uri' => getenv('Redirect_Uri'),
+            'scope' => 'identify guilds',
+        ];
+
+        $opts = [
+            'http' => [
+                'method' => 'POST',
+                'header' => "Content-type: application/x-www-form-urlencoded\r\n",
+                'content' => http_build_query($data)
+            ],
+        ];
+
+        $context = stream_context_create($opts);
+        $file = file_get_contents(
+            'https://discord.com/api/v6/oauth2/token',
+            false,
+            $context
+        );
+
+        dump($file);
 
         return $file;
     }

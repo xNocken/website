@@ -34,9 +34,24 @@ class SnippetController
 
         http_response_code(404);
         echo $twig->render(
-            '404.twig',
+            'error.twig',
             [
                 'url' => $_SERVER['REQUEST_URI'],
+                'code' => 404,
+            ]
+        );
+    }
+
+    public static function renderMethodNotAllowed()
+    {
+        global $twig;
+
+        http_response_code(405);
+        echo $twig->render(
+            'error.twig',
+            [
+                'url' => $_SERVER['REQUEST_URI'],
+                'code' => 405,
             ]
         );
     }

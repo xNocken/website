@@ -1,11 +1,11 @@
 {% extends "layout/base.twig" %}
 
-{% block title %}404 - xNocken{% endblock %}
+{% block title %}{{ code }} - xNocken{% endblock %}
 
 {% block content %}
   <div class="container">
-      <h1>404</h1>
-      <h2>{{ '404.not_found'|trans({
+      <h1>{{ code }}</h1>
+      <h2>{{ code|trans({
         ':path:': url
       }) }}</h2>
   </div>

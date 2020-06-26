@@ -334,18 +334,9 @@ class UserController
         return $count;
     }
 
-    public static function updateDiscord($user, $discordName, $discordId, $discordDiscriminator, $discordServer, $refreshtoken)
+    public static function updateDiscord($user, $discordName, $discordId, $discordDiscriminator, $discordToken, $refreshtoken)
     {
         $conn = \Xnocken\Controller\DatabaseController::startConnection();
-        $newServer = [];
-
-        foreach ($discordServer as $serv) {
-            $newServer[] = [
-                'id' => $serv['id'],
-                'owner' => $serv['owner'],
-                'permissions' => $serv['permissions'],
-            ];
-        }
 
         $sql = '
         UPDATE
@@ -355,15 +346,30 @@ class UserController
             discord_id=\'' . $discordId . '\',
             discord_discriminator=\'' . $discordDiscriminator . '\',
             discord_refreshtoken=\'' . $refreshtoken . '\',
-            discord_guilds=\'' . \json_encode($newServer) . '\'
+            discord_token=\'' . $discordToken . '\'
         WHERE
             namelower = \'' . strtolower($user) . '\';';
 
         $conn->query($sql);
     }
 
-    public static function removeDiscord($user) {
+    public static function updateDiscordToken($user, $discordToken)
+    {
+        $conn = \Xnocken\Controller\DatabaseController::startConnection();
 
+        $sql = '
+        UPDATE
+            users
+        SET
+            discord_token=\'' . $discordToken . '\'
+        WHERE
+            namelower = \'' . strtolower($user) . '\';';
+
+        $conn->query($sql);
+    }
+
+    public static function removeDiscord($user)
+    {
         $conn = \Xnocken\Controller\DatabaseController::startConnection();
 
         $sql = '
