@@ -1,12 +1,11 @@
 {% extends "/layout/base.twig" %}
 
-
 {% block content %}
 	<div class="container">
-    <div class="serverlist">
+    <div class="serverlist grid">
       {% for server in servers %}
-        <div class="server" data-id="{{ server.id }}">
-          <img src="https://cdn.discordapp.com/icons/{{ server.id }}/{{ server.icon }}.png" title="{{ server.name }}'s Icon" alt="{{ server.name }}'s Icon">
+        <div class="server col-3 col-sm-2 col-md-2 col-lg-1">
+          <img src="{{ server.icon }}" title="{{ server.name }}'s Icon" alt="{{ server.name }}'s Icon">
           <a href="/backup/{{ server.id }}" class="serverbutton">{{ server.name }}</a>
         </div>
       {% endfor %}

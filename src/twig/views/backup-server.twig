@@ -1,0 +1,14 @@
+{% extends "layout/base.twig" %}
+
+{% block title %}Server - xNocken
+{% endblock %}
+
+{% block content %}
+	<div class="server">
+		{% for channel in channels %}
+			<div class="channel">
+				<a href="/backup/{{ serverId }}/{{ channel.id }}">{{ channel.name }}</a>
+			</div>
+		{% endfor %}
+	</div>
+{% endblock %}

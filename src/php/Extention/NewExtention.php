@@ -13,6 +13,8 @@ class NewExtention extends \Twig\Extension\AbstractExtension
         return [
             new TwigFilter('removeAttr', [$this, 'removeAttribute']),
             new TwigFilter('trans', [$this, 'trans']),
+            new TwigFilter('toHex', [$this, 'toHex']),
+            new TwigFilter('emoji', [$this, 'emoji']),
         ];
     }
 
@@ -29,6 +31,10 @@ class NewExtention extends \Twig\Extension\AbstractExtension
         $string = str_replace('onload', '', $string);
         $string = str_replace('onerror', '', $string);
         return $string;
+    }
+
+    public function toHex($number) {
+        return dechex($number);
     }
 
     public function trans($string, $replace = [])

@@ -1,0 +1,86 @@
+{% extends "layout/base.twig" %}
+
+{% block title %}{{ name }} - Backup - xNocken
+{% endblock %}
+
+{% block content %}
+	<div class="container">
+		<div class="channel">
+			<h1>{{ name }}</h1>
+
+			<h2>Infos</h2>
+			<p>Indexing:
+				{{ indexed ? 'Enabled' : 'Disabled' }}</p>
+
+			<h2>Messages</h2>
+			<div class="messages">
+				{% for message in messages %}
+					<div class="message">
+						{% if message.author != lastAuthor %}
+							<div class="author">
+								{% set lastAuthor = message.author %}
+								{{ message.author }}
+								<div class="date">{{ message.timestamp|date('m/d/Y') }}</div>
+							</div>
+						{% endif %}
+
+            <div class="content">
+  						{{ message.content|raw }}
+            </div>
+
+						{% if message.attachments %}
+							<div class="attachments">
+								<img src="{{ message.attachments[0].url }}" alt="{{ message.attachments[0].filename }}">
+							</div>
+						{% endif %}
+
+						{% if message.embeds %}
+							<br>
+							<div class="embedWrapper embedFull" style="border-color: #{{message.embeds[0].color|toHex}};">
+								<div class="grid2">
+									<div class="embedAuthor">
+										<span class="embedAuthorName embedMargin">{{ message.embeds[0].author.name }}</span>
+									</div>
+									{% if message.embeds[0].title %}
+										<div class="title">
+											{% if message.embeds[0].url %}
+												<a href="{{ message.embeds[0].url }}" target="_blank" rel="noopener noreferrer">{{message.embeds[0].title}}</a>
+                        {% else %}
+												<p>{{message.embeds[0].title}}</p>
+											{% endif %}
+										</div>
+									{% endif %}
+
+									{% if message.embeds[0].description %}
+										<div class="embedDescription embedMargin">{{ message.embeds[0].description }}</div>
+									{% endif %}
+
+									{% if message.embeds[0].image %}
+										<div class="embedImage">
+											<img src="{{ message.embeds[0].image.url }}" alt="">
+										</div>
+									{% endif %}
+
+									{% if message.embeds[0].thumbnail %}
+										<div class="embedImage">
+											<img src="{{ message.embeds[0].thumbnail.url }}" alt="">
+										</div>
+									{% endif %}
+
+									<div class="embedFooter embedMargin">
+										<span class="embedFooterText">{{ message.embeds[0].footer.text }}
+											{% if message.embeds[0].timestamp %}
+												<span class="embedFooterSeparator">•</span>
+												{{ message.embeds[0].timestamp|date('m/d/Y') }}
+											{% endif %}
+										</span>
+									</div>
+								</div>
+							</div>
+						{% endif %}
+					</div>
+				{% endfor %}
+			</div>
+		</div>
+	</div>
+{% endblock %}

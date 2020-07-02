@@ -1,0 +1,142 @@
+.serverlist {
+  .server {
+    img {
+      width: 100%;
+    }
+
+    a {
+      text-decoration: none;
+      color: black;
+    }
+  }
+}
+
+.channel {
+  .messages {
+    background-color: rgb(54, 57, 63);
+    padding: 10px;
+    border-radius: 10px;
+
+    .message {
+      margin-top: 2px;
+
+      &:hover {
+        background-color: rgba(4,4,5,0.07);;
+      }
+
+      .author {
+        color: rgb(241, 196, 15);
+        margin-top: 10px;
+
+        .date {
+          color: rgb(114, 118, 125);
+          display: inline-block;
+          font-size: 13px;
+        }
+      }
+
+      .attachments {
+        img {
+          max-width: 500px;
+          max-height: 500px;
+        }
+      }
+
+      .title {
+        a {
+          color: rgb(0, 176, 244);;
+          text-decoration: none;
+
+          &:hover {
+            text-decoration: underline;
+          }
+        }
+      }
+
+      color: white;
+    }
+
+    .embedWrapper {
+      display: inline-block;
+      border-left: 4px solid black;
+      background: rgb(47, 49, 54);
+      border-radius: 5px;
+      max-width: 520px;
+
+      .embedMargin {
+        margin-top: 8px;
+      }
+
+      .grid2 {
+        padding: 0.5rem 1rem 1rem 0.75rem;
+        display: inline-grid;
+        grid-template-columns: auto;
+        grid-template-rows: auto;
+
+        .embedImage {
+          grid-column: 1/1;
+          border-radius: 4px;
+          contain: paint;
+          display: block;
+          margin-top: 16px;
+
+          img {
+            display: block;
+            border-radius: 4px;
+            max-height: 300px;
+          }
+        }
+
+        .embedAuthor {
+          display: -webkit-box;
+          display: -ms-flexbox;
+          display: flex;
+          -webkit-box-align: center;
+          -ms-flex-align: center;
+          align-items: center;
+          grid-column: 1/1;
+
+          .embedAuthorName {
+            color: rgb(255, 255, 255);
+            font-size: 0.875rem;
+            font-weight: 600;
+            unicode-bidi: plaintext;
+            text-align: left;
+          }
+        }
+
+        .embedDescription {
+          color: white;
+          font-size: 0.875rem;
+          line-height: 1.125rem;
+          font-weight: 400;
+          white-space: pre-line;
+          grid-column: 1/1;
+        }
+
+        .embedFooter {
+          min-width: 0;
+          display: flex;
+          -webkit-box-align: center;
+          align-items: center;
+          grid-row: auto/auto;
+          grid-column: 1/1;
+
+          .embedFooterText {
+            font-size: 0.75rem;
+            line-height: 1rem;
+            font-weight: 500;
+            color: white;
+
+            .embedFooterSeparator {
+              font-weight: 500;
+              color: var(--text-normal);
+              display: inline-block;
+              margin: 0 4px;
+            }
+          }
+        }
+      }
+    }
+  }
+}

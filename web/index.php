@@ -68,6 +68,7 @@ $isFeedbackCall = strpos($request, 'projects/') === 0;
 $fileExists = file_exists(\getenv('PROJECT_ROOT')  . '/src/php/pages/' . $request . '.php');
 $isTranslationsJsCall = strpos($request, 'dist/translations.js') === 0;
 $isApiCall = strpos($request, 'api') === 0;
+$isBackupServerCall = strpos($request, 'backup/') === 0;
 
 $fileToLoad = getenv('PROJECT_ROOT')  . '/src/php/pages/' . $request . '.php';
 
@@ -82,6 +83,8 @@ default:
     if ($isApiCall && $_SERVER['REQUEST_METHOD'] === 'GET') {
         Controller\SnippetController::renderMethodNotAllowed();
         return;
+    } elseif ($isBackupServerCall) {
+        $fileToLoad = getenv('PROJECT_ROOT')  . '/src/php/pages/backupserver.php';
     } elseif ($fileExists) {
         if ($isAdminCall) {
             if (!$isAdmin) {
